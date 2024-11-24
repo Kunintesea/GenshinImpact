@@ -1,5 +1,11 @@
 proj.linux
 proj.ios_mac
 proj.android
-
-
+3d
+2d
+audio
+base
+cocos
+external
+extensions
+editor-support
