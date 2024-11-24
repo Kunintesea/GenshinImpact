@@ -3,7 +3,6 @@ proj.ios_mac
 proj.android
 
 libcocos2d.pch
-3d
-external
+
 extensions
 editor-support
