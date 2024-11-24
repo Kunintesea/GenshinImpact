@@ -1,0 +1,14 @@
+﻿  AppDelegate.cpp
+  HelloWorldScene.cpp
+  main.cpp
+AppDelegate.obj : warning LNK4075: 忽略“/EDITANDCONTINUE”(由于“/SAFESEH”规范)
+    正在创建库 D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Genshin.lib 和对象 D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Genshin.exp
+  Genshin.vcxproj -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Genshin.exe
+  正在执行自定义生成步骤
+  D:\Github_Document\GenshinImpact\Genshin\Resources\CloseNormal.png -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\CloseNormal.png
+  D:\Github_Document\GenshinImpact\Genshin\Resources\CloseSelected.png -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\CloseSelected.png
+  D:\Github_Document\GenshinImpact\Genshin\Resources\HelloWorld.png -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\HelloWorld.png
+  D:\Github_Document\GenshinImpact\Genshin\Resources\fonts\arial.ttf -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\fonts\arial.ttf
+  D:\Github_Document\GenshinImpact\Genshin\Resources\fonts\Marker Felt.ttf -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\fonts\Marker Felt.ttf
+  D:\Github_Document\GenshinImpact\Genshin\Resources\res\.gitkeep -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\res\.gitkeep
+  复制了 6 个文件
