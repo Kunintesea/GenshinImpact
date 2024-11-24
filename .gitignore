@@ -1,8 +1,8 @@
 proj.linux
 proj.ios_mac
 proj.android
-Debug.win32
 
+libcocos2d.pch
 3d
 external
 extensions
