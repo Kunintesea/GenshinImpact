@@ -1,11 +1,10 @@
 proj.linux
 proj.ios_mac
 proj.android
-3d
+
 2d
-audio
-base
-cocos
+3d
+
 external
 extensions
 editor-support
