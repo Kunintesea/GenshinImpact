@@ -1,10 +1,9 @@
 proj.linux
 proj.ios_mac
 proj.android
+Debug.win32
 
-2d
 3d
-
 external
 extensions
 editor-support
