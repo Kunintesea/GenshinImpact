@@ -37,6 +37,6 @@ int WINAPI _tWinMain(HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     // create the application instance
-    AppDelegate app;
+	AppDelegate app;//创建一个AppDelegate对象
     return Application::getInstance()->run();
 }

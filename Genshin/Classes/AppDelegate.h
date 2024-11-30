@@ -38,26 +38,26 @@ public:
     AppDelegate();
     virtual ~AppDelegate();
 
-    virtual void initGLContextAttrs();
+	virtual void initGLContextAttrs();//设置OpenGL上下文属性
 
     /**
     @brief    Implement Director and Scene init code here.
     @return true    Initialize success, app continue.
     @return false   Initialize failed, app terminate.
     */
-    virtual bool applicationDidFinishLaunching();
+	virtual bool applicationDidFinishLaunching();//这是程序的入口函数，程序从这里开始执行
 
     /**
     @brief  Called when the application moves to the background
     @param  the pointer of the application
     */
-    virtual void applicationDidEnterBackground();
+	virtual void applicationDidEnterBackground();//当程序进入后台时调用
 
     /**
     @brief  Called when the application reenters the foreground
     @param  the pointer of the application
     */
-    virtual void applicationWillEnterForeground();
+	virtual void applicationWillEnterForeground();//当程序进入前台时调用
 };
 
 #endif // _APP_DELEGATE_H_

@@ -1,7 +1,7 @@
 proj.linux
 proj.ios_mac
 proj.android
-
+.vs
 libcocos2d.pch
 
 
