@@ -19,7 +19,7 @@ using namespace CocosDenshion;
 
 USING_NS_CC;
 
-static cocos2d::Size designResolutionSize = cocos2d::Size(1980, 1280);//Éè¼Æ·Ö±æÂÊ´óĞ¡£¬¾ö¶¨ÁËÓÎÏ·µÄ»­Ãæ´óĞ¡
+static cocos2d::Size designResolutionSize = cocos2d::Size(1980, 1080);//Éè¼Æ·Ö±æÂÊ´óĞ¡£¬¾ö¶¨ÁËÓÎÏ·µÄ»­Ãæ´óĞ¡
 static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);
 static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
 static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
@@ -97,8 +97,7 @@ bool AppDelegate::applicationDidFinishLaunching() {//ÖØµã£¬ÕâÊÇ³ÌĞòµÄÈë¿Úº¯Êı£¬³
 
     // create a scene. it's an autorelease object
 	//¹Ø¼ü´úÂë£¬´´½¨Ò»¸ö³¡¾°
-	auto scene = HelloWorld::createScene();//´´½¨Ò»¸ö¿ªÊ¼²Ëµ¥³¡¾°
-
+	auto scene = StartMenu::createScene();//´´½¨Ò»¸ö¿ªÊ¼²Ëµ¥³¡¾°
 
 	//ÓÃµ¼ÑİÔËĞĞ³¡¾°
 	director->runWithScene(scene);//runWithScene½öÓÃÓÚµÚÒ»´ÎÔËĞĞ³¡¾°£¬Ö®ºóÓÃreplaceScene£¨´úÌæ³¡¾°£©»òpushScene£¨Ñ¹Èë³¡¾°£©
