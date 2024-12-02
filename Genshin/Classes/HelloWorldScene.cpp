@@ -127,6 +127,7 @@ bool HelloWorld::init()
 	
 
 
+
 	
 	return true;//返回true表示初始化成功
 }

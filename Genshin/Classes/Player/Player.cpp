@@ -1,5 +1,16 @@
 #include "Player.h"
 
+/*
+关于动作：由m_body上的tag决定，由getNumberOfRunningActionsByTag获取。
+1：向左
+2：向右
+3：向上
+4：向下
+*/
+
+
+
+
 bool Player::init()
 {
 	if (!Node::init())
@@ -10,6 +21,13 @@ bool Player::init()
 	m_body = Sprite::create("me/front.png");
 	//将精灵添加到节点
 	this->addChild(m_body);
+
+	m_head = Sprite::create("me/head.png");
+	//缩小5倍
+	m_head->setScale(0.2);
+	//设置位置到身体右边
+	m_head->setPosition(Vec2(m_body->getContentSize().width / 2, 0));
+	this->addChild(m_head);
 
 	//加入调度器
 	this->scheduleUpdate();
@@ -23,17 +41,21 @@ bool Player::init()
 	//按键按下时调用
 	eventListener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event* event)
 		{
-			switch (keyCode)
+			switch (keyCode)//同时支持WASD和方向键
 			{
+			case EventKeyboard::KeyCode::KEY_A:
 			case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
 				keyMap[EventKeyboard::KeyCode::KEY_LEFT_ARROW] = true;
 				break;
+			case EventKeyboard::KeyCode::KEY_D:
 			case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
 				keyMap[EventKeyboard::KeyCode::KEY_RIGHT_ARROW] = true;
 				break;
+			case EventKeyboard::KeyCode::KEY_W:
 			case EventKeyboard::KeyCode::KEY_UP_ARROW:
 				keyMap[EventKeyboard::KeyCode::KEY_UP_ARROW] = true;
 				break;
+			case EventKeyboard::KeyCode::KEY_S:
 			case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
 				keyMap[EventKeyboard::KeyCode::KEY_DOWN_ARROW] = true;
 				break;
@@ -46,15 +68,19 @@ bool Player::init()
 		{
 			switch (keyCode)
 			{
+			case EventKeyboard::KeyCode::KEY_A:
 			case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
 				keyMap[EventKeyboard::KeyCode::KEY_LEFT_ARROW] = false;
 				break;
+			case EventKeyboard::KeyCode::KEY_D:
 			case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
 				keyMap[EventKeyboard::KeyCode::KEY_RIGHT_ARROW] = false;
 				break;
+			case EventKeyboard::KeyCode::KEY_W:
 			case EventKeyboard::KeyCode::KEY_UP_ARROW:
 				keyMap[EventKeyboard::KeyCode::KEY_UP_ARROW] = false;
 				break;
+			case EventKeyboard::KeyCode::KEY_S:
 			case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
 				keyMap[EventKeyboard::KeyCode::KEY_DOWN_ARROW] = false;
 				break;
@@ -63,8 +89,6 @@ bool Player::init()
 			}
 		};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);//把监听器加入到事件分发器中，传入监听器与其绑定的对象。这里的优先级设定为精灵的优先级
-
-
 
 
 
