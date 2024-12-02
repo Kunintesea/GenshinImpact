@@ -6,8 +6,6 @@
 
 USING_NS_CC;
 
-
-
 std::map<EventKeyboard::KeyCode, bool> keyMap;//创建一个map，用来存储按键的状态
 
 
@@ -33,9 +31,9 @@ bool HelloWorld::init()
     {
         return false;
     }
-	//加一个调度器
-	this->scheduleUpdate();//调度器，每帧调用一次update函数
-
+    
+    //加一个调度器
+    this->scheduleUpdate();//调度器，每帧调用一次update函数
 
 	//获取屏幕分辨率大小
     auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -108,6 +106,7 @@ bool HelloWorld::init()
 	this->addChild(menu, 1);//将菜单添加到场景中，1表示z轴的位置，z轴的位置越大，显示的优先级越高
 
 
+
 	//创建一个精灵（这里只用来显示，当图片用），显示“HelloWorld”，图层设置为1
 	Player * sprite = Player::create();
 	
@@ -126,21 +125,22 @@ bool HelloWorld::init()
     }
 	
 
-
-
+    // 创建一个相机
+      newCamera = newCamera::create();
+      if (newCamera == nullptr) 
+      {
+	    problemLoading("Fail to get camera");
+      }
+      newCamera->bindPlayer(sprite);
+      this->addChild(newCamera->getCamera());
+      this->addChild(newCamera);
 	
-	return true;//返回true表示初始化成功
+      return true;//返回true表示初始化成功
 }
 
 //更新函数，每帧调用一次
 void HelloWorld::update(float dt)
 {
-	auto sprite = this->getChildByName("Me");
-	//打印默认相机的位置
-	auto camera = Camera::getDefaultCamera();
-	//默认相机位置设定为sprite的位置
-	camera->setPosition(sprite->getPositionX(), sprite->getPositionY());
-
 
 }
 
@@ -151,6 +151,5 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 	//Director::getInstance()->end();//关闭游戏场景并退出应用程序
 	//跳转场景到StartMenu
 	Director::getInstance()->replaceScene(StartMenu::createScene());
-
 
 }

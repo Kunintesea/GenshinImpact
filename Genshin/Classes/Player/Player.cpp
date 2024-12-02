@@ -22,6 +22,8 @@ bool Player::init()
 	//将精灵添加到节点
 	this->addChild(m_body);
 
+	speed = 5;
+
 	m_head = Sprite::create("me/head.png");
 	//缩小5倍
 	m_head->setScale(0.2);
@@ -119,7 +121,7 @@ void Player::update(float dt)
 			animate->setTag(1);//设置标签
 			m_body->runAction(animate);//执行这个动画
 		}
-		this->setPositionX(this->getPositionX() - 5);//向左移动10个像素
+		this->setPositionX(this->getPositionX() - speed);//向左移动10个像素
 	}
 	if (keyMap[right])//如果右键按下
 	{
@@ -136,7 +138,7 @@ void Player::update(float dt)
 			animate->setTag(2);//设置标签
 			m_body->runAction(animate);//执行这个动画
 		}
-		this->setPositionX(this->getPositionX() + 5);//向右移动10个像素
+		this->setPositionX(this->getPositionX() + speed);//向右移动10个像素
 	}
 	if (keyMap[up])//如果上键按下
 	{
@@ -153,7 +155,7 @@ void Player::update(float dt)
 			animate->setTag(3);//设置标签
 			m_body->runAction(animate);//执行这个动画
 		}
-		this->setPositionY(this->getPositionY() + 5);//向上移动10个像素
+		this->setPositionY(this->getPositionY() + speed);//向上移动10个像素
 	}
 	if (keyMap[down])//如果下键按下
 	{
@@ -170,6 +172,6 @@ void Player::update(float dt)
 			animate->setTag(4);//设置标签
 			m_body->runAction(animate);//执行这个动画
 		}
-		this->setPositionY(this->getPositionY() - 5);//向下移动10个像素
+		this->setPositionY(this->getPositionY() - speed);//向下移动10个像素
 	}
 }

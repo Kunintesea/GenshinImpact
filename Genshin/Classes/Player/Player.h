@@ -13,9 +13,11 @@ public:
 	Sprite* getBody() { return m_body; }//获取身体
 	//相机跟随函数，传入一个相机对象，让相机始终跟随m_body
 	void update(float dt);//更新函数，每帧调用一次
+	bool getKeyBoardState(EventKeyboard::KeyCode key) { return keyMap[key]; }
+	float getSpeed() { return speed; }
 	CREATE_FUNC(Player);//创建一个Player对象
 private:
-	
+      float speed;
 	//人物身体组成部分
 	Sprite* m_body;//身体
 	Sprite* m_head;//头部
