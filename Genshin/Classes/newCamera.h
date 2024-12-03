@@ -25,6 +25,9 @@ private:
       Player* player;
       // 相机移动相关参数
       Vec2 cameraMove;
+      Vec2 cameraBackMove;
+      const float cameraOffsetTime = 0.3;
+      const bool isFollowedDynamicly = true;
       int maxOffSet;
 };
 

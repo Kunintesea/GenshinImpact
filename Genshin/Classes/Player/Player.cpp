@@ -9,8 +9,6 @@
 */
 
 
-
-
 bool Player::init()
 {
 	if (!Node::init())
@@ -22,6 +20,7 @@ bool Player::init()
 	//将精灵添加到节点
 	this->addChild(m_body);
 
+	// 设置速度
 	speed = 5;
 
 	m_head = Sprite::create("me/head.png");
@@ -31,12 +30,40 @@ bool Player::init()
 	m_head->setPosition(Vec2(m_body->getContentSize().width / 2, 0));
 	this->addChild(m_head);
 
+	// 加载动画
+	// 静止动画帧
+	Size bodySize = m_body->getContentSize();
+	SpriteFrame* front = SpriteFrame::create("me/front.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* back = SpriteFrame::create("me/back.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* left = SpriteFrame::create("me/left.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* right = SpriteFrame::create("me/right.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* dead = SpriteFrame::create("me/dead.png", Rect(0, 0, bodySize.width, bodySize.height));
+	staticForwards.pushBack(front);
+	staticForwards.pushBack(back);
+	staticForwards.pushBack(left);
+	staticForwards.pushBack(right);
+	staticForwards.pushBack(dead);
+
+	//运动动画帧
+	SpriteFrame* walk_back1 = SpriteFrame::create("me/walk_back1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* walk_back2 = SpriteFrame::create("me/walk_back2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	walk_back.pushBack(walk_back1);
+	walk_back.pushBack(walk_back2);
+	SpriteFrame* walk_front1 = SpriteFrame::create("me/walk_front1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* walk_front2 = SpriteFrame::create("me/walk_front2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	walk_front.pushBack(walk_front1);
+	walk_front.pushBack(walk_front2);
+	SpriteFrame* walk_left1 = SpriteFrame::create("me/walk_left1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* walk_left2 = SpriteFrame::create("me/walk_left2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	walk_left.pushBack(walk_left1);
+	walk_left.pushBack(walk_left2);
+	SpriteFrame* walk_right1 = SpriteFrame::create("me/walk_right1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* walk_right2 = SpriteFrame::create("me/walk_right2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	walk_right.pushBack(walk_right1);
+	walk_right.pushBack(walk_right2);
+
 	//加入调度器
 	this->scheduleUpdate();
-
-	//让相机始终跟随精灵
-	//auto follow = Follow::create(m_body);
-	//this->runAction(follow);
 
 	//键盘事件监听
 	auto eventListener = EventListenerKeyboard::create();
@@ -92,86 +119,51 @@ bool Player::init()
 		};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);//把监听器加入到事件分发器中，传入监听器与其绑定的对象。这里的优先级设定为精灵的优先级
 
-
-
-
 	return true;
 }
 
 void Player::update(float dt)
 {
-	//实现按键控制精灵移动
-	auto left = EventKeyboard::KeyCode::KEY_LEFT_ARROW;//左键
-	auto right = EventKeyboard::KeyCode::KEY_RIGHT_ARROW;//右键
-	auto up = EventKeyboard::KeyCode::KEY_UP_ARROW;//上键
-	auto down = EventKeyboard::KeyCode::KEY_DOWN_ARROW;//下键
+	if (keyMap[EventKeyboard::KeyCode::KEY_LEFT_ARROW])//如果左键按下
+	{
+	      moveAnimation(walk_left, 1);
+	      this->setPositionX(this->getPositionX() - speed);//向左移动10个像素
+	}
+	if (keyMap[EventKeyboard::KeyCode::KEY_RIGHT_ARROW])//如果右键按下
+	{
+	      moveAnimation(walk_right, 2);
+	      this->setPositionX(this->getPositionX() + speed);//向右移动10个像素
+	}
+	if (keyMap[EventKeyboard::KeyCode::KEY_UP_ARROW])//如果上键按下
+	{
+	      moveAnimation(walk_back, 4);
+	      this->setPositionY(this->getPositionY() + speed);//向上移动10个像素
+	}
+	if (keyMap[EventKeyboard::KeyCode::KEY_DOWN_ARROW])//如果下键按下
+	{
+	      moveAnimation(walk_front, 3);
+	      this->setPositionY(this->getPositionY() - speed);//向下移动10个像素
+	}
+	if (!keyMap[EventKeyboard::KeyCode::KEY_LEFT_ARROW] && !keyMap[EventKeyboard::KeyCode::KEY_RIGHT_ARROW] && !keyMap[EventKeyboard::KeyCode::KEY_UP_ARROW] && !keyMap[EventKeyboard::KeyCode::KEY_DOWN_ARROW])//如果没有按键按下
+	{
+	      if (m_body->getNumberOfRunningActionsByTag(1) != 0) // 如果正在向左走
+		    m_body->setSpriteFrame(staticForwards.at(2));
+	      else if (m_body->getNumberOfRunningActionsByTag(2) != 0) // 如果正在向右走
+		    m_body->setSpriteFrame(staticForwards.at(3));
+	      else if (m_body->getNumberOfRunningActionsByTag(4) != 0) // 如果正在向上走
+		    m_body->setSpriteFrame(staticForwards.at(1));
+	      else
+		    m_body->setSpriteFrame(staticForwards.at(0));
+	}
+}
 
-	if (keyMap[left])//如果左键按下
-	{
-		if (m_body->getNumberOfRunningActionsByTag(1) == 0)
-		{
-			m_body->stopAllActions();//停止所有动作
-			//动画
-			auto animation_left = Animation::create();
-			animation_left->setDelayPerUnit(0.2f);//设置每一帧的时间间隔
-			animation_left->addSpriteFrameWithFile("me/walk_left1.png");//添加一帧
-			animation_left->addSpriteFrameWithFile("me/walk_left2.png");//添加一帧
-			animation_left->setLoops(-1);//设置循环次数，-1表示无限循环
-			Animate* animate = Animate::create(animation_left);//创建一个动画，传入一个animation
-			animate->setTag(1);//设置标签
-			m_body->runAction(animate);//执行这个动画
-		}
-		this->setPositionX(this->getPositionX() - speed);//向左移动10个像素
-	}
-	if (keyMap[right])//如果右键按下
-	{
-		if (m_body->getNumberOfRunningActionsByTag(2) == 0)
-		{
-			m_body->stopAllActions();//停止所有动作
-			//动画
-			auto animation_right = Animation::create();
-			animation_right->setDelayPerUnit(0.2f);//设置每一帧的时间间隔
-			animation_right->addSpriteFrameWithFile("me/walk_right1.png");//添加一帧
-			animation_right->addSpriteFrameWithFile("me/walk_right2.png");//添加一帧
-			animation_right->setLoops(-1);//设置循环次数，-1表示无限循环
-			Animate* animate = Animate::create(animation_right);//创建一个动画，传入一个animation
-			animate->setTag(2);//设置标签
-			m_body->runAction(animate);//执行这个动画
-		}
-		this->setPositionX(this->getPositionX() + speed);//向右移动10个像素
-	}
-	if (keyMap[up])//如果上键按下
-	{
-		if (m_body->getNumberOfRunningActionsByTag(3) == 0)
-		{
-			m_body->stopAllActions();//停止所有动作
-			//动画
-			auto animation_up = Animation::create();
-			animation_up->setDelayPerUnit(0.2f);//设置每一帧的时间间隔
-			animation_up->addSpriteFrameWithFile("me/walk_back1.png");//添加一帧
-			animation_up->addSpriteFrameWithFile("me/walk_back2.png");//添加一帧
-			animation_up->setLoops(-1);//设置循环次数，-1表示无限循环
-			Animate* animate = Animate::create(animation_up);//创建一个动画，传入一个animation
-			animate->setTag(3);//设置标签
-			m_body->runAction(animate);//执行这个动画
-		}
-		this->setPositionY(this->getPositionY() + speed);//向上移动10个像素
-	}
-	if (keyMap[down])//如果下键按下
-	{
-		if (m_body->getNumberOfRunningActionsByTag(4) == 0)
-		{
-			m_body->stopAllActions();//停止所有动作
-			//动画
-			auto animation_down = Animation::create();
-			animation_down->setDelayPerUnit(0.2f);//设置每一帧的时间间隔
-			animation_down->addSpriteFrameWithFile("me/walk_front1.png");//添加一帧
-			animation_down->addSpriteFrameWithFile("me/walk_front2.png");//添加一帧
-			animation_down->setLoops(-1);//设置循环次数，-1表示无限循环
-			Animate* animate = Animate::create(animation_down);//创建一个动画，传入一个animation
-			animate->setTag(4);//设置标签
-			m_body->runAction(animate);//执行这个动画
-		}
-		this->setPositionY(this->getPositionY() - speed);//向下移动10个像素
-	}
+void Player::moveAnimation(Vector<SpriteFrame*> frame, int actionTag) {
+      //动画
+      if (m_body->getActionByTag(actionTag) == 0)
+      {
+	    m_body->stopAllActions();//停止所有动作
+	    auto action = RepeatForever::create(Animate::create(Animation::createWithSpriteFrames(frame, 0.2f))); // 导入动画帧
+	    action->setTag(actionTag);//设置标签
+	    m_body->runAction((action));//执行这个动画
+      }
 }
