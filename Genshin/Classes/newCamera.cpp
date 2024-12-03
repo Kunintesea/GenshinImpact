@@ -48,8 +48,9 @@ void newCamera::update(float dt)
 	      moveSet(0, 1, dt);
 	else if(player->getKeyBoardState(left) && player->getKeyBoardState(right) && player->getKeyBoardState(down))
 	      moveSet(0, -1, dt);
+	else 
 	// 如果左右按键同时按下，返回
-	else if (player->getKeyBoardState(left) && player->getKeyBoardState(right) // 左右
+	      if (player->getKeyBoardState(left) && player->getKeyBoardState(right) // 左右
 	     || player->getKeyBoardState(down) && player->getKeyBoardState(up)) // 上下
 	      return;
 	else if (player->getKeyBoardState(left) && player->getKeyBoardState(up)) // 左上

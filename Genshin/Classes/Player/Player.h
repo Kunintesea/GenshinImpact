@@ -2,19 +2,23 @@
 #define __PLAYER_NODE_H__
 
 #include "cocos2d.h"
-
+#include "ui/CocosGUI.h"
 
 USING_NS_CC;
+using namespace ui;
 
 class Player : public Node
 {
 public:
 	virtual bool init();//初始化函数，会在场景创建时调用
-	Sprite* getBody() { return m_body; }//获取身体
-	//相机跟随函数，传入一个相机对象，让相机始终跟随m_body
+
 	void update(float dt);//更新函数，每帧调用一次
+	void moveAnimation(Vector<SpriteFrame*> frame, int actionTag); // 人物移动动画
+
+	Sprite* getBody() { return m_body; }//获取身体
 	bool getKeyBoardState(EventKeyboard::KeyCode key) { return keyMap[key]; }
 	float getSpeed() { return speed; }
+
 	CREATE_FUNC(Player);//创建一个Player对象
 private:
       float speed;
@@ -24,17 +28,12 @@ private:
 	//键盘事件监听
 	std::map<EventKeyboard::KeyCode, bool> keyMap;//创建一个map，用来存储按键的状态
 	
-	
 	//人物动画
-	Animate* PlayerAction;
-	Animation* animation_left;
-	Animation* animation_right;
-	Animation* animation_up;
-	Animation* animation_down;
-
-
-
-
+	Vector<SpriteFrame*> walk_back;
+	Vector<SpriteFrame*> walk_front;
+	Vector<SpriteFrame*> walk_left;
+	Vector<SpriteFrame*> walk_right;
+	Vector<SpriteFrame*> staticForwards;
 };
 
 #endif 
