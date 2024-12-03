@@ -2,6 +2,7 @@
 #define __PLAYER_NODE_H__
 
 #include "cocos2d.h"
+#include "UI/PlayerStatusUI.h"
 
 
 USING_NS_CC;
@@ -32,7 +33,8 @@ private:
 	Animation* animation_up;
 	Animation* animation_down;
 
-
+	//UI²¿·Ö
+	PlayerStatusUI* m_statusUI = PlayerStatusUI::create();
 
 
 };

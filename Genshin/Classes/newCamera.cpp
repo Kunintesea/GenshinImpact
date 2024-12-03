@@ -28,7 +28,7 @@ void newCamera::bindPlayer(Player* player)
 {
 	this->player = player;
 	camera->setPosition(player->getBody()->getPosition());
-	maxOffSet = 0.25 * 60 * player->getSpeed();
+	maxOffSet = 0.1 * 60 * player->getSpeed();
 }
 
 void newCamera::update(float dt)
@@ -60,7 +60,7 @@ void newCamera::update(float dt)
 		    (abs(cameraMove.x) > float(maxOffSet) || abs(cameraMove.y) > float(maxOffSet / 2)))
 	      {
 		    auto camera = Director::getInstance()->getRunningScene()->getDefaultCamera();
-		    MoveBy* move = MoveBy::create(0.3, cameraMove);
+		    MoveBy* move = MoveBy::create(0.1, cameraMove);
 		    camera->runAction(move);
 		    cameraMove = Vec2::ZERO;
 	      }
