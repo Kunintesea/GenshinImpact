@@ -17,8 +17,18 @@ public:
       void moveSet(int x, int y, float delta);
       // 设置绑定角色
       void bindPlayer(Player* player);
+      // 返回待加入世界的相机（初始化用）
       Camera* getCamera() { return camera; }
+      Vec2 getCameraPostionChange()
+      {
+	    return cameraSprite->getPosition();
+      }
 private:
+      // 相机精灵
+      Sprite* cameraSprite;
+      // 世界大小
+      Size visibleSize;
+      Vec2 origin;
       // 相机本身
       Camera* camera;
       // 绑定的角色

@@ -81,7 +81,7 @@ bool HelloWorld::init()
 	//添加一个菜单项，点击关闭的按钮可以退出程序
 	//添加一个“关闭”图标来退出程序。MenuItemImage表面这个按钮是一个图片按钮
 	//在这里，create的参数分别是：两个图片，一个是正常状态下的图片，一个是选中状态下的图片；第三个参数是一个回调函数，表示点击这个按钮时会调用这个函数
-    auto closeItem = MenuItemImage::create(
+    closeItem = MenuItemImage::create(
                                            "CloseNormal.png",
                                            "CloseSelected.png",
                                            CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
@@ -95,17 +95,16 @@ bool HelloWorld::init()
 	//否则，设置closeItem的位置。一个图像的位置以其正中心为原点，所以这里需要考虑图片自身的宽度和高度
     else
     {
-		float x = origin.x + visibleSize.width - closeItem->getContentSize().width / 2;//visibleSize.width是屏幕的宽度,origin.x是原点的x坐标，getContentSize().width是closeItem的宽度
-		float y = origin.y + closeItem->getContentSize().height / 2;
-		closeItem->setPosition(Vec2(x, y));//设置位置
+	  closeItemInitialPosition 
+		= Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width / 2 -80,
+		      origin.y + closeItem->getContentSize().height / 2 + 80);
+		closeItem->setPosition(closeItemInitialPosition);//设置位置
     }
-
+    closeItem->setScale(5, 5);
 	//创建一个菜单。如果Menu类型的对象比如MenuItemImage想要正常工作，必须要放在Menu中
 	auto menu = Menu::create(closeItem, NULL);//创建一个菜单，里面放了一个按钮
 	menu->setPosition(Vec2::ZERO);//设置菜单的位置，这里是原点
 	this->addChild(menu, 1);//将菜单添加到场景中，1表示z轴的位置，z轴的位置越大，显示的优先级越高
-
-
 
 	//创建一个精灵（这里只用来显示，当图片用），显示“HelloWorld”，图层设置为1
 	Player * sprite = Player::create();
@@ -132,6 +131,8 @@ bool HelloWorld::init()
 	    problemLoading("Fail to get camera");
       }
       newCamera->bindPlayer(sprite);
+      newCamera->setAnchorPoint(Vec2(0.5f, 0.5f));
+      newCamera->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
       this->addChild(newCamera->getCamera());
       this->addChild(newCamera);
 	
@@ -141,7 +142,14 @@ bool HelloWorld::init()
 //更新函数，每帧调用一次
 void HelloWorld::update(float dt)
 {
+      // log("closeItemInitialPosition : %f %f", closeItemInitialPosition.x, closeItemInitialPosition.y);
+      // log("newCamera->getCameraPostionChange() : %f %f", newCamera->getCameraPostionChange().x, newCamera->getCameraPostionChange().y);
+      closeItem->setPosition(closeItemInitialPosition + 
+	    newCamera->getCameraPostionChange()
 
+	   // Vec2(static_cast<int>(std::round(newCamera->getCameraPostionChange().x)), 
+		  //static_cast<int>(std::round(newCamera->getCameraPostionChange().y)))
+	    );
 }
 
 

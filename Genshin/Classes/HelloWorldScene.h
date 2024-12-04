@@ -20,6 +20,8 @@ public:
     CREATE_FUNC(HelloWorld);
 private:
       newCamera* newCamera;
+      MenuItemImage* closeItem;
+      Vec2 closeItemInitialPosition;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
