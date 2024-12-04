@@ -1,3 +1,6 @@
+#ifndef __PLAYERSTATUSUI_NODE_H__
+#define __PLAYERSTATUSUI_NODE_H__
+
 #include "cocos2d.h"
 #include "Player\Player.h"
 #include "ui/CocosGUI.h"
@@ -8,18 +11,18 @@ USING_NS_CC;
 class PlayerStatusUI : public Node
 {
 public:
-
+	friend class Player;//友元类
 	virtual bool init();
 
 	CREATE_FUNC(PlayerStatusUI);
 private:
-	//人物属性的标签
-	Label m_name;
-	Label m_hp_label;
-	Label m_mp_label;//人物魔法值
-
-	//人物属性的slider
-	ui::Slider* m_hp_slider;//人物血条
-	ui::Slider* m_mp_slider;//人物魔法值条
+	Sprite* Background;//信息板的背景
+	Label* Player_Name;//人物名字
+	ProgressTimer* Player_hpBar;//血条
+	//Slider* Player_mpBar;//蓝条
+	//Slider* Player_expBar;//经验条
+	Sprite* Player_Image;//头像
 
 };
+
+#endif 

@@ -20,6 +20,11 @@ bool Player::init()
 	//将精灵添加到节点
 	this->addChild(m_body);
 
+
+
+
+
+
 	// 设置速度
 	speed = 5;
 
@@ -167,3 +172,4 @@ void Player::moveAnimation(Vector<SpriteFrame*> frame, int actionTag) {
 	    m_body->runAction((action));//执行这个动画
       }
 }
+

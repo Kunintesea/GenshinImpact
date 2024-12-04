@@ -81,7 +81,7 @@ bool HelloWorld::init()
 	//添加一个菜单项，点击关闭的按钮可以退出程序
 	//添加一个“关闭”图标来退出程序。MenuItemImage表面这个按钮是一个图片按钮
 	//在这里，create的参数分别是：两个图片，一个是正常状态下的图片，一个是选中状态下的图片；第三个参数是一个回调函数，表示点击这个按钮时会调用这个函数
-    auto closeItem = MenuItemImage::create(
+    closeItem = MenuItemImage::create(
                                            "CloseNormal.png",
                                            "CloseSelected.png",
                                            CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
@@ -93,13 +93,14 @@ bool HelloWorld::init()
         problemLoading("'CloseNormal.png' and 'CloseSelected.png'");
     }
 	//否则，设置closeItem的位置。一个图像的位置以其正中心为原点，所以这里需要考虑图片自身的宽度和高度
-    else
-    {
-		float x = origin.x + visibleSize.width - closeItem->getContentSize().width / 2;//visibleSize.width是屏幕的宽度,origin.x是原点的x坐标，getContentSize().width是closeItem的宽度
-		float y = origin.y + closeItem->getContentSize().height / 2;
-		closeItem->setPosition(Vec2(x, y));//设置位置
-    }
-
+	else
+	{
+		closeItemInitialPosition
+			= Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width / 2 - 80,
+				origin.y + closeItem->getContentSize().height / 2 + 80);
+		closeItem->setPosition(closeItemInitialPosition);//设置位置
+	}
+	closeItem->setScale(5, 5);
 	//创建一个菜单。如果Menu类型的对象比如MenuItemImage想要正常工作，必须要放在Menu中
 	auto menu = Menu::create(closeItem, NULL);//创建一个菜单，里面放了一个按钮
 	menu->setPosition(Vec2::ZERO);//设置菜单的位置，这里是原点
@@ -131,10 +132,18 @@ bool HelloWorld::init()
       {
 	    problemLoading("Fail to get camera");
       }
-      newCamera->bindPlayer(sprite);
+	  newCamera->bindPlayer(sprite);
+	  newCamera->setAnchorPoint(Vec2(0.5f, 0.5f));
+	  newCamera->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
       this->addChild(newCamera->getCamera());
       this->addChild(newCamera);
-	
+
+
+
+
+
+
+
       return true;//返回true表示初始化成功
 }
 
@@ -142,7 +151,19 @@ bool HelloWorld::init()
 void HelloWorld::update(float dt)
 {
 
+
+	log("closeItemInitialPosition : %f %f", closeItemInitialPosition.x, closeItemInitialPosition.y);
+	log("newCamera->getCameraPostionChange() : %f %f", newCamera->getCameraPostionChange().x, newCamera->getCameraPostionChange().y);
+	//设置位置，传入一个新的位置，让closeItem跟随这个位置移动。后面的两个参数是x和y的偏移量，这里是相机的偏移量
+	closeItem->setPosition(closeItemInitialPosition +
+		//newCamera->getCameraPostionChange()
+
+		Vec2(static_cast<int>(std::round(newCamera->getCameraPostionChange().x)),
+			static_cast<int>(std::round(newCamera->getCameraPostionChange().y)))
+	);
 }
+
+
 
 
 

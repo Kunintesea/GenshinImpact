@@ -21,18 +21,17 @@ bool StartMenu::init()
       visibleSize = Director::getInstance()->getVisibleSize();
       origin = Director::getInstance()->getVisibleOrigin();
       loading = 0;
-
       // ÒÀ´Îµ¼Èë±³¾°Í¼²ã
-      backGround1 = Sprite::create("Login//LoginAnimation_1_01.png");
+      backGround1 = Sprite::create("Scene//StartMenu//LoginAnimation_1_01.png");
       initialLoginIamge(backGround1, true);
       addChild(backGround1, 1);
-      backGround2 = Sprite::create("Login//LoginAnimation_1_02.png");
+      backGround2 = Sprite::create("Scene/StartMenu/LoginAnimation_1_02.png");
       initialLoginIamge(backGround2, true);
       addChild(backGround2, 2);
-      backGround3 = Sprite::create("Login//LoginAnimation_2_00.png");
+      backGround3 = Sprite::create("Scene/StartMenu/LoginAnimation_2_00.png");
       initialLoginIamge(backGround3, true);
       addChild(backGround3, 3);
-      backGround4 = Sprite::create("Login//LoginAnimation_3_00.png");
+      backGround4 = Sprite::create("Scene/StartMenu/LoginAnimation_3_00.png");
       initialLoginIamge(backGround4, false);
       addChild(backGround4, 4);
 
@@ -46,13 +45,13 @@ bool StartMenu::init()
       Size size = backGround3->getContentSize();
       for (int i = 0; i <= 48; ++i) {
 	    char initial[40];
-	    sprintf(initial, "Login//LoginAnimation_2_%02d.png", i);
+	    sprintf(initial, "Scene/StartMenu/LoginAnimation_2_%02d.png", i);
 	    auto frame = SpriteFrame::create(initial, Rect(0, 0, size.width, size.height));
 	    loginSceneAnimation.pushBack(frame);
       }
       for (int i = 0; i <= 10; ++i) {
 	    char initial[40];
-	    sprintf(initial, "Login//LoginAnimation_3_%02d.png", i);
+	    sprintf(initial, "Scene/StartMenu/LoginAnimation_3_%02d.png", i);
 	    auto frame = SpriteFrame::create(initial, Rect(0, 0, size.width, size.height));
 	    loginAnimation.pushBack(frame);
       }
