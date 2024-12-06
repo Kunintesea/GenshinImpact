@@ -50,6 +50,13 @@ void newCamera::bindPlayer(Player* player)
 
 void newCamera::update(float dt)
 {
+	//对玩家UI进行更新
+	PlayerStatusUI* playerUI = (PlayerStatusUI*)this->getChildByName("playerUI");
+	//传入player类，根据其数据更新UI
+	playerUI->updateUI(*player);
+
+
+
 	//实现按键控制精灵移动
 	auto left = EventKeyboard::KeyCode::KEY_LEFT_ARROW;//左键
 	auto right = EventKeyboard::KeyCode::KEY_RIGHT_ARROW;//右键
@@ -116,7 +123,6 @@ void newCamera::update(float dt)
 		, cameraSprite->getPositionY() + visibleSize.height / 2));
 
 
-	PlayerStatusUI* playerUI = (PlayerStatusUI*)this->getChildByName("playerUI");
 	playerUI->setPosition(cameraSprite->getPosition() - Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	//z轴单独设计，在相机下
 	playerUI->setLocalZOrder(-1);

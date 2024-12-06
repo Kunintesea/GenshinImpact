@@ -139,7 +139,12 @@ bool HelloWorld::init()
       this->addChild(newCamera);
 
 
-
+	  //让player的伤害数字绑定到场景
+	  for (int i = 0; i < 20; i++)
+	  {
+		  this->addChild(sprite->m_damage_label[i]);
+		  this->addChild(sprite->m_element_label[i]);
+	  }
 
 
 
@@ -150,6 +155,8 @@ bool HelloWorld::init()
 //更新函数，每帧调用一次
 void HelloWorld::update(float dt)
 {
+	//让player每秒掉血
+	Player* player = (Player*)this->getChildByName("Me");
 
 
 	log("closeItemInitialPosition : %f %f", closeItemInitialPosition.x, closeItemInitialPosition.y);

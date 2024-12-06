@@ -7,7 +7,132 @@
 3：向上
 4：向下
 */
+//伤害计算式：实际伤害=伤害值-防御值*伤害值，若人物处于闪避状态直接返回0
+void Player::hurt(int damage,int damge_type)
+{ 
+	if (isDodge) return;
+	else
+	{
+		//对元素反应的处理
+		switch (damge_type)
+		{
 
+		case Wind:
+			break;
+		case Rock:
+			break;
+		case Thunder:
+			//如果是雷属性伤害，且玩家身上有火元素，触发超载效果
+			if (m_element[Fire])
+			{
+				//超载效果
+				//伤害值翻倍
+				damage *= 2;
+				//火元素消失
+				m_element[Fire] = 0;
+				//显示超载效果
+				for (int i = 0; i < 20; i++)
+				{
+					if (!m_element_label[i]->isVisible())
+					{
+						m_element_label[i]->setColor(Color3B(249, 85, 9));
+						m_element_label[i]->setPosition(Vec2(this->getPositionX() + rand() % 50, this->getPositionY()  + rand() % 50));
+						m_element_label[i]->setString("Explode");
+						m_element_label[i]->setVisible(true);
+						m_element_label[i]->runAction(Sequence::create(MoveBy::create(0.1, Vec2(0, 20)), nullptr));
+						m_element_label[i]->runAction(Sequence::create(DelayTime::create(1.5), CallFunc::create([=] {m_element_label[i]->setVisible(false); }), MoveBy::create(0.1, Vec2(0, -20)), nullptr));
+						
+						break;
+					}
+				}
+			}
+			break;
+		case Grass:
+			break;
+		case Water:
+			break;
+		case Fire:
+			m_element[Fire] = 1;
+			break;
+		case Ice:
+			break;
+		default:
+			break;
+		}
+
+
+
+
+
+		
+		int real_damage = int(float(damage) - float(damage) * m_defense);//实际伤害=伤害值-防御值*伤害值
+		//让伤害数字显示
+		for (int i = 0; i < 20; i++)
+		{
+			if (!m_damage_label[i]->isVisible())
+			{
+				//伤害数字颜色根据伤害类型改变
+				switch (damge_type)
+				{
+					//如果是物理伤害，伤害数字为白色
+				case Physical:
+					m_damage_label[i]->setColor(Color3B::WHITE);
+					break;
+					//如果是风属性伤害，伤害数字为青绿色，RGB为23,236,175
+				case Wind:
+					m_damage_label[i]->setColor(Color3B(23, 236, 175));
+					break;
+					//如果是岩属性伤害，伤害数字为棕黄色，RGB为248,226,57
+				case Rock:
+					m_damage_label[i]->setColor(Color3B(248, 226, 57));
+					break;
+					//如果是雷属性伤害，伤害数字为紫色，RGB为172,43,231
+				case Thunder:
+					m_damage_label[i]->setColor(Color3B(172, 43, 231));
+					break;
+					//如果是草属性伤害，伤害数字为绿色，RGB为42,204,21
+				case Grass:
+					m_damage_label[i]->setColor(Color3B(42, 204, 21));
+					break;
+					//如果是水属性伤害，伤害数字为蓝色，RGB为11,214,245
+				case Water:
+					m_damage_label[i]->setColor(Color3B(11, 214, 245));
+					break;
+					//如果是火属性伤害，伤害数字为红色，RGB为249,85,9
+				case Fire:
+					m_damage_label[i]->setColor(Color3B(249, 85, 9));
+					break;
+					//如果是冰属性伤害，伤害数字为淡蓝色，RGB为198,244,243
+				case Ice:
+					m_damage_label[i]->setColor(Color3B(198, 244, 243));
+					break;
+				}
+
+
+
+
+
+				
+				m_damage_label[i]->setPosition(Vec2(this->getPositionX () - m_body->getContentSize().width/2  + rand() % 50, this->getPositionY() -m_body->getContentSize().height/2  + rand() % 50));//rand()的使用方法是rand()%n，表示生成一个0到n-1的随机数
+				m_damage_label[i]->setVisible(true);
+				//向上浮现
+				m_damage_label[i]->runAction(Sequence::create(MoveBy::create(0.1, Vec2(0, 20)), nullptr));//创建一个动作序列，让伤害数字向上浮现，持续0.1秒
+				//1.5秒后先让m_damage_label[i]不可见，不可见后向下移动20个像素
+				m_damage_label[i]->runAction(Sequence::create(DelayTime::create(1.5), CallFunc::create([=] {m_damage_label[i]->setVisible(false); }), MoveBy::create(0.1, Vec2(0, -20)), nullptr));
+
+
+				m_damage_label[i]->setString(std::to_string(real_damage));
+				break;
+			}
+		}
+		m_hp -= real_damage;
+		if (m_hp <= 0)
+		{
+			isDead = true;
+			m_hp = 0;
+		}
+	}
+}
 
 bool Player::init()
 {
@@ -16,13 +141,32 @@ bool Player::init()
 		return false;
 	}
 	//创建精灵
-	m_body = Sprite::create("me/front.png");
+	m_body = Sprite::create("Me/front.png");
 	//将精灵添加到节点
 	this->addChild(m_body);
 
+	//通过读取xml文件，获取元素反应文字，支持中文
+	//CCDictionary* chnStrings = CCDictionary::createWithContentsOfFile("Text/元素反应文字.xml");
+	//const char* username = ((CCString*)chnStrings->objectForKey("username"))->getCString();
+
+	//初始化名字
+	//m_name = "Me";
+
+	//把伤害数字与元素反应文字初始化
+	for (int i = 0; i < 20; i++)
+	{
+		//初始化元素反应文字，支持中文
+		m_element_label[i] = Label::createWithTTF("反应", "fonts/HarmonyOS_Sans_SC_Medium.TTF", 40);
+		m_damage_label[i] = Label::createWithTTF("0", "fonts/HarmonyOS_Sans_SC_Medium.TTF", 30);
 
 
-
+		//加黑色描边
+		m_element_label[i]->enableOutline(Color4B::BLACK, 2);
+		m_damage_label[i]->enableOutline(Color4B::BLACK, 2);
+		m_element_label[i]->setVisible(false);//设置不可见
+		m_damage_label[i]->setVisible(false);//设置不可见
+	}
+	
 
 
 	// 设置速度
@@ -70,6 +214,40 @@ bool Player::init()
 	//加入调度器
 	this->scheduleUpdate();
 
+	//对扣血的监听
+	auto eventLLL = EventListenerKeyboard::create();
+	eventLLL->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event* event)
+		{
+			switch (keyCode)
+			{
+			case EventKeyboard::KeyCode::KEY_O:
+				hurt(1,Fire);
+				break;
+			case EventKeyboard::KeyCode::KEY_P:
+				hurt(1, Thunder);
+				break;
+			default:
+				break;
+			}
+		};
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventLLL, this);//把监听器加入到事件分发器中，传入监听器与其绑定的对象。这里的优先级设定为精灵的优先级
+
+	//对鼠标右键闪避的监听
+	auto DodgeListener = EventListenerMouse::create();
+	DodgeListener->onMouseDown = [=](Event* event)
+		{
+			auto mouseEvent = static_cast<EventMouse*>(event);
+			if (mouseEvent->getMouseButton() == EventMouse::MouseButton::BUTTON_RIGHT)
+			{
+				isDodge = true;
+				auto dodgeAction = Sequence::create(MoveBy::create(0.5, Vec2(0, 100)), MoveBy::create(0.5, Vec2(0, -100)), CallFunc::create([=] {isDodge = false; }), nullptr);
+				this->runAction(dodgeAction);
+			}
+		};
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(DodgeListener, this);//把监听器加入到事件分发器中，传入监听器与其绑定的对象。这里的优先级设定为精灵的优先级
+
+
+
 	//键盘事件监听
 	auto eventListener = EventListenerKeyboard::create();
 	//按键按下时调用
@@ -79,6 +257,7 @@ bool Player::init()
 			{
 			case EventKeyboard::KeyCode::KEY_A:
 			case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+
 				keyMap[EventKeyboard::KeyCode::KEY_LEFT_ARROW] = true;
 				break;
 			case EventKeyboard::KeyCode::KEY_D:
@@ -160,6 +339,16 @@ void Player::update(float dt)
 	      else
 		    m_body->setSpriteFrame(staticForwards.at(0));
 	}
+
+	//如果检测到右键，就向鼠标方向冲刺
+	//if (isDodge)
+	//{
+	//	//向鼠标方向冲刺
+	//	//获取鼠标位置
+	//	auto mousePosition = Director::getInstance()->getOpenGLView()->getMousePosition();
+	//}
+
+	
 }
 
 void Player::moveAnimation(Vector<SpriteFrame*> frame, int actionTag) {
