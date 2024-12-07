@@ -97,7 +97,7 @@ bool AppDelegate::applicationDidFinishLaunching() {//ÖØµã£¬ÕâÊÇ³ÌĞòµÄÈë¿Úº¯Êı£¬³
 
     // create a scene. it's an autorelease object
 	//¹Ø¼ü´úÂë£¬´´½¨Ò»¸ö³¡¾°
-	auto scene = StartMenu::createScene();//´´½¨Ò»¸ö¿ªÊ¼²Ëµ¥³¡¾°
+	auto scene = HelloWorld::createScene();//´´½¨Ò»¸ö¿ªÊ¼²Ëµ¥³¡¾°
 
 	//ÓÃµ¼ÑİÔËĞĞ³¡¾°
 	director->runWithScene(scene);//runWithScene½öÓÃÓÚµÚÒ»´ÎÔËĞĞ³¡¾°£¬Ö®ºóÓÃreplaceScene£¨´úÌæ³¡¾°£©»òpushScene£¨Ñ¹Èë³¡¾°£©

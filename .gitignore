@@ -5,3 +5,6 @@ proj.android
 libcocos2d.pch
 
 
+*.db
+*.tlog
+/Genshin/cocos2d
