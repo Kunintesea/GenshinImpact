@@ -30,6 +30,18 @@ void Player::hurt(int damage,int damge_type)
 				damage *= 2;
 				//火元素消失
 				m_element[Fire] = 0;
+
+				//播放超载特效
+				Effects* effect = Effects::create();
+				//放大2倍
+				effect->setScale(2);
+				//位置在人物身上
+				effect->setPosition(Vec2(0, 0));
+				//绑定到人物
+				this->addChild(effect);
+				//播放超载特效
+				effect->EffectsAnimation(effect->Explode, 0);
+
 				//显示超载效果
 				for (int i = 0; i < 20; i++)
 				{
@@ -141,7 +153,7 @@ bool Player::init()
 		return false;
 	}
 	//创建精灵
-	m_body = Sprite::create("Me/front.png");
+	m_body = Sprite::create("Me/Saber/Walk/front.png");
 	//将精灵添加到节点
 	this->addChild(m_body);
 
@@ -172,6 +184,7 @@ bool Player::init()
 	// 设置速度
 	speed = 5;
 
+
 	m_head = Sprite::create("me/head.png");
 	//缩小5倍
 	m_head->setScale(0.2);
@@ -182,32 +195,33 @@ bool Player::init()
 	// 加载动画
 	// 静止动画帧
 	Size bodySize = m_body->getContentSize();
-	SpriteFrame* front = SpriteFrame::create("me/front.png", Rect(0, 0, bodySize.width, bodySize.height));
-	SpriteFrame* back = SpriteFrame::create("me/back.png", Rect(0, 0, bodySize.width, bodySize.height));
-	SpriteFrame* left = SpriteFrame::create("me/left.png", Rect(0, 0, bodySize.width, bodySize.height));
-	SpriteFrame* right = SpriteFrame::create("me/right.png", Rect(0, 0, bodySize.width, bodySize.height));
-	SpriteFrame* dead = SpriteFrame::create("me/dead.png", Rect(0, 0, bodySize.width, bodySize.height));
+	//"D:\Github_Document\GenshinImpact\Genshin\Resources\Me\Saber\Walk\walk_back2.png"
+	SpriteFrame* front = SpriteFrame::create("Me/Saber/Walk/front.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* back = SpriteFrame::create("Me/Saber/Walk/back.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* left = SpriteFrame::create("Me/Saber/Walk/left.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* right = SpriteFrame::create("Me/Saber/Walk/right.png", Rect(0, 0, bodySize.width, bodySize.height));
+	//SpriteFrame* dead = SpriteFrame::create("Me/Saber/Walk/dead.png", Rect(0, 0, bodySize.width, bodySize.height));
 	staticForwards.pushBack(front);
 	staticForwards.pushBack(back);
 	staticForwards.pushBack(left);
 	staticForwards.pushBack(right);
-	staticForwards.pushBack(dead);
+	//staticForwards.pushBack(dead);
 
 	//运动动画帧
-	SpriteFrame* walk_back1 = SpriteFrame::create("me/walk_back1.png", Rect(0, 0, bodySize.width, bodySize.height));
-	SpriteFrame* walk_back2 = SpriteFrame::create("me/walk_back2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* walk_back1 = SpriteFrame::create("Me/Saber/Walk/walk_back1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* walk_back2 = SpriteFrame::create("Me/Saber/Walk/walk_back2.png", Rect(0, 0, bodySize.width, bodySize.height));
 	walk_back.pushBack(walk_back1);
 	walk_back.pushBack(walk_back2);
-	SpriteFrame* walk_front1 = SpriteFrame::create("me/walk_front1.png", Rect(0, 0, bodySize.width, bodySize.height));
-	SpriteFrame* walk_front2 = SpriteFrame::create("me/walk_front2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* walk_front1 = SpriteFrame::create("Me/Saber/Walk/walk_front1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* walk_front2 = SpriteFrame::create("Me/Saber/Walk/walk_front2.png", Rect(0, 0, bodySize.width, bodySize.height));
 	walk_front.pushBack(walk_front1);
 	walk_front.pushBack(walk_front2);
-	SpriteFrame* walk_left1 = SpriteFrame::create("me/walk_left1.png", Rect(0, 0, bodySize.width, bodySize.height));
-	SpriteFrame* walk_left2 = SpriteFrame::create("me/walk_left2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* walk_left1 = SpriteFrame::create("Me/Saber/Walk/walk_left1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* walk_left2 = SpriteFrame::create("Me/Saber/Walk/walk_left2.png", Rect(0, 0, bodySize.width, bodySize.height));
 	walk_left.pushBack(walk_left1);
 	walk_left.pushBack(walk_left2);
-	SpriteFrame* walk_right1 = SpriteFrame::create("me/walk_right1.png", Rect(0, 0, bodySize.width, bodySize.height));
-	SpriteFrame* walk_right2 = SpriteFrame::create("me/walk_right2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* walk_right1 = SpriteFrame::create("Me/Saber/Walk/walk_right1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* walk_right2 = SpriteFrame::create("Me/Saber/Walk/walk_right2.png", Rect(0, 0, bodySize.width, bodySize.height));
 	walk_right.pushBack(walk_right1);
 	walk_right.pushBack(walk_right2);
 
@@ -240,8 +254,16 @@ bool Player::init()
 			if (mouseEvent->getMouseButton() == EventMouse::MouseButton::BUTTON_RIGHT)
 			{
 				isDodge = true;
-				auto dodgeAction = Sequence::create(MoveBy::create(0.5, Vec2(0, 100)), MoveBy::create(0.5, Vec2(0, -100)), CallFunc::create([=] {isDodge = false; }), nullptr);
-				this->runAction(dodgeAction);
+				//闪避的方向是朝着鼠标的方向
+				EventMouse* mousePosition = dynamic_cast<EventMouse*>(event);
+				float x = mousePosition->getCursorX();
+				float y = mousePosition->getCursorY();
+				// 转换为世界坐标
+				Vec2 worldPosition = Vec2(x, y);
+				//朝着鼠标方向冲刺
+				this->dodge(worldPosition);
+
+
 			}
 		};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(DodgeListener, this);//把监听器加入到事件分发器中，传入监听器与其绑定的对象。这里的优先级设定为精灵的优先级
@@ -249,9 +271,9 @@ bool Player::init()
 
 
 	//键盘事件监听
-	auto eventListener = EventListenerKeyboard::create();
+	auto keyboardListener = EventListenerKeyboard::create();
 	//按键按下时调用
-	eventListener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event* event)
+	keyboardListener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event* event)
 		{
 			switch (keyCode)//同时支持WASD和方向键
 			{
@@ -277,7 +299,7 @@ bool Player::init()
 			}
 		};
 	//按键抬起时调用
-	eventListener->onKeyReleased = [=](EventKeyboard::KeyCode keyCode, Event* event)
+	keyboardListener->onKeyReleased = [=](EventKeyboard::KeyCode keyCode, Event* event)
 		{
 			switch (keyCode)
 			{
@@ -301,43 +323,74 @@ bool Player::init()
 				break;
 			}
 		};
-	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);//把监听器加入到事件分发器中，传入监听器与其绑定的对象。这里的优先级设定为精灵的优先级
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyboardListener, this);//把监听器加入到事件分发器中，传入监听器与其绑定的对象。这里的优先级设定为精灵的优先级
+
+	//鼠标事件监听
+	auto mouseListener = EventListenerMouse::create();
+	mouseListener->onMouseMove = [this](Event* event)
+		{
+			log("!!!!!!!mouse!!!!!!!");
+			EventMouse* mousePosition = dynamic_cast<EventMouse*>(event);
+			float x = mousePosition->getCursorX();
+			float y = mousePosition->getCursorY();
+			// 转换为世界坐标
+			Vec2 worldPosition = Vec2(x, y);
+			log("mouseWorldPosition x = %f", x);
+			log("mouseWorldPosition y = %f", y);
+			this->getPlayerOrientation(worldPosition);
+		};
+
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(mouseListener, this);//把监听器加入到事件分发器中，传入监听器与其绑定的对象。这里的优先级设定为精灵的优先级
+
+	//鼠标事件调度器，用于更新朝向
+	schedule(CC_CALLBACK_0(Player::updatePlayerOrientation, this), "mouse");
+	//键盘事件调度器，用于更新位置
+	schedule(CC_CALLBACK_1(Player::updatePlayerPosition, this), "keyboard");
 
 	return true;
 }
 
-void Player::update(float dt)
+void Player::updatePlayerPosition(float dt)
 {
 	if (keyMap[EventKeyboard::KeyCode::KEY_LEFT_ARROW])//如果左键按下
 	{
-	      moveAnimation(walk_left, 1);
+	      //moveAnimation(walk_left, 1);
 	      this->setPositionX(this->getPositionX() - speed);//向左移动10个像素
 	}
 	if (keyMap[EventKeyboard::KeyCode::KEY_RIGHT_ARROW])//如果右键按下
 	{
-	      moveAnimation(walk_right, 2);
+	      //moveAnimation(walk_right, 2);
 	      this->setPositionX(this->getPositionX() + speed);//向右移动10个像素
 	}
 	if (keyMap[EventKeyboard::KeyCode::KEY_UP_ARROW])//如果上键按下
 	{
-	      moveAnimation(walk_back, 4);
+	      //moveAnimation(walk_back, 4);
 	      this->setPositionY(this->getPositionY() + speed);//向上移动10个像素
 	}
 	if (keyMap[EventKeyboard::KeyCode::KEY_DOWN_ARROW])//如果下键按下
 	{
-	      moveAnimation(walk_front, 3);
+	      //moveAnimation(walk_front, 3);
 	      this->setPositionY(this->getPositionY() - speed);//向下移动10个像素
 	}
 	if (!keyMap[EventKeyboard::KeyCode::KEY_LEFT_ARROW] && !keyMap[EventKeyboard::KeyCode::KEY_RIGHT_ARROW] && !keyMap[EventKeyboard::KeyCode::KEY_UP_ARROW] && !keyMap[EventKeyboard::KeyCode::KEY_DOWN_ARROW])//如果没有按键按下
 	{
-	      if (m_body->getNumberOfRunningActionsByTag(1) != 0) // 如果正在向左走
-		    m_body->setSpriteFrame(staticForwards.at(2));
-	      else if (m_body->getNumberOfRunningActionsByTag(2) != 0) // 如果正在向右走
-		    m_body->setSpriteFrame(staticForwards.at(3));
-	      else if (m_body->getNumberOfRunningActionsByTag(4) != 0) // 如果正在向上走
-		    m_body->setSpriteFrame(staticForwards.at(1));
-	      else
-		    m_body->setSpriteFrame(staticForwards.at(0));
+		//if (m_body->getNumberOfRunningActionsByTag(1) != 0) // 如果正在向左走
+		  //m_body->setSpriteFrame(staticForwards.at(2));
+		//else if (m_body->getNumberOfRunningActionsByTag(2) != 0) // 如果正在向右走
+		  //m_body->setSpriteFrame(staticForwards.at(3));
+	   // else if (m_body->getNumberOfRunningActionsByTag(4) != 0) // 如果正在向上走
+		  //m_body->setSpriteFrame(staticForwards.at(1));
+	   // else
+		  //m_body->setSpriteFrame(staticForwards.at(0));
+
+		if (this->mouseState[2]) // 如果正在向左走
+			m_body->setSpriteFrame(staticForwards.at(2));
+		else if (this->mouseState[3]) // 如果正在向右走
+			m_body->setSpriteFrame(staticForwards.at(3));
+		else if (this->mouseState[0]) // 如果正在向上走
+			m_body->setSpriteFrame(staticForwards.at(1));
+		else if (this->mouseState[1])
+			m_body->setSpriteFrame(staticForwards.at(0));
 	}
 
 	//如果检测到右键，就向鼠标方向冲刺
@@ -361,4 +414,121 @@ void Player::moveAnimation(Vector<SpriteFrame*> frame, int actionTag) {
 	    m_body->runAction((action));//执行这个动画
       }
 }
+void Player::dodge(Vec2 position)
+{
+	//计算区域斜率
+	//获得角色贴图尺寸
+	auto playerSize = this->m_body->getContentSize();
+	float k = playerSize.height / playerSize.width;
+
+	//获得屏幕尺寸
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	//获得鼠标坐标相对于屏幕的坐标
+	Vec2 mouseWorldPosition = position;
+	//获得精灵的世界坐标
+	Vec2 spriteWorldPosition = this->getPosition();
+	auto temp = this->myCamera->getCameraPostionChange();
+	spriteWorldPosition = spriteWorldPosition - this->myCamera->getCameraPostionChange()
+		+ Vec2(visibleSize.width / 2, visibleSize.height / 2);
+	//计算
+	Vec2 mouseLocalPosition = Vec2(mouseWorldPosition.x - spriteWorldPosition.x, mouseWorldPosition.y - spriteWorldPosition.y);
+
+	//计算角度
+	float angle = atan2(mouseLocalPosition.y, mouseLocalPosition.x);
+	//冲刺距离
+	float distance = 100;
+	//冲刺速度
+	float dodgeSpeed = 1000;
+	//冲刺方向
+	Vec2 dodgeDirection = Vec2(cos(angle), sin(angle));
+	//开始冲刺
+	this->runAction(Sequence::create(MoveBy::create(distance / dodgeSpeed, dodgeDirection * distance), CallFunc::create([=] {isDodge = false; }), nullptr));
+
+}
+
+//根据鼠标位置来确定人物朝向
+void Player::getPlayerOrientation(Vec2 position)
+{
+	//计算区域斜率
+	//获得角色贴图尺寸
+	auto playerSize = this->m_body->getContentSize();
+	float k = playerSize.height / playerSize.width;
+	log("height = %f", playerSize.height);
+	log("width = %f", playerSize.width);
+
+	log("!!!!!!k = %f", k);
+
+	//获得屏幕尺寸
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	//获得鼠标坐标相对于屏幕的坐标
+	Vec2 mouseWorldPosition = position;
+	//获得精灵的世界坐标
+	Vec2 spriteWorldPosition = this->getPosition();
+	auto temp = this->myCamera->getCameraPostionChange();
+	spriteWorldPosition = spriteWorldPosition - this->myCamera->getCameraPostionChange()
+		+ Vec2(visibleSize.width / 2, visibleSize.height / 2);
+
+	log("spriteWorldPosition x = %f", spriteWorldPosition.x);
+	log("spriteWorldPosition y = %f", spriteWorldPosition.y);
+	//计算
+	Vec2 mouseLocalPosition = Vec2(mouseWorldPosition.x - spriteWorldPosition.x, mouseWorldPosition.y - spriteWorldPosition.y);
+	log("mouseLocalPosition x = %f", mouseLocalPosition.x);
+	log("mouseLocalPosition y = %f", mouseLocalPosition.y);
+
+	if (mouseLocalPosition.y > mouseLocalPosition.x * k
+		&& mouseLocalPosition.y > mouseLocalPosition.x * -k)
+	{
+		this->mouseState[0] = true;
+		this->mouseState[1] = false;
+		this->mouseState[2] = false;
+		this->mouseState[3] = false;
+	}
+	else if (mouseLocalPosition.y < mouseLocalPosition.x * k
+		&& mouseLocalPosition.y < mouseLocalPosition.x * -k)
+	{
+		this->mouseState[0] = false;
+		this->mouseState[1] = true;
+		this->mouseState[2] = false;
+		this->mouseState[3] = false;
+	}
+	else if (mouseLocalPosition.y > mouseLocalPosition.x * k
+		&& mouseLocalPosition.y < mouseLocalPosition.x * -k)
+	{
+		this->mouseState[0] = false;
+		this->mouseState[1] = false;
+		this->mouseState[2] = true;
+		this->mouseState[3] = false;
+	}
+	else if (mouseLocalPosition.y < mouseLocalPosition.x * k
+		&& mouseLocalPosition.y > mouseLocalPosition.x * -k)
+	{
+		this->mouseState[0] = false;
+		this->mouseState[1] = false;
+		this->mouseState[2] = false;
+		this->mouseState[3] = true;
+	}
+}
+
+
+
+void Player::updatePlayerOrientation()
+{
+	if (this->mouseState[0])
+	{
+		moveAnimation(walk_back, 4);
+	}
+	else if (this->mouseState[1])
+	{
+		moveAnimation(walk_front, 3);
+	}
+	else if (this->mouseState[2])
+	{
+		moveAnimation(walk_left, 1);
+	}
+	else if (this->mouseState[3])
+	{
+		moveAnimation(walk_right, 2);
+	}
+}
+
 

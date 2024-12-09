@@ -12,7 +12,6 @@ public:
 	virtual bool init();//初始化函数，会在场景创建时调用
 
 
-	//void menuClickCallBack(Ref* sender);//控制精灵的移动，传入一个参数，表示移动的方向
 	void update(float dt);//更新函数，每帧调用一次
 	void menuCloseCallback(cocos2d::Ref* pSender);//退出按钮的回调函数
 
@@ -20,9 +19,10 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 private:
-	newCamera* newCamera;//相机
-	MenuItemImage* closeItem;//关闭按钮
-	Vec2 closeItemInitialPosition;//关闭按钮的初始位置
+    newCamera* newCamera;
+    Player* sprite;
+    TMXTiledMap* map;
+    int a = 0;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

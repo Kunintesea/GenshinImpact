@@ -6,11 +6,13 @@
 #include "UI/PlayerStatusUI.h"
 
 USING_NS_CC;
+class Player;
+
 
 class newCamera : public Node
 {
 public:
-    friend class Player;
+    //friend class Player;
     virtual bool init();//初始化函数，会在场景创建时调用
     void update(float dt);//更新函数，每帧调用一次
     CREATE_FUNC(newCamera);//创建一个Player对象
@@ -22,11 +24,11 @@ public:
 
     // 返回待加入世界的相机（初始化用）
     Camera* getCamera() { return camera; }
-    Vec2 getCameraPostionChange()
-    {
-        return cameraSprite->getPosition();
-    }
+	// 返回相机相对于世界（0，0）的偏移量
+    Vec2 getCameraPostionChange() { return cameraSprite->getPosition() + initialOffset; }
 private:
+	// 初始化相机偏移量
+    Vec2 initialOffset;
     // 相机精灵
     Sprite* cameraSprite;
     // 世界大小
@@ -37,9 +39,10 @@ private:
     // 绑定的角色
     Player* player;
     // 相机移动相关参数
+    Vec2 lastPosition;
     Vec2 cameraMove;
     Vec2 cameraBackMove;
-    const float cameraOffsetTime = 0.3;
+    const float cameraOffsetTime = 0.3f;
     const bool isFollowedDynamicly = true;
     int maxOffSet;
 };

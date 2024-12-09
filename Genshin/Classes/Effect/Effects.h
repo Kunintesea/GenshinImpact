@@ -14,10 +14,11 @@ class Effects : public Node
 {
 public:
 	virtual bool init();//初始化函数，会在场景创建时调用
-    void update(float dt);//更新函数，每帧调用一次
+	void EffectsAnimation(Vector<SpriteFrame*> frame, int actionTag); // 动画
 
-	CREATE_FUNC(Effects);//创建一个Player对象
-private:
+
+	CREATE_FUNC(Effects);
+
 	//Sprite，放特效
 	Sprite* effect;
 
