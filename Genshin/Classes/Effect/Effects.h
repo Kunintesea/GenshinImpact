@@ -9,7 +9,6 @@ using namespace ui;
 
 
 
-
 class Effects : public Node
 {
 public:
@@ -25,11 +24,8 @@ public:
 
 	//ÌØÐ§¶¯»­
 	Vector<SpriteFrame*> Explode;
-	Vector<SpriteFrame*> walk_back;
-	Vector<SpriteFrame*> walk_front;
-	Vector<SpriteFrame*> walk_left;
-	Vector<SpriteFrame*> walk_right;
-	Vector<SpriteFrame*> staticForwards;
+	Vector<SpriteFrame*> Superconducting;
+	Vector<SpriteFrame*> Shocked;
 };
 
 #endif 

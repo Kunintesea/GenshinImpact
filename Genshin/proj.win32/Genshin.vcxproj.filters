@@ -33,10 +33,10 @@
     <ClCompile Include="..\Classes\UI\PlayerStatusUI.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Enemy\Enemy.cpp">
+    <ClCompile Include="..\Classes\Effect\Effects.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Effect\Effects.cpp">
+    <ClCompile Include="..\Classes\Player\BasePlayer.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,10 +62,13 @@
     <ClInclude Include="..\Classes\UI\PlayerStatusUI.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Enemy\Enemy.h">
+    <ClInclude Include="..\Classes\Effect\Effects.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Effect\Effects.h">
+    <ClInclude Include="..\Classes\Player\BasePlayer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Data\DataModel.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

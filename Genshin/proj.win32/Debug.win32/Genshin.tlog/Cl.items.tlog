@@ -1,8 +1,8 @@
 D:\Github_Document\GenshinImpact\Genshin\Classes\AppDelegate.cpp;D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\AppDelegate.obj
 D:\Github_Document\GenshinImpact\Genshin\Classes\Effect\Effects.cpp;D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Effects.obj
-D:\Github_Document\GenshinImpact\Genshin\Classes\Enemy\Enemy.cpp;D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Enemy.obj
 D:\Github_Document\GenshinImpact\Genshin\Classes\HelloWorldScene.cpp;D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\HelloWorldScene.obj
 D:\Github_Document\GenshinImpact\Genshin\Classes\newCamera.cpp;D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\newCamera.obj
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\BasePlayer.cpp;D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\BasePlayer.obj
 D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp;D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Player.obj
 D:\Github_Document\GenshinImpact\Genshin\Classes\Scene\StartMenu.cpp;D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\StartMenu.obj
 D:\Github_Document\GenshinImpact\Genshin\Classes\UI\PlayerStatusUI.cpp;D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\PlayerStatusUI.obj

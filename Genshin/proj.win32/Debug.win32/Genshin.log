@@ -1,21 +1,29 @@
 ﻿  Player.cpp
-D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(54,69): warning C4305: “参数”: 从“double”到“float”截断
-D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(55,158): warning C4305: “参数”: 从“double”到“float”截断
-D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(131,66): warning C4305: “参数”: 从“double”到“float”截断
-D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(133,154): warning C4305: “参数”: 从“double”到“float”截断
-D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(190,19): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(24,67): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(25,156): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(87,70): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(88,159): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(133,70): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(134,159): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(179,70): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(180,159): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(265,70): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(266,159): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(321,70): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(322,159): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(401,66): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(403,154): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(435,54): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(577,33): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(613,19): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(989,37): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(990,39): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(1060,16): warning C4305: “+=”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(1071,20): warning C4305: “-=”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(1114,13): warning C4305: “-=”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(1122,13): warning C4305: “-=”: 从“double”到“float”截断
   Genshin.vcxproj -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Genshin.exe
   正在执行自定义生成步骤
-  D:\Github_Document\GenshinImpact\Genshin\Resources\Me\Saber\Walk\back.png -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\Me\Saber\Walk\back.png
-  D:\Github_Document\GenshinImpact\Genshin\Resources\Me\Saber\Walk\front.png -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\Me\Saber\Walk\front.png
-  D:\Github_Document\GenshinImpact\Genshin\Resources\Me\Saber\Walk\left.png -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\Me\Saber\Walk\left.png
-  D:\Github_Document\GenshinImpact\Genshin\Resources\Me\Saber\Walk\right.png -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\Me\Saber\Walk\right.png
-  D:\Github_Document\GenshinImpact\Genshin\Resources\Me\Saber\Walk\walk_back1.png -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\Me\Saber\Walk\walk_back1.png
-  D:\Github_Document\GenshinImpact\Genshin\Resources\Me\Saber\Walk\walk_back2.png -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\Me\Saber\Walk\walk_back2.png
-  D:\Github_Document\GenshinImpact\Genshin\Resources\Me\Saber\Walk\walk_front1.png -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\Me\Saber\Walk\walk_front1.png
-  D:\Github_Document\GenshinImpact\Genshin\Resources\Me\Saber\Walk\walk_front2.png -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\Me\Saber\Walk\walk_front2.png
-  D:\Github_Document\GenshinImpact\Genshin\Resources\Me\Saber\Walk\walk_left1.png -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\Me\Saber\Walk\walk_left1.png
-  D:\Github_Document\GenshinImpact\Genshin\Resources\Me\Saber\Walk\walk_left2.png -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\Me\Saber\Walk\walk_left2.png
-  D:\Github_Document\GenshinImpact\Genshin\Resources\Me\Saber\Walk\walk_right1.png -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\Me\Saber\Walk\walk_right1.png
-  D:\Github_Document\GenshinImpact\Genshin\Resources\Me\Saber\Walk\walk_right2.png -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\Me\Saber\Walk\walk_right2.png
-  复制了 12 个文件
+  D:\Github_Document\GenshinImpact\Genshin\Resources\Me\Saber\Weapon\sword.png -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\Me\Saber\Weapon\sword.png
+  D:\Github_Document\GenshinImpact\Genshin\Resources\Me\Saber\Weapon\sword_light.png -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Resources\Me\Saber\Weapon\sword_light.png
+  复制了 2 个文件

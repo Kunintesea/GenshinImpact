@@ -9,7 +9,7 @@ bool PlayerStatusUI::init()
 
 	//加入背景板，在左上角
 	Background = Sprite::create("Me/InfoUI/BackGround.png");//创建一个精灵
-	//重设背景大小。设为宽500，高250
+	//重设背景大小。
 	Background->setScaleX(800 / Background->getContentSize().width);
 	Background->setScaleY(250 / Background->getContentSize().height);
 
@@ -61,12 +61,56 @@ bool PlayerStatusUI::init()
 	this->addChild(Player_hpBar_bg);//将血条背景添加到节点
 	this->addChild(Player_hpBar);//将滑血条添加到节点
 
+
+
+	//角色护盾条，完全覆盖在血条上
+	//创建一个护盾条
+	Player_shieldBar = ProgressTimer::create(Sprite::create("Me/InfoUI/shield_bar.png"));
+	//设置护盾条的类型为条形
+	Player_shieldBar->setType(ProgressTimer::Type::BAR);
+	//设置护盾条的起点，从左往右
+	Player_shieldBar->setMidpoint(Vec2(0, 0.5));//传入两个参数，0表示x轴，0.5表示y轴，表示护盾条的起点在左边中间
+	//设置护盾条的变化率
+	Player_shieldBar->setBarChangeRate(Vec2(1, 0));
+	//设置护盾条的大小，长宽分别是300，30
+	Player_shieldBar->setScaleX(300 / Player_shieldBar->getContentSize().width);
+	Player_shieldBar->setScaleY(30 / Player_shieldBar->getContentSize().height);
+	//设置护盾条的位置
+	Player_shieldBar->setPosition(Vec2(Player_shieldBar->getContentSize().width / 2 + 220, Director::getInstance()->getVisibleSize().height - Player_shieldBar->getContentSize().height / 2 + 20));	
+	this->addChild(Player_shieldBar);//将滑护盾条添加到节点
+
 	//血量标签
 	Player_hpLabel = Label::createWithTTF("100/100", "fonts/Marker Felt.ttf", 24);//设置内容为“100/100”，字体为“Marker Felt”，大小为24
+	//加入黑色描边
+	Player_hpLabel->enableOutline(Color4B::BLACK, 2);
 	Player_hpLabel->setPosition(Vec2(Player_hpBar->getPosition().x, Player_hpBar->getPosition().y));//设置位置
 	this->addChild(Player_hpLabel);//将血量标签添加到节点
 
-	//UI\Player_Skill
+	//角色体力条
+//创建一个体力条
+	Player_staminaBar = ProgressTimer::create(Sprite::create("Me/InfoUI/stamina_bar.png"));
+	Player_staminaBar_bg = Sprite::create("Me/InfoUI/hp_bar_bg.png");
+	//设置体力条的类型为条形
+	Player_staminaBar->setType(ProgressTimer::Type::BAR);
+	//设置体力条的起点，从左往右
+	Player_staminaBar->setMidpoint(Vec2(0, 0.5));//传入两个参数，0表示x轴，0.5表示y轴，表示体力条的起点在左边中间
+	//设置体力条的变化率
+	Player_staminaBar->setBarChangeRate(Vec2(1, 0));
+	//设置体力条的大小，长宽分别是300，30
+	Player_staminaBar->setScaleX(300 / Player_staminaBar->getContentSize().width);
+	Player_staminaBar->setScaleY(10 / Player_staminaBar->getContentSize().height);
+	Player_staminaBar_bg->setScaleX(300 / Player_staminaBar_bg->getContentSize().width);
+	Player_staminaBar_bg->setScaleY(10 / Player_staminaBar_bg->getContentSize().height);
+	//设置体力条的位置
+	Player_staminaBar->setPosition(Vec2(Player_staminaBar->getContentSize().width / 2 + 220, Director::getInstance()->getVisibleSize().height - Player_staminaBar->getContentSize().height / 2 ));
+	Player_staminaBar_bg->setPosition(Vec2(Player_staminaBar->getContentSize().width / 2 + 220, Director::getInstance()->getVisibleSize().height - Player_staminaBar->getContentSize().height / 2 ));
+
+	this->addChild(Player_staminaBar_bg);//将体力条背景添加到节点
+	this->addChild(Player_staminaBar);//将滑体力条添加到节点
+
+
+
+
 	//元素能量条
 	//创建一个能量条
 	Player_mpBar = ProgressTimer::create(Sprite::create("UI/Player_Skill/Q.png"));//创建一个滑动条
@@ -85,14 +129,50 @@ bool PlayerStatusUI::init()
 	Player_mpBar_bg->setScaleX(100 / Player_mpBar_bg->getContentSize().width);
 	Player_mpBar_bg->setScaleY(100 / Player_mpBar_bg->getContentSize().height);
 	//设置能量条的位置
-	Player_mpBar->setPosition(Vec2(Background->getContentSize().width+250, Director::getInstance()->getVisibleSize().height - Background->getContentSize().height / 2 - 50));
-	Player_mpBar_bg->setPosition(Vec2(Background->getContentSize().width+250, Director::getInstance()->getVisibleSize().height - Background->getContentSize().height / 2 - 50));
+	Player_mpBar->setPosition(Vec2(Background->getContentSize().width+250, Director::getInstance()->getVisibleSize().height - Background->getContentSize().height / 2 - 70));
+	Player_mpBar_bg->setPosition(Vec2(Background->getContentSize().width+250, Director::getInstance()->getVisibleSize().height - Background->getContentSize().height / 2 - 70));
 
 	this->addChild(Player_mpBar_bg);//将能量条背景添加到节点
 	this->addChild(Player_mpBar);//将能量条添加到节点
 
+	//设置Q技能冷却时间标签
+	Player_Q_CD = Label::createWithTTF("0", "fonts/Marker Felt.ttf", 24);//设置内容为“0”，字体为“Marker Felt”，大小为24
+	//加入黑色描边
+	Player_Q_CD->enableOutline(Color4B::BLACK, 2);
+	//设置位置，与能量条的位置一样
+	Player_Q_CD->setPosition(Vec2(Background->getContentSize().width + 250, Director::getInstance()->getVisibleSize().height - Background->getContentSize().height / 2 - 70));
+	this->addChild(Player_Q_CD);//将Q技能冷却时间标签添加到节点
 
 
+	//E技能
+	//创建一个E技能
+	Player_E = ProgressTimer::create(Sprite::create("UI/Player_Skill/E.png"));//创建一个滑动条
+	Player_E_bg = Sprite::create("UI/Player_Skill/BackGround.png");//创建一个背景
+	//设置E技能的类型为球形
+	Player_E->setType(ProgressTimer::Type::BAR);
+	//设置E技能从下往上显示
+	Player_E->setMidpoint(Vec2(0.5, 0));//传入两个参数，0.5表示x轴，0表示y轴，表示E技能的起点在下边中间
+	//设置E技能的变化率
+	Player_E->setBarChangeRate(Vec2(0, 1));
+	//设置E技能的大小，宽高都是100
+	Player_E->setScaleX(100 / Player_E->getContentSize().width);
+	Player_E->setScaleY(100 / Player_E->getContentSize().height);
+	Player_E_bg->setScaleX(100 / Player_E_bg->getContentSize().width);
+	Player_E_bg->setScaleY(100 / Player_E_bg->getContentSize().height);
+	//设置E技能的位置
+	Player_E->setPosition(Vec2(Background->getContentSize().width + 70, Director::getInstance()->getVisibleSize().height - Background->getContentSize().height / 2 - 70));
+	Player_E_bg->setPosition(Vec2(Background->getContentSize().width + 70, Director::getInstance()->getVisibleSize().height - Background->getContentSize().height / 2 - 70));
+
+	this->addChild(Player_E_bg);//将E技能背景添加到节点
+	this->addChild(Player_E);//将E技能添加到节点
+
+	//设置E技能冷却时间标签
+	Player_E_CD = Label::createWithTTF("0", "fonts/Marker Felt.ttf", 24);//设置内容为“0”，字体为“Marker Felt”，大小为24
+	//加入黑色描边
+	Player_E_CD->enableOutline(Color4B::BLACK, 2);
+	//设置位置，与E技能的位置一样
+	Player_E_CD->setPosition(Vec2(Background->getContentSize().width + 70, Director::getInstance()->getVisibleSize().height - Background->getContentSize().height / 2 - 70));
+	this->addChild(Player_E_CD);//将E技能冷却时间标签添加到节点
 
 	
 
@@ -104,11 +184,42 @@ void PlayerStatusUI::updateUI(Player& player)
 {
 	//更新血条
 	Player_hpBar->setPercentage(float(player.m_hp) / float(player.m_max_hp) * 100);
+	//更新体力条
+	Player_staminaBar->setPercentage(float(player.m_stamina) / float(player.m_max_stamina) * 100);
 	//更新血量
 	Player_hpLabel->setString(to_string(player.m_hp) + "/" + to_string(player.m_max_hp));
 	//更新能量条
 	Player_mpBar->setPercentage(float(player.m_mp) / float(player.m_max_mp) * 100);
+	//更新Q技能的CD，如果是0则不显示
+	if (player.m_Q_CD == 0)
+	{
+		Player_Q_CD->setString("");
+	}
+	else
+	{
+		//取一位小数
+		Player_Q_CD->setString(to_string(player.m_Q_CD).substr(0, 3));
+	}
+
+	//更新E技能
+	Player_E->setPercentage(float(player.m_max_E_CD-player.m_E_CD) / float(player.m_max_E_CD) * 100);
+
+	//更新E技能的CD，如果是0则不显示
+	if (player.m_E_CD == 0)
+	{
+		Player_E_CD->setString("");
+	}
+	else
+	{
+		//取一位小数，一位后的所有0都不显示
+		Player_E_CD->setString(to_string(player.m_E_CD).substr(0, 3));
+	}
+
+
 	//更新人物名字
 	Player_Name->setString(player.m_name);
+	//更新护盾条
+	Player_shieldBar->setPercentage(float(player.m_shield) / float(player.m_max_hp) * 100);
+
 
 }
