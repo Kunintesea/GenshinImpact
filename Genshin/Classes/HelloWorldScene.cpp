@@ -2,13 +2,11 @@
 #include "SimpleAudioEngine.h"
 #include "Scene\StartMenu.h"
 
-#include "Player/Player.h"
+#include "Player\Player.h"
 
 USING_NS_CC;
 
 std::map<EventKeyboard::KeyCode, bool> keyMap;//创建一个map，用来存储按键的状态
-
-
 
 //创建一个场景
 Scene* HelloWorld::createScene()
@@ -39,12 +37,6 @@ bool HelloWorld::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
 	//显示偏移，用于适配不同分辨率，原点
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    // 地图
-    map = TMXTiledMap::create("map1//map-un.tmx");
-    // map->setScale(0.1f);
-    this->addChild(map, 0);
-
 
 	//添加一个菜单项，点击关闭的按钮可以退出程序
 	//添加一个“关闭”图标来退出程序。MenuItemImage表面这个按钮是一个图片按钮
@@ -85,20 +77,25 @@ bool HelloWorld::init()
     else
     {
 		//设置精灵的位置，这里是屏幕的中心
-        sprite->setPosition(Vec2(visibleSize.width/3 + origin.x, visibleSize.height/3 + origin.y));
+	 // sprite->setPosition(Vec2::ZERO);
+         sprite->setPosition(Vec2(visibleSize.width/3, visibleSize.height/3));
 		sprite->setName("Me");//设置标签
 		//将精灵添加到场景中
         this->addChild(sprite, 0);
-
     }
-	
 
+    // 创建地图管理器
+    mapManager = mapManager::create();
+    // 地图的中心应该与精灵坐标无关
+    mapManager->setAnchorPoint(Vec2::ZERO);
+    mapManager->setPosition(Vec2::ZERO);
+    mapManager->setName("mapManager");
+    this->addChild(mapManager, -1);
+	
     // 创建一个相机
       newCamera = newCamera::create();
-      if (newCamera == nullptr) 
-      {
-	    problemLoading("Fail to get camera");
-      }
+      if (newCamera == nullptr) { problemLoading("Fail to get camera"); }
+      newCamera->setName("camera");//设置标签
       newCamera->bindPlayer(sprite);
       this->addChild(newCamera->getCamera());
       this->addChild(newCamera);
@@ -120,9 +117,9 @@ void HelloWorld::update(float dt)
       //让player每秒掉血
       Player* player = (Player*)this->getChildByName("Me");
 
-     // if (++a == 600)
+     // if (++a == 120)
      // {
-	    //sprite->setPosition(-1000, -1000);
+	    //sprite->setPosition(1500, 1500);
 	    //newCamera->bindPlayer(sprite);
      // }
 }

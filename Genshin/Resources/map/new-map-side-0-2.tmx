@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-down" width="40" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="1">
+ <tileset firstgid="1" source="map-new-side.tsx"/>
+ <layer id="1" name="bg" width="40" height="40" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJztwwEJAAAMBKHL9/0DrcdQcNVUVVVVVVUfPUkGzpA=
+  </data>
+ </layer>
+ <layer id="3" name="colide" width="40" height="40" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20PBxQAAAAAAMCXARkAAAE=
+  </data>
+ </layer>
+ <layer id="2" name="toFade" width="40" height="40" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJztzMVRhEEYhOGh9r/jFgFuEeAWAW4R4BYBsmgkuEWAWwS4RYDLG8E3h50Dh+6q59Jd1c4piqIoiqIoiqIoiqIoyv/NZsy5LaxgFWtYx0Ys8W3b6Hewiz3P9wlOsY8DHOIIxwG2M6M/xwUuPd/3eMAVrnGDW9wF2B6N/gnPePF8f+Ebr3jDOz7wGWD7MfpfuMi5pMj+zmDPRDJSkIo0pEeJb1lGn40c5Hq+i1GCPOSjAIUoCrCVGn0ZylHh+a5DPSpRhWrUoDbA1mD0jWhCs+e7E11oQSva0I6OAFu30fegF32e7xGMoh8DGMQQhgNsY0Y/jglMer7nMI8pTGMGs4gH2BaMfhFLWPZ8/wHuA9Pr
+  </data>
+ </layer>
+</map>

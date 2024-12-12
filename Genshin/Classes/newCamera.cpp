@@ -44,8 +44,12 @@ void newCamera::bindPlayer(Player* player)
 	initialOffset = player->getPosition();
 	this->setPosition(initialOffset);
 
+	lastPosition = player->getPosition();
 	cameraSprite->setPosition(Vec2::ZERO);
 	camera->setPosition(Vec2::ZERO);
+	cameraMove = Vec2::ZERO;
+	cameraBackMove = Vec2::ZERO;
+
 	maxOffSet = 0.2 * 60 * player->getSpeed();
 
 	PlayerStatusUI* playerUI = (PlayerStatusUI*)this->getChildByName("playerUI");
@@ -68,6 +72,9 @@ void newCamera::update(float dt)
 	auto up = EventKeyboard::KeyCode::KEY_UP_ARROW;//上键
 	auto down = EventKeyboard::KeyCode::KEY_DOWN_ARROW;//下键
 
+	// 优先保证相机跟随
+	cameraSprite->setPosition(cameraSprite->getPosition() + player->getPosition() - lastPosition);
+
 	if (player->getKeyBoardState(left) && player->getKeyBoardState(up) && player->getKeyBoardState(down))
 		moveSet(-1, 0, dt);
 	else if (player->getKeyBoardState(right) && player->getKeyBoardState(up) && player->getKeyBoardState(down))
@@ -78,10 +85,11 @@ void newCamera::update(float dt)
 		moveSet(0, -1, dt);
 	else
 		// 如果左右按键同时按下，返回
-		if (player->getKeyBoardState(left) && player->getKeyBoardState(right) // 左右
-			|| player->getKeyBoardState(down) && player->getKeyBoardState(up)) // 上下
-			return;
-		else if (player->getKeyBoardState(left) && player->getKeyBoardState(up)) // 左上
+		//if (player->getKeyBoardState(left) && player->getKeyBoardState(right) // 左右
+		//	|| player->getKeyBoardState(down) && pladyer->getKeyBoardState(up)) // 上下
+		//	return;
+		//else 
+		      if (player->getKeyBoardState(left) && player->getKeyBoardState(up)) // 左上
 			moveSet(-1, 1, dt);
 		else if (player->getKeyBoardState(left) && player->getKeyBoardState(down)) // 左下
 			moveSet(-1, -1, dt);
@@ -126,6 +134,8 @@ void newCamera::update(float dt)
 	auto camera = Director::getInstance()->getRunningScene()->getDefaultCamera();
 	camera->setPosition(cameraSprite->getPosition() + initialOffset);
 
+	lastPosition = player->getPosition();
+
 	playerUI->setPosition(cameraSprite->getPosition() - visibleSize * 0.5);
 	//z轴单独设计，在相机下
 	playerUI->setLocalZOrder(-1);
@@ -135,9 +145,7 @@ void newCamera::moveSet(int x, int y, float delta) {
 	//float deltaMove;
 	//if (x == 0 || y == 0) deltaMove = 1;
 	//else deltaMove = 0.707;
-
-	float speed = player->getSpeed();
-	cameraSprite->setPosition(cameraSprite->getPosition() + Vec2(x, y) * speed);
+      float speed = player->getSpeed();
 
 	if (!isFollowedDynamicly)
 		return;
@@ -149,15 +157,21 @@ void newCamera::moveSet(int x, int y, float delta) {
 		// 相机偏移
 		// camera->setPosition(camera->getPosition() - Vec2(x * deltaMove * speed, 0));
 		// cameraMove.x += x * deltaMove * speed;
-		cameraSprite->setPosition(cameraSprite->getPosition() - Vec2(x * speed, 0));
-		cameraMove.x += x * speed;
+
+		//cameraSprite->setPosition(cameraSprite->getPosition() - Vec2(x * speed, 0));
+		cameraSprite->setPosition(cameraSprite->getPosition() - Vec2(player->getPosition().x - lastPosition.x, 0));
+	      
+		cameraMove.x += player->getPosition().x - lastPosition.x;
 	}
 	if (abs(cameraMove.y) <= float(maxOffSet) / 2)
 	{
 		// 相机偏移
 		// camera->setPosition(camera->getPosition() - Vec2(0, y * deltaMove * speed));
-		cameraSprite->setPosition(cameraSprite->getPosition() - Vec2(0, y * speed));
+		
+		//cameraSprite->setPosition(cameraSprite->getPosition() - Vec2(0, y * speed));
+	      cameraSprite->setPosition(cameraSprite->getPosition() - Vec2(0, player->getPosition().y - lastPosition.y));
+
 		// cameraMove.y += y * deltaMove * speed;
-		cameraMove.y += y * speed;
+		cameraMove.y += player->getPosition().y - lastPosition.y;
 	}
 }

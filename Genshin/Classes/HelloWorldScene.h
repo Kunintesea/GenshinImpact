@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "newCamera.h"
+#include "mapManager\mapManager.h"
 
 class HelloWorld : public cocos2d::Scene
 {
@@ -20,6 +21,7 @@ private:
       newCamera* newCamera;
       Player* sprite;
       TMXTiledMap* map;
+      mapManager* mapManager;
       int a = 0;
 
 };
