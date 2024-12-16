@@ -559,9 +559,6 @@ void Player::getPlayerOrientation(Vec2 position)
 void Player::ordinaryAttack()
 {
 
-	//把m_weapon_light加入到player的父对象
-	//this->getParent()->addChild(m_weapon_light);
-
 	//播放特效
 	Effects* m_weapon_light = Effects::create();
 	m_weapon_light->setAnchorPoint(Vec2(0.5, 0));
@@ -571,10 +568,8 @@ void Player::ordinaryAttack()
 	this->getParent()->addChild(m_weapon_light);
 	m_weapon_light->EffectsAnimation(m_weapon_light->saber_normal, 0);
 
-	//获取玩家的位置
-	Vec2 playerPosition = this->getPosition();
 
-	m_weapon_light->setRotation(this->weaponAngle);
+	m_weapon_light->setRotation(this->weaponAngle);//让武器的角度等于鼠标的角度
 	//攻击范围
 	float attackDistance = 150.0f;
 	//攻击速度

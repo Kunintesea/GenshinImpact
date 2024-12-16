@@ -1,3 +1,14 @@
-﻿  Genshin.vcxproj -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Genshin.exe
+﻿  Player.cpp
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(31,33): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(67,19): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(606,37): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(607,39): warning C4305: “参数”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(677,16): warning C4305: “+=”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(688,20): warning C4305: “-=”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(731,13): warning C4305: “-=”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(739,13): warning C4305: “-=”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(752,27): warning C4305: “-=”: 从“double”到“float”截断
+D:\Github_Document\GenshinImpact\Genshin\Classes\Player\Player.cpp(753,27): warning C4305: “+=”: 从“double”到“float”截断
+  Genshin.vcxproj -> D:\Github_Document\GenshinImpact\Genshin\proj.win32\Debug.win32\Genshin.exe
   正在执行自定义生成步骤
   复制了 0 个文件
