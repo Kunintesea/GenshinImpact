@@ -153,8 +153,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Effect\Effects.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\mapManager\mapManager.cpp" />
     <ClCompile Include="..\Classes\newCamera.cpp" />
     <ClCompile Include="..\Classes\Player\BasePlayer.cpp" />
+    <ClCompile Include="..\Classes\Player\Enemy.cpp" />
     <ClCompile Include="..\Classes\Player\Player.cpp" />
     <ClCompile Include="..\Classes\Scene\StartMenu.cpp" />
     <ClCompile Include="..\Classes\UI\PlayerStatusUI.cpp" />
@@ -165,8 +167,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Data\DataModel.h" />
     <ClInclude Include="..\Classes\Effect\Effects.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\mapManager\mapManager.h" />
     <ClInclude Include="..\Classes\newCamera.h" />
     <ClInclude Include="..\Classes\Player\BasePlayer.h" />
+    <ClInclude Include="..\Classes\Player\Enemy.h" />
     <ClInclude Include="..\Classes\Player\Player.h" />
     <ClInclude Include="..\Classes\Scene\StartMenu.h" />
     <ClInclude Include="..\Classes\UI\PlayerStatusUI.h" />

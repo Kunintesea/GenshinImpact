@@ -26,6 +26,7 @@ public:
 	Vector<SpriteFrame*> Explode;
 	Vector<SpriteFrame*> Superconducting;
 	Vector<SpriteFrame*> Shocked;
+	Vector<SpriteFrame*> Evaporate;
 };
 
 #endif 

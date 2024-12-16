@@ -4,6 +4,7 @@
 
 #include "Player\Player.h"
 
+
 USING_NS_CC;
 
 std::map<EventKeyboard::KeyCode, bool> keyMap;//创建一个map，用来存储按键的状态
@@ -40,11 +41,6 @@ bool HelloWorld::init()
 	//显示偏移，用于适配不同分辨率，原点
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	// 地图
-	map = TMXTiledMap::create("map1//map-un.tmx");
-	// map->setScale(0.1f);
-	this->addChild(map, 0);
-
 	//添加一个菜单项，点击关闭的按钮可以退出程序
 	//添加一个“关闭”图标来退出程序。MenuItemImage表面这个按钮是一个图片按钮
 	//在这里，create的参数分别是：两个图片，一个是正常状态下的图片，一个是选中状态下的图片；第三个参数是一个回调函数，表示点击这个按钮时会调用这个函数
@@ -75,8 +71,7 @@ bool HelloWorld::init()
 
 
 	//创建一个精灵（这里只用来显示，当图片用），显示“HelloWorld”，图层设置为1
-	Player * sprite = Player::create();
-	
+    sprite = Player::create();
     if (sprite == nullptr)
     {
         problemLoading("'HelloWorld.png'");
@@ -90,14 +85,38 @@ bool HelloWorld::init()
         this->addChild(sprite, 0);
 
     }
+
+
+	////创建一个敌人到玩家左边
+	//Enemy* enemy = Enemy::create();
+	//if (enemy == nullptr)
+	//{
+	//	problemLoading("'HelloWorld.png'");
+	//}
+	//else
+	//{
+	//	//设置精灵的位置，这里是屏幕的中心
+	//	enemy->setPosition(Vec2(visibleSize.width / 3 + origin.x+22, visibleSize.height / 3 + origin.y));
+	//	enemy->setName("Enemy");//设置标签
+	//	//将精灵添加到场景中
+	//	this->addChild(enemy, 0);
+	//}
+
+
+
+	// 创建地图管理器
+	mapManager = mapManager::create();
+	// 地图的中心应该与精灵坐标无关
+	mapManager->setAnchorPoint(Vec2::ZERO);
+	mapManager->setPosition(Vec2::ZERO);
+	mapManager->setName("mapManager");
+	this->addChild(mapManager, -1);
 	
 
     // 创建一个相机
       newCamera = newCamera::create();
-      if (newCamera == nullptr) 
-      {
-	    problemLoading("Fail to get camera");
-      }
+	  if (newCamera == nullptr) { problemLoading("Fail to get camera"); }
+	  newCamera->setName("camera");//设置标签
 	  newCamera->bindPlayer(sprite);
 	
       this->addChild(newCamera->getCamera());

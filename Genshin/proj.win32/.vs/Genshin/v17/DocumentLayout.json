@@ -3,37 +3,31 @@
   "WorkspaceRootPath": "D:\\Github_Document\\GenshinImpact\\Genshin\\proj.win32\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\UI\\PlayerStatusUI.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\UI\\PlayerStatusUI.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\newCamera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\HelloWorldScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\HelloWorldScene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Effect\\Effects.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\Enemy.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\Enemy.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\BasePlayer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Effect\\Effects.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\BasePlayer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\BasePlayer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\HelloWorldScene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{76A39BB2-9B84-4C65-98A5-654D86B86F2A}|Genshin.vcxproj|D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\BasePlayer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -43,7 +37,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -52,143 +46,114 @@
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "newCamera.h",
-              "DocumentMoniker": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\newCamera.h",
-              "RelativeDocumentMoniker": "..\\Classes\\newCamera.h",
-              "ToolTip": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\newCamera.h",
-              "RelativeToolTip": "..\\Classes\\newCamera.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-11T03:25:31.34Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "BasePlayer.cpp",
-              "DocumentMoniker": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\BasePlayer.cpp",
-              "RelativeDocumentMoniker": "..\\Classes\\Player\\BasePlayer.cpp",
-              "ToolTip": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\BasePlayer.cpp",
-              "RelativeToolTip": "..\\Classes\\Player\\BasePlayer.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-09T08:24:12.705Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "BasePlayer.h",
-              "DocumentMoniker": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\BasePlayer.h",
-              "RelativeDocumentMoniker": "..\\Classes\\Player\\BasePlayer.h",
-              "ToolTip": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\BasePlayer.h",
-              "RelativeToolTip": "..\\Classes\\Player\\BasePlayer.h",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-09T08:24:12.024Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
               "Title": "Effects.cpp",
               "DocumentMoniker": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Effect\\Effects.cpp",
               "RelativeDocumentMoniker": "..\\Classes\\Effect\\Effects.cpp",
               "ToolTip": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Effect\\Effects.cpp",
               "RelativeToolTip": "..\\Classes\\Effect\\Effects.cpp",
-              "ViewState": "AgIAADkAAAAAAAAAAAAAACkAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAADkAAAAAAAAAAAAuwA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-09T07:18:29.611Z",
+              "WhenOpened": "2024-12-16T00:00:28.1Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "Effects.h",
-              "DocumentMoniker": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Effect\\Effects.h",
-              "RelativeDocumentMoniker": "..\\Classes\\Effect\\Effects.h",
-              "ToolTip": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Effect\\Effects.h",
-              "RelativeToolTip": "..\\Classes\\Effect\\Effects.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-09T07:18:28.759Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "HelloWorldScene.cpp",
-              "DocumentMoniker": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\HelloWorldScene.cpp",
-              "RelativeDocumentMoniker": "..\\Classes\\HelloWorldScene.cpp",
-              "ToolTip": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\HelloWorldScene.cpp",
-              "RelativeToolTip": "..\\Classes\\HelloWorldScene.cpp",
-              "ViewState": "AgIAAC0AAAAAAAAAAADwv00AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-09T07:18:28.115Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "HelloWorldScene.h",
               "DocumentMoniker": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\HelloWorldScene.h",
               "RelativeDocumentMoniker": "..\\Classes\\HelloWorldScene.h",
               "ToolTip": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\HelloWorldScene.h",
               "RelativeToolTip": "..\\Classes\\HelloWorldScene.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-09T07:18:27.458Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PlayerStatusUI.cpp",
-              "DocumentMoniker": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\UI\\PlayerStatusUI.cpp",
-              "RelativeDocumentMoniker": "..\\Classes\\UI\\PlayerStatusUI.cpp",
-              "ToolTip": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\UI\\PlayerStatusUI.cpp",
-              "RelativeToolTip": "..\\Classes\\UI\\PlayerStatusUI.cpp",
-              "ViewState": "AgIAAKQAAAAAAAAAAAAewK8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-09T07:18:22.946Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-15T13:45:05.23Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "PlayerStatusUI.h",
-              "DocumentMoniker": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\UI\\PlayerStatusUI.h",
-              "RelativeDocumentMoniker": "..\\Classes\\UI\\PlayerStatusUI.h",
-              "ToolTip": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\UI\\PlayerStatusUI.h",
-              "RelativeToolTip": "..\\Classes\\UI\\PlayerStatusUI.h",
-              "ViewState": "AgIAAAwAAAAAAAAAAADwvyUAAAAZAAAAAAAAAA==",
+              "Title": "Enemy.h",
+              "DocumentMoniker": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\Enemy.h",
+              "RelativeDocumentMoniker": "..\\Classes\\Player\\Enemy.h",
+              "ToolTip": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\Enemy.h",
+              "RelativeToolTip": "..\\Classes\\Player\\Enemy.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-09T07:18:21.526Z",
+              "WhenOpened": "2024-12-15T13:08:25.837Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Enemy.cpp",
+              "DocumentMoniker": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\Enemy.cpp",
+              "RelativeDocumentMoniker": "..\\Classes\\Player\\Enemy.cpp",
+              "ToolTip": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\Enemy.cpp",
+              "RelativeToolTip": "..\\Classes\\Player\\Enemy.cpp",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-15T13:08:37.358Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Player.h",
               "DocumentMoniker": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\Player.h",
               "RelativeDocumentMoniker": "..\\Classes\\Player\\Player.h",
               "ToolTip": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\Player.h",
               "RelativeToolTip": "..\\Classes\\Player\\Player.h",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAjwE4AAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-30T03:11:37.697Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-30T03:11:37.697Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "HelloWorldScene.cpp",
+              "DocumentMoniker": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\HelloWorldScene.cpp",
+              "RelativeDocumentMoniker": "..\\Classes\\HelloWorldScene.cpp",
+              "ToolTip": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\HelloWorldScene.cpp",
+              "RelativeToolTip": "..\\Classes\\HelloWorldScene.cpp",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAAAFgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-13T03:06:34.175Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Player.cpp",
               "DocumentMoniker": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\Player.cpp",
               "RelativeDocumentMoniker": "..\\Classes\\Player\\Player.cpp",
               "ToolTip": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\Player.cpp",
               "RelativeToolTip": "..\\Classes\\Player\\Player.cpp",
-              "ViewState": "AgIAAFACAAAAAAAAAAAjwM0CAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAALUAAAAAAAAAAAAAAHoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-30T03:11:50.37Z",
+              "WhenOpened": "2024-11-30T03:11:50.37Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "BasePlayer.h",
+              "DocumentMoniker": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\BasePlayer.h",
+              "RelativeDocumentMoniker": "..\\Classes\\Player\\BasePlayer.h",
+              "ToolTip": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\BasePlayer.h",
+              "RelativeToolTip": "..\\Classes\\Player\\BasePlayer.h",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAAEUAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-09T08:24:12.024Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BasePlayer.cpp",
+              "DocumentMoniker": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\BasePlayer.cpp",
+              "RelativeDocumentMoniker": "..\\Classes\\Player\\BasePlayer.cpp",
+              "ToolTip": "D:\\Github_Document\\GenshinImpact\\Genshin\\Classes\\Player\\BasePlayer.cpp",
+              "RelativeToolTip": "..\\Classes\\Player\\BasePlayer.cpp",
+              "ViewState": "AgIAAKIAAACAX8/UarcnwPQCAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-09T08:24:12.705Z",
               "EditorCaption": ""
             }
           ]

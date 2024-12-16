@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-down" width="40" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="1">
+ <tileset firstgid="1" source="map-new-side.tsx"/>
+ <layer id="1" name="bg" width="40" height="40" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJzt1LENgDAMRFFbbMFM2X8eoKMI4NiJHZMrfv+kk64QUTnbJmivVG7BZ/NFGms2+Gy2mi/COLPvzfbk8zTCF+PzMH7ZsvtGGiU2+HL6pDaJb4RxhI8X8bXYpD5O4IvY1tvXaoPPZoMvh09r8/o/+PQ+i+0PPia9z2qDb15fD1t2H5PO18u2oq+n7eoAvb6QNw==
+  </data>
+ </layer>
+ <layer id="3" name="colide" width="40" height="40" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20PBxQAAAAAAMCXARkAAAE=
+  </data>
+ </layer>
+ <layer id="2" name="toFade" width="40" height="40" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20PBxQAAAAAAMCXARkAAAE=
+  </data>
+ </layer>
+</map>

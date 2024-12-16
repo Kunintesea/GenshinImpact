@@ -43,7 +43,14 @@ bool Effects::init()
 	Shocked.pushBack(Shocked3);
 	Shocked.pushBack(Shocked4);
 
-
+	SpriteFrame* Evaporate1 = SpriteFrame::create("Effects/ElementReaction/Evaporate/Evaporate1.png", Rect(0, 0, 100, 100));//传入图片路径，图片的位置和大小
+	SpriteFrame* Evaporate2 = SpriteFrame::create("Effects/ElementReaction/Evaporate/Evaporate2.png", Rect(0, 0, 100, 100));
+	SpriteFrame* Evaporate3 = SpriteFrame::create("Effects/ElementReaction/Evaporate/Evaporate3.png", Rect(0, 0, 100, 100));
+	SpriteFrame* Evaporate4 = SpriteFrame::create("Effects/ElementReaction/Evaporate/Evaporate4.png", Rect(0, 0, 100, 100));
+	Evaporate.pushBack(Evaporate1);
+	Evaporate.pushBack(Evaporate2);
+	Evaporate.pushBack(Evaporate3);
+	Evaporate.pushBack(Evaporate4);
 
 
 	effect = Sprite::create("Effects/ElementReaction/Superconducting/Superconducting1.png");

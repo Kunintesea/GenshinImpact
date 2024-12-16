@@ -8,553 +8,7 @@
 4：向下
 */
 //伤害计算式：实际伤害=伤害值-防御值*伤害值，若人物处于闪避状态直接返回0
-void Player::hurt(int damage,int damge_type,bool reaction)
-{ 
-	if (isDodge)
-	{
-		//显示闪避
-		for (int i = 0; i < 20; i++)
-		{
-			if (!m_element_label[i]->isVisible())
-			{
-				m_element_label[i]->setColor(Color3B::WHITE);
-				m_element_label[i]->setPosition(Vec2(this->getPositionX() + m_body->getContentSize().width / 3 + rand() % 50, this->getPositionY() + m_body->getContentSize().height / 3 + rand() % 50));
-				m_element_label[i]->setString("Dodge");
-				m_element_label[i]->setVisible(true);
-				m_element_label[i]->runAction(Sequence::create(MoveBy::create(0.1, Vec2(0, 20)), nullptr));
-				m_element_label[i]->runAction(Sequence::create(DelayTime::create(1.5), CallFunc::create([=] {m_element_label[i]->setVisible(false); }), MoveBy::create(0.1, Vec2(0, -20)), nullptr));
 
-				break;
-			}
-		}
-		return;
-	}
-	else
-	{
-		if (reaction)
-		{
-			//对元素反应的处理
-			switch (damge_type)
-			{
-				
-			case Wind:
-				break;
-			case Rock:
-				break;
-			case Thunder:
-				//如果是雷属性伤害，且玩家身上有火元素，触发超载效果
-				if (m_element[Fire] > 0)
-				{
-
-					//把火或雷元素附着图标消失
-					for (int i = 0; i < 2; i++)
-					{
-						if (m_element_sprite[i]->isVisible()&&(m_element_sprite_type[i]==Fire || m_element_sprite_type[i] == Thunder))
-						{
-							m_element_sprite[i]->setVisible(false);
-						}
-					}
-
-
-					//超载效果
-					//造成火元素伤害
-					hurt(5, Fire,false);
-
-
-					//火元素消失
-					m_element[Fire] = 0;
-					m_element[Thunder] = 0;
-
-					//播放超载特效
-					Effects* effect = Effects::create();
-					//位置在人物身上
-					effect->setPosition(this->getPosition());
-					//绑定到场景
-					this->getParent()->addChild(effect);
-				
-					//播放超载特效
-					effect->EffectsAnimation(effect->Explode, 0);
-
-					//显示超载效果
-					for (int i = 0; i < 20; i++)
-					{
-						if (!m_element_label[i]->isVisible())
-						{
-							m_element_label[i]->setColor(Color3B(249, 85, 9));
-							m_element_label[i]->setPosition(Vec2(this->getPositionX() + m_body->getContentSize().width / 3 + rand() % 50, this->getPositionY() + m_body->getContentSize().height / 3+ rand() % 50));
-							m_element_label[i]->setString("Explode");
-							m_element_label[i]->setVisible(true);
-							m_element_label[i]->runAction(Sequence::create(MoveBy::create(0.1, Vec2(0, 20)), nullptr));
-							m_element_label[i]->runAction(Sequence::create(DelayTime::create(1.5), CallFunc::create([=] {m_element_label[i]->setVisible(false); }), MoveBy::create(0.1, Vec2(0, -20)), nullptr));
-
-							break;
-						}
-					}
-				}
-				else if (m_element[Ice] > 0)
-				{
-					//超导效果
-					//造成冰元素伤害
-					hurt(5, Ice, false);
-
-
-					//把冰或雷元素附着图标消失
-					for (int i = 0; i < 2; i++)
-					{
-						if (m_element_sprite[i]->isVisible() && (m_element_sprite_type[i] == Ice || m_element_sprite_type[i] == Thunder))
-						{
-							m_element_sprite[i]->setVisible(false);
-						}
-					}
-					//雷元素消失
-					m_element[Thunder] = 0;
-					m_element[Ice] = 0;
-
-					//播放超载特效
-					Effects* effect = Effects::create();
-					//放大2倍
-					effect->setScale(2);
-					//位置在人物身上
-					effect->setPosition(this->getPosition());
-					//绑定到场景
-					this->getParent()->addChild(effect);
-					//播放超载特效
-					effect->EffectsAnimation(effect->Superconducting, 0);
-
-					//显示超载效果
-					for (int i = 0; i < 20; i++)
-					{
-						if (!m_element_label[i]->isVisible())
-						{
-							m_element_label[i]->setColor(Color3B(198, 244, 243));
-							m_element_label[i]->setPosition(Vec2(this->getPositionX() + m_body->getContentSize().width / 3 + rand() % 50, this->getPositionY() + m_body->getContentSize().height / 3 + rand() % 50));
-							m_element_label[i]->setString("Superconducting");
-							m_element_label[i]->setVisible(true);
-							m_element_label[i]->runAction(Sequence::create(MoveBy::create(0.1, Vec2(0, 20)), nullptr));
-							m_element_label[i]->runAction(Sequence::create(DelayTime::create(1.5), CallFunc::create([=] {m_element_label[i]->setVisible(false); }), MoveBy::create(0.1, Vec2(0, -20)), nullptr));
-
-							break;
-						}
-					}
-				}
-				else if (m_element[Water] > 0)
-				{
-					//造成雷元素伤害
-					hurt(2, Thunder, false);
-					m_element[Thunder] = 5;
-
-					//把水或雷元素附着图标消失
-					for (int i = 0; i < 2; i++)
-					{
-						if (m_element_sprite[i]->isVisible() && (m_element_sprite_type[i] == Water || m_element_sprite_type[i] == Thunder))
-						{
-							m_element_sprite[i]->setVisible(false);
-						}
-					}
-					//雷元素消失
-					m_element[Thunder] = 0;
-					m_element[Water] = 0;
-
-
-
-					//播放特效
-					Effects* effect = Effects::create();
-					//放大2倍
-					effect->setScale(2);
-					//位置在人物身上
-					effect->setPosition(this->getPosition());
-					//绑定到场景
-					this->getParent()->addChild(effect);
-					effect->EffectsAnimation(effect->Superconducting, 0);
-
-					//显示效果
-					for (int i = 0; i < 20; i++)
-					{
-						if (!m_element_label[i]->isVisible())
-						{
-							m_element_label[i]->setColor(Color3B(198, 244, 243));
-							m_element_label[i]->setPosition(Vec2(this->getPositionX() + m_body->getContentSize().width / 3 + rand() % 50, this->getPositionY() + m_body->getContentSize().height / 3 + rand() % 50));
-							m_element_label[i]->setString("Shokced");
-							m_element_label[i]->setVisible(true);
-							m_element_label[i]->runAction(Sequence::create(MoveBy::create(0.1, Vec2(0, 20)), nullptr));
-							m_element_label[i]->runAction(Sequence::create(DelayTime::create(1.5), CallFunc::create([=] {m_element_label[i]->setVisible(false); }), MoveBy::create(0.1, Vec2(0, -20)), nullptr));
-
-							break;
-						}
-					}
-					//进入感电状态。在m_statement这个vector中查找，如果找到了shock就让持续时间变成5，否则就添加shock
-					//auto it = find(m_statement.begin(), m_statement.end(), "shock");
-					//if (it != m_statement.end())
-					//{
-					//	m_statement[it - m_statement.begin()].time = 5;
-					//}
-					//else
-					//{
-					//	statement temp;
-					//	temp.name = "shock";
-					//	temp.time = 5;
-					//	m_statement.push_back(temp);
-					//}
-
-
-
-				}
-				else
-				{
-					if (m_element[Thunder] == 0)
-					{
-						//设置元素附着
-						setElementSprite(damge_type);
-					}
-					m_element[Thunder] = 5;
-				}
-				break;
-			case Grass:
-				if (m_element[Grass] == 0)
-				{
-					//设置元素附着
-					setElementSprite(damge_type);
-				}
-				m_element[Grass] = 5;
-				break;
-			case Water:
-				if (m_element[Water] == 0)
-				{
-					//设置元素附着
-					setElementSprite(damge_type);
-				}
-				m_element[Water] = 5;
-				break;
-			case Fire:
-				if (m_element[Thunder] > 0)
-				{
-					//超载效果
-					//造成火元素伤害
-					hurt(5, Fire, false);
-
-					//把火或雷元素附着图标消失
-					for (int i = 0; i < 2; i++)
-					{
-						if (m_element_sprite[i]->isVisible() && (m_element_sprite_type[i] == Fire || m_element_sprite_type[i] == Thunder))
-						{
-							m_element_sprite[i]->setVisible(false);
-						}
-					}
-					//火元素消失
-					m_element[Fire] = 0;
-					m_element[Thunder] = 0;
-
-					//播放超载特效
-					Effects* effect = Effects::create();
-					//位置在人物身上
-					effect->setPosition(this->getPosition());
-					//绑定到场景
-					this->getParent()->addChild(effect);
-					//播放超载特效
-					effect->EffectsAnimation(effect->Explode, 0);
-
-					//显示超载效果
-					for (int i = 0; i < 20; i++)
-					{
-						if (!m_element_label[i]->isVisible())
-						{
-							m_element_label[i]->setColor(Color3B(249, 85, 9));
-							m_element_label[i]->setPosition(Vec2(this->getPositionX() + m_body->getContentSize().width / 3 + rand() % 50, this->getPositionY() + m_body->getContentSize().height / 3 + rand() % 50));
-							m_element_label[i]->setString("Explode");
-							m_element_label[i]->setVisible(true);
-							m_element_label[i]->runAction(Sequence::create(MoveBy::create(0.1, Vec2(0, 20)), nullptr));
-							m_element_label[i]->runAction(Sequence::create(DelayTime::create(1.5), CallFunc::create([=] {m_element_label[i]->setVisible(false); }), MoveBy::create(0.1, Vec2(0, -20)), nullptr));
-
-							break;
-						}
-					}
-				}
-				else
-				{
-					if (m_element[Fire] == 0)
-					{
-						//设置元素附着
-						setElementSprite(damge_type);
-					}
-					m_element[Fire] = 5;
-				}
-				break;
-			case Ice:
-				if (m_element[Thunder] > 0)
-				{
-					//超导效果
-					//造成冰元素伤害
-					hurt(5, Ice, false);
-
-					//把冰或雷元素附着图标消失
-					for (int i = 0; i < 2; i++)
-					{
-						if (m_element_sprite[i]->isVisible() && (m_element_sprite_type[i] == Ice || m_element_sprite_type[i] == Thunder))
-						{
-							m_element_sprite[i]->setVisible(false);
-						}
-					}
-					//雷元素消失
-					m_element[Thunder] = 0;
-					m_element[Ice] = 0;
-
-					//播放超载特效
-					Effects* effect = Effects::create();
-					//放大2倍
-					effect->setScale(2);
-					//位置在人物身上
-					effect->setPosition(this->getPosition());
-					//绑定到场景
-					this->getParent()->addChild(effect);
-					//播放超载特效
-					effect->EffectsAnimation(effect->Superconducting, 0);
-
-					//显示超载效果
-					for (int i = 0; i < 20; i++)
-					{
-						if (!m_element_label[i]->isVisible())
-						{
-							m_element_label[i]->setColor(Color3B(198, 244, 243));
-							m_element_label[i]->setPosition(Vec2(this->getPositionX() + m_body->getContentSize().width / 3 + rand() % 50, this->getPositionY() + m_body->getContentSize().height / 3 + rand() % 50));
-							m_element_label[i]->setString("Superconducting");
-							m_element_label[i]->setVisible(true);
-							m_element_label[i]->runAction(Sequence::create(MoveBy::create(0.1, Vec2(0, 20)), nullptr));
-							m_element_label[i]->runAction(Sequence::create(DelayTime::create(1.5), CallFunc::create([=] {m_element_label[i]->setVisible(false); }), MoveBy::create(0.1, Vec2(0, -20)), nullptr));
-
-							break;
-						}
-					}
-				}
-				else
-				{
-					if (m_element[Ice] == 0)
-					{
-						//设置元素附着
-						setElementSprite(damge_type);
-					}
-					m_element[Ice] = 5;
-				}
-
-
-				break;
-			default:
-				break;
-			}
-		}
-
-
-
-
-
-		
-		int real_damage = int(float(damage) - float(damage) * m_defense);//实际伤害=伤害值-防御值*伤害值
-		//让伤害数字显示
-		for (int i = 0; i < 20; i++)
-		{
-			if (!m_damage_label[i]->isVisible())
-			{
-				//伤害数字颜色根据伤害类型改变
-				switch (damge_type)
-				{
-					//如果是物理伤害，伤害数字为白色
-				case Physical:
-					m_damage_label[i]->setColor(Color3B::WHITE);
-					break;
-					//如果是风属性伤害，伤害数字为青绿色，RGB为23,236,175
-				case Wind:
-					m_damage_label[i]->setColor(Color3B(23, 236, 175));
-					break;
-					//如果是岩属性伤害，伤害数字为棕黄色，RGB为248,226,57
-				case Rock:
-					m_damage_label[i]->setColor(Color3B(248, 226, 57));
-					break;
-					//如果是雷属性伤害，伤害数字为紫色，RGB为172,43,231
-				case Thunder:
-					m_damage_label[i]->setColor(Color3B(172, 43, 231));
-					break;
-					//如果是草属性伤害，伤害数字为绿色，RGB为42,204,21
-				case Grass:
-					m_damage_label[i]->setColor(Color3B(42, 204, 21));
-					break;
-					//如果是水属性伤害，伤害数字为蓝色，RGB为11,214,245
-				case Water:
-					m_damage_label[i]->setColor(Color3B(11, 214, 245));
-					break;
-					//如果是火属性伤害，伤害数字为红色，RGB为249,85,9
-				case Fire:
-					m_damage_label[i]->setColor(Color3B(249, 85, 9));
-					break;
-					//如果是冰属性伤害，伤害数字为淡蓝色，RGB为198,244,243
-				case Ice:
-					m_damage_label[i]->setColor(Color3B(198, 244, 243));
-					break;
-				}
-
-
-
-
-
-				
-				m_damage_label[i]->setPosition(Vec2(this->getPositionX () - m_body->getContentSize().width /6+ rand() % 70, this->getPositionY() - m_body->getContentSize().height / 6 + rand() % 70));//rand()的使用方法是rand()%n，表示生成一个0到n-1的随机数
-				m_damage_label[i]->setVisible(true);
-				//向上浮现
-				m_damage_label[i]->runAction(Sequence::create(MoveBy::create(0.1, Vec2(0, 20)), nullptr));//创建一个动作序列，让伤害数字向上浮现，持续0.1秒
-				//1.5秒后先让m_damage_label[i]不可见，不可见后向下移动20个像素
-				m_damage_label[i]->runAction(Sequence::create(DelayTime::create(1.5), CallFunc::create([=] {m_damage_label[i]->setVisible(false); }), MoveBy::create(0.1, Vec2(0, -20)), nullptr));
-
-
-				m_damage_label[i]->setString(std::to_string(real_damage));
-				break;
-			}
-		}
-		//先扣护盾
-		if (m_shield > 0)
-		{
-			if (m_shield >= real_damage)
-			{
-				m_shield -= real_damage;
-				real_damage = 0;
-			}
-			else
-			{
-				real_damage -= m_shield;
-				m_shield = 0;
-			}
-		}
-
-		m_hp -= real_damage;
-		if (m_hp <= 0)
-		{
-			isDead = true;
-			m_hp = 0;
-		}
-
-		//用setColor让人物RGB变红，一秒后恢复
-		m_body->setColor(Color3B::RED);
-		m_head->setColor(Color3B::RED);
-		this->runAction(Sequence::create(DelayTime::create(0.1), CallFunc::create([=] {m_body->setColor(Color3B::WHITE); m_head->setColor(Color3B::WHITE); }), nullptr));
-
-
-	}
-}
-
-//void Player::effectTrigger(std::string effect_type)
-//{
-//	if (effect_type == "感电")
-//	{
-//		hurt(2, Thunder, false);
-//		//播放特效
-//		Effects* effect = Effects::create();
-//		//放大2倍
-//		effect->setScale(2);
-//		//位置在人物身上
-//		effect->setPosition(this->getPosition());
-//		//绑定到场景
-//		this->getParent()->addChild(effect);
-//		effect->EffectsAnimation(effect->Superconducting, 0);
-//
-//		//显示效果
-//		for (int i = 0; i < 20; i++)
-//		{
-//			if (!m_element_label[i]->isVisible())
-//			{
-//				m_element_label[i]->setColor(Color3B(198, 244, 243));
-//				m_element_label[i]->setPosition(Vec2(this->getPositionX() + m_body->getContentSize().width / 3 + rand() % 50, this->getPositionY() + m_body->getContentSize().height / 3 + rand() % 50));
-//				m_element_label[i]->setString("Shokced");
-//				m_element_label[i]->setVisible(true);
-//				m_element_label[i]->runAction(Sequence::create(MoveBy::create(0.1, Vec2(0, 20)), nullptr));
-//				m_element_label[i]->runAction(Sequence::create(DelayTime::create(1.5), CallFunc::create([=] {m_element_label[i]->setVisible(false); }), MoveBy::create(0.1, Vec2(0, -20)), nullptr));
-//
-//				break;
-//			}
-//		}
-//	}
-//}
-
-void Player::setElementSprite(int elemtype)
-{
-	//查找当前是否有元素附着，如果有就考虑是否反应的问题
-	//先看0号位是否有元素附着，没有就直接附着
-	if (!m_element_sprite[0]->isVisible())
-	{
-		//透明度恢复
-		m_element_sprite[0]->setOpacity(255);
-		m_element_sprite[0]->setVisible(true);
-		//设置元素附着的位置
-		m_element_sprite[0]->setPosition(Vec2(0,  m_body->getContentSize().height / 3));
-		//设置元素附着的图片
-		m_element_sprite_type[0] = elemtype;
-		switch (elemtype)
-		{
-		case Wind:
-			m_element_sprite[0]->setTexture("Effects/Element/Wind.png");
-			break;
-		case Rock:
-			m_element_sprite[0]->setTexture("Effects/Element/Rock.png");
-			break;
-		case Thunder:
-			m_element_sprite[0]->setTexture("Effects/Element/Thunder.png");
-			break;
-		case Grass:
-			m_element_sprite[0]->setTexture("Effects/Element/Grass.png");
-			break;
-		case Water:
-			m_element_sprite[0]->setTexture("Effects/Element/Water.png");
-			break;
-		case Fire:
-			m_element_sprite[0]->setTexture("Effects/Element/Fire.png");
-			break;
-		case Ice:
-			m_element_sprite[0]->setTexture("Effects/Element/Ice.png");
-			break;
-		default:
-			break;
-		}
-	}
-	//否则，前提是0和1号的元素附着不一样
-	else 
-	{
-
-		//先把0号图片设置到正上方的左侧
-		m_element_sprite[0]->setPosition(Vec2( - 20,  m_body->getContentSize().height / 3));
-		//再把1号图片设置到正上方的右侧
-		m_element_sprite[1]->setVisible(true);
-		m_element_sprite[1]->setPosition(Vec2( 20, m_body->getContentSize().height / 3));
-
-
-
-		//透明度恢复
-		m_element_sprite[1]->setOpacity(255);
-		m_element_sprite_type[1] = elemtype;
-		//设置元素附着的图片
-		switch (elemtype)
-		{
-		case Wind:
-			m_element_sprite[1]->setTexture("Effects/Element/Wind.png");
-			break;
-		case Rock:
-			m_element_sprite[1]->setTexture("Effects/Element/Rock.png");
-			break;
-		case Thunder:
-			m_element_sprite[1]->setTexture("Effects/Element/Thunder.png");
-			break;
-		case Grass:
-			m_element_sprite[1]->setTexture("Effects/Element/Grass.png");
-			break;
-		case Water:
-			m_element_sprite[1]->setTexture("Effects/Element/Water.png");
-			break;
-		case Fire:
-			m_element_sprite[1]->setTexture("Effects/Element/Fire.png");
-			break;
-		case Ice:
-			m_element_sprite[1]->setTexture("Effects/Element/Ice.png");
-			break;
-		default:
-			break;
-		}
-	}
-}
 
 
 bool Player::init()
@@ -627,6 +81,10 @@ bool Player::init()
 	m_weapon_light = Sprite::create("Me/Saber/Weapon/sword_light.png");
 	m_weapon_light->setAnchorPoint(Vec2(0.5, 0));
 	m_weapon_light->setVisible(false);  // 隐藏精灵
+
+	//RGB设置为红色
+	//m_weapon_light->setColor(Color3B(255, 0, 0));
+
 	this->addChild(m_weapon_light);
 
 	// 加载动画
@@ -810,6 +268,19 @@ bool Player::init()
 	//键盘事件调度器，用于更新位置
 	schedule(CC_CALLBACK_1(Player::updatePlayerPosition, this), "keyboard");
 
+
+	/*
+		  //让player的伤害数字绑定到场景
+	  for (int i = 0; i < 20; i++)
+	  {
+		  this->addChild(sprite->m_damage_label[i]);
+		  this->addChild(sprite->m_element_label[i]);
+	  }
+	*/
+
+
+
+
 	return true;
 }
 
@@ -817,19 +288,87 @@ void Player::updatePlayerPosition(float dt)
 {
 	if (keyMap[EventKeyboard::KeyCode::KEY_LEFT_ARROW])//如果左键按下
 	{
-	      this->setPositionX(this->getPositionX() - speed);//向左移动10个像素
+		float Position = this->getPositionX() - speed;
+		// 检测是否碰到墙壁
+		for (int i = 1; i <= speed; ++i) {
+			Vec2 nextPosition = this->getPosition() + Vec2(-i, 0);
+			// 获取到地图管理器
+			mapManager* map = (mapManager*)this->getParent()->getChildByName("mapManager");
+			// 发生了碰撞
+			if (map->isCollision(nextPosition + Vec2(-40, -40))
+				|| map->isCollision(nextPosition + Vec2(-40, 40))
+				|| map->isCollision(nextPosition + Vec2(-40, -20))
+				|| map->isCollision(nextPosition + Vec2(-40, 20)))
+			{
+				// 如果碰撞了，就不再移动
+				Position = nextPosition.x + 1;
+				break;
+			}
+		}
+		this->setPositionX(Position);//向左移动10个像素
 	}
 	if (keyMap[EventKeyboard::KeyCode::KEY_RIGHT_ARROW])//如果右键按下
 	{
-	      this->setPositionX(this->getPositionX() + speed);//向右移动10个像素
+		float Position = this->getPositionX() + speed;
+		// 检测是否碰到墙壁
+		for (int i = 1; i <= speed; ++i) {
+			Vec2 nextPosition = this->getPosition() + Vec2(i, 0);
+			// 获取到地图管理器
+			mapManager* map = (mapManager*)this->getParent()->getChildByName("mapManager");
+			// 发生了碰撞
+			if (map->isCollision(nextPosition + Vec2(40, -40))
+				|| map->isCollision(nextPosition + Vec2(40, 40))
+				|| map->isCollision(nextPosition + Vec2(40, -20))
+				|| map->isCollision(nextPosition + Vec2(40, 20)))
+			{
+				// 如果碰撞了，就不再移动
+				Position = nextPosition.x - 1;
+				break;
+			}
+		}
+		this->setPositionX(Position);//向右移动10个像素
 	}
 	if (keyMap[EventKeyboard::KeyCode::KEY_UP_ARROW])//如果上键按下
 	{
-	      this->setPositionY(this->getPositionY() + speed);//向上移动10个像素
+		float Position = this->getPositionY() + speed;
+		// 检测是否碰到墙壁
+		for (int i = 1; i <= speed; ++i) {
+			Vec2 nextPosition = this->getPosition() + Vec2(0, i);
+			// 获取到地图管理器
+			mapManager* map = (mapManager*)this->getParent()->getChildByName("mapManager");
+			// 发生了碰撞
+			if (map->isCollision(nextPosition + Vec2(-40, 40))
+				|| map->isCollision(nextPosition + Vec2(40, 40))
+				|| map->isCollision(nextPosition + Vec2(-20, 40))
+				|| map->isCollision(nextPosition + Vec2(20, 40)))
+			{
+				// 如果碰撞了，就不再移动
+				Position = nextPosition.y - 1;
+				break;
+			}
+		}
+		this->setPositionY(Position);//向上移动10个像素
 	}
 	if (keyMap[EventKeyboard::KeyCode::KEY_DOWN_ARROW])//如果下键按下
 	{
-	      this->setPositionY(this->getPositionY() - speed);//向下移动10个像素
+		float Position = this->getPositionY() - speed;
+		// 检测是否碰到墙壁
+		for (int i = 1; i <= speed; ++i) {
+			Vec2 nextPosition = this->getPosition() + Vec2(0, -i);
+			// 获取到地图管理器
+			mapManager* map = (mapManager*)this->getParent()->getChildByName("mapManager");
+			// 发生了碰撞
+			if (map->isCollision(nextPosition + Vec2(-40, -40))
+				|| map->isCollision(nextPosition + Vec2(40, -40))
+				|| map->isCollision(nextPosition + Vec2(-20, -40))
+				|| map->isCollision(nextPosition + Vec2(20, -40)))
+			{
+				// 如果碰撞了，就不再移动
+				Position = nextPosition.y + 1;
+				break;
+			}
+		}
+		this->setPositionY(Position);//向下移动10个像素
 	}
 	if (!keyMap[EventKeyboard::KeyCode::KEY_LEFT_ARROW] && !keyMap[EventKeyboard::KeyCode::KEY_RIGHT_ARROW] && !keyMap[EventKeyboard::KeyCode::KEY_UP_ARROW] && !keyMap[EventKeyboard::KeyCode::KEY_DOWN_ARROW])//如果没有按键按下
 	{
@@ -843,13 +382,6 @@ void Player::updatePlayerPosition(float dt)
 			m_body->setSpriteFrame(staticForwards.at(0));
 	}
 
-	//如果检测到右键，就向鼠标方向冲刺
-	//if (isDodge)
-	//{
-	//	//向鼠标方向冲刺
-	//	//获取鼠标位置
-	//	auto mousePosition = Director::getInstance()->getOpenGLView()->getMousePosition();
-	//}
 
 	
 }
@@ -887,6 +419,97 @@ void Player::dodge(Vec2 position)
 	float angle = atan2(mouseLocalPosition.y, mouseLocalPosition.x);
 	//冲刺距离
 	float distance = 100;
+
+	// 判断碰撞
+	if (cos(angle) >= 0 && sin(angle) >= 0) {
+		for (int i = 1; i <= distance; ++i) {
+			Vec2 nextPosition = this->getPosition() + Vec2(i * cos(angle), i * sin(angle));
+			// 获取到地图管理器
+			mapManager* map = (mapManager*)this->getParent()->getChildByName("mapManager");
+			// 发生了碰撞
+			if (map->isCollision(nextPosition + Vec2(-40, 40)) // 上
+				|| map->isCollision(nextPosition + Vec2(40, 40))
+				|| map->isCollision(nextPosition + Vec2(-20, 40))
+				|| map->isCollision(nextPosition + Vec2(20, 40))
+				|| map->isCollision(nextPosition + Vec2(40, -40)) // 右
+				|| map->isCollision(nextPosition + Vec2(40, 40))
+				|| map->isCollision(nextPosition + Vec2(40, -20))
+				|| map->isCollision(nextPosition + Vec2(40, 20))
+				)
+			{
+				// 如果碰撞了，就不再移动
+				distance = i - 1;
+				break;
+			}
+		}
+	}
+	else if (cos(angle) >= 0 && sin(angle) < 0) {
+		for (int i = 1; i <= distance; ++i) {
+			Vec2 nextPosition = this->getPosition() + Vec2(i * cos(angle), i * sin(angle));
+			// 获取到地图管理器
+			mapManager* map = (mapManager*)this->getParent()->getChildByName("mapManager");
+			// 发生了碰撞
+			if (map->isCollision(nextPosition + Vec2(-40, -40)) // 下
+				|| map->isCollision(nextPosition + Vec2(40, -40))
+				|| map->isCollision(nextPosition + Vec2(-20, -40))
+				|| map->isCollision(nextPosition + Vec2(20, -40))
+				|| map->isCollision(nextPosition + Vec2(40, -40)) // 右
+				|| map->isCollision(nextPosition + Vec2(40, 40))
+				|| map->isCollision(nextPosition + Vec2(40, -20))
+				|| map->isCollision(nextPosition + Vec2(40, 20))
+				)
+			{
+				// 如果碰撞了，就不再移动
+				distance = i - 1;
+				break;
+			}
+		}
+	}
+	else if (cos(angle) < 0 && sin(angle) >= 0) {
+		for (int i = 1; i <= distance; ++i) {
+			Vec2 nextPosition = this->getPosition() + Vec2(i * cos(angle), i * sin(angle));
+			// 获取到地图管理器
+			mapManager* map = (mapManager*)this->getParent()->getChildByName("mapManager");
+			// 发生了碰撞
+			if (map->isCollision(nextPosition + Vec2(-40, 40)) // 上
+				|| map->isCollision(nextPosition + Vec2(40, 40))
+				|| map->isCollision(nextPosition + Vec2(-20, 40))
+				|| map->isCollision(nextPosition + Vec2(20, 40))
+				|| map->isCollision(nextPosition + Vec2(-40, -40)) // 左
+				|| map->isCollision(nextPosition + Vec2(-40, 40))
+				|| map->isCollision(nextPosition + Vec2(-40, -20))
+				|| map->isCollision(nextPosition + Vec2(-40, 20))
+				)
+			{
+				// 如果碰撞了，就不再移动
+				distance = i - 1;
+				break;
+			}
+		}
+	}
+	else {
+		for (int i = 1; i <= distance; ++i) {
+			Vec2 nextPosition = this->getPosition() + Vec2(i * cos(angle), i * sin(angle));
+			// 获取到地图管理器
+			mapManager* map = (mapManager*)this->getParent()->getChildByName("mapManager");
+			// 发生了碰撞
+			if (map->isCollision(nextPosition + Vec2(-40, -40)) // 下
+				|| map->isCollision(nextPosition + Vec2(40, -40))
+				|| map->isCollision(nextPosition + Vec2(-20, -40))
+				|| map->isCollision(nextPosition + Vec2(20, -40))
+				|| map->isCollision(nextPosition + Vec2(-40, -40)) // 左
+				|| map->isCollision(nextPosition + Vec2(-40, 40))
+				|| map->isCollision(nextPosition + Vec2(-40, -20))
+				|| map->isCollision(nextPosition + Vec2(-40, 20))
+				)
+			{
+				// 如果碰撞了，就不再移动
+				distance = i - 1;
+				break;
+			}
+		}
+	}
+
 	//冲刺速度
 	float dodgeSpeed = 1000;
 	//冲刺方向
@@ -1051,7 +674,7 @@ void Player::updatePlayerOrientation()
 
 }
 
-float m_time = 0;
+
 void Player::update(float dt)
 {
 	//每帧（0.016秒）恢复0.01点体力
@@ -1127,28 +750,62 @@ void Player::update(float dt)
 	}
 
 
-	//每一秒检测一次状态m_statement这个vector，如果遇到感电就触发感电效果
+	//对状态进行检测
+	for (int i = 0; i < 99; i++)
+	{
+		if (m_statement[i].name != "")
+		{
+			m_statement[i].time -= 0.016;
+			m_statement_time[i] += 0.016;
+			//每一秒检测状态
+			if (m_statement_time[i] > 1)
+			{
+				m_statement_time[i] = 0;
+				//如果有感电状态
+				if (m_statement[i].name == "shock" && m_statement[i].time > 0)
+				{
+					//触发感电效果
+					effectTrigger("shock");
+				}
+				else if (m_statement[i].name != "" && m_statement[i].time <= 0)
+				{
+					//如果是超导，减防状态消失
+					if (m_statement[i].name == "def_down")
+					{
+						m_superconductivity = 0;
+					}
 
-	//每一秒检测
-	//m_time += 0.016;
-	//if (m_time > 1)
-	//{
-	//	m_time = 0;
-	//	//检测状态
-	//	if (m_statement.size() > 0)
-	//	{
-	//		for (int i = 0; i < m_statement.size(); i++)
-	//		{
-	//			if (m_statement[i].name == "感电")
-	//			{
-	//				effectTrigger("感电");
-	//			}
-	//		}
-	//		m_statement.clear();
-	//	}
-	//}
 
+					m_statement[i].name = "";
+					m_statement[i].time = 0;
+					//后面所有的状态往前移
+					for (int j = i; j < 99; j++)
+					{
+						if (m_statement[j + 1].name != "")
+						{
+							m_statement[j] = m_statement[j + 1];
+							m_statement[j+1].name = "";
+							m_statement[j + 1].time = 0;
+						}
+						else
+						{
+							break;
+						}
+					}
 
+				}
+			}
+		}
+		else
+		{
+			break;
+		}
+
+		
+		
+	}
+
+	
 	
 
 
