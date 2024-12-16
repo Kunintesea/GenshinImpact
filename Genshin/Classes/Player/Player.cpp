@@ -78,14 +78,16 @@ bool Player::init()
 		m_weapon->setPosition(weaponPosition);
 	}
 	this->addChild(m_weapon);
-	m_weapon_light = Sprite::create("Me/Saber/Weapon/sword_light.png");
-	m_weapon_light->setAnchorPoint(Vec2(0.5, 0));
-	m_weapon_light->setVisible(false);  // 隐藏精灵
+	//m_weapon_light = Sprite::create("Me/Saber/Weapon/sword_light.png");
+	//m_weapon_light->setAnchorPoint(Vec2(0.5, 0));
+	//m_weapon_light->setVisible(false);  // 隐藏精灵
 
 	//RGB设置为红色
 	//m_weapon_light->setColor(Color3B(255, 0, 0));
 
-	this->addChild(m_weapon_light);
+	//this->addChild(m_weapon_light);//添加到场景中
+	//设置一个攻击类型的tag，有Physical, Wind, Rock, Thunder, Grass, Water, Fire, Ice
+	//m_weapon_light->setTag(Physical);
 
 	// 加载动画
 	// 静止动画帧
@@ -269,17 +271,6 @@ bool Player::init()
 	schedule(CC_CALLBACK_1(Player::updatePlayerPosition, this), "keyboard");
 
 
-	/*
-		  //让player的伤害数字绑定到场景
-	  for (int i = 0; i < 20; i++)
-	  {
-		  this->addChild(sprite->m_damage_label[i]);
-		  this->addChild(sprite->m_element_label[i]);
-	  }
-	*/
-
-
-
 
 	return true;
 }
@@ -386,16 +377,7 @@ void Player::updatePlayerPosition(float dt)
 	
 }
 
-void Player::moveAnimation(Vector<SpriteFrame*> frame, int actionTag) {
-      //动画
-      if (m_body->getActionByTag(actionTag) == 0)
-      {
-	    m_body->stopAllActions();//停止所有动作
-	    auto action = RepeatForever::create(Animate::create(Animation::createWithSpriteFrames(frame, 0.2f))); // 导入动画帧
-	    action->setTag(actionTag);//设置标签
-	    m_body->runAction((action));//执行这个动画
-      }
-}
+
 void Player::dodge(Vec2 position)
 {
 	//计算区域斜率
@@ -576,6 +558,23 @@ void Player::getPlayerOrientation(Vec2 position)
 
 void Player::ordinaryAttack()
 {
+
+	//把m_weapon_light加入到player的父对象
+	//this->getParent()->addChild(m_weapon_light);
+
+	//播放特效
+	Effects* m_weapon_light = Effects::create();
+	m_weapon_light->setAnchorPoint(Vec2(0.5, 0));
+	//位置在人物身上
+	m_weapon_light->setPosition(this->getPosition());
+	//绑定到场景
+	this->getParent()->addChild(m_weapon_light);
+	m_weapon_light->EffectsAnimation(m_weapon_light->saber_normal, 0);
+
+	//获取玩家的位置
+	Vec2 playerPosition = this->getPosition();
+
+	m_weapon_light->setRotation(this->weaponAngle);
 	//攻击范围
 	float attackDistance = 150.0f;
 	//攻击速度
@@ -608,10 +607,10 @@ void Player::ordinaryAttack()
 	//剑气：移动
 	float length = -150;
 	m_weapon_light->setVisible(true);
-	m_weapon_light->setPosition(Vec2(weaponPosition.x + length * sin((weaponAngle / 180) * PI), weaponPosition.y + length * cos((weaponAngle / 180) * PI)));
-	auto fadeInAction = FadeIn::create(0.05);
-	auto fadeOutAction = FadeOut::create(0.05);
-	auto moveAction = MoveBy::create(attackDistance / attackSpeed, Vec2(attackDistance * sin((weaponAngle / 180) * PI), attackDistance * cos((weaponAngle / 180) * PI)));
+	//m_weapon_light->setPosition(Vec2(this->getPosition().x + length * sin((weaponAngle / 180) * PI), this->getPosition().y + length * cos((weaponAngle / 180) * PI)));
+	auto fadeInAction = FadeIn::create(0.05);//淡入
+	auto fadeOutAction = FadeOut::create(0.05);//淡出
+	auto moveAction = MoveBy::create(attackDistance / attackSpeed, Vec2(attackDistance * sin((weaponAngle / 180) * PI), attackDistance * cos((weaponAngle / 180) * PI)));//移动函数。起点是当前位置，终点是当前位置加上一个向量
 	m_weapon_light->runAction(Sequence::create(delayTime, fadeInAction, moveAction, fadeOutAction, CallFunc::create([=] {isflying = false; }), nullptr));
 }
 
@@ -638,8 +637,8 @@ void Player::updateWeaponRotation(float dt)
 {
 	if (!isWeapon)
 	{
-		m_weapon->setRotation(this->weaponAngle);
-		m_weapon_light->setRotation(this->weaponAngle);
+		m_weapon->setRotation(this->weaponAngle);//让武器的角度等于鼠标的角度
+		//	m_weapon_light->setRotation(this->weaponAngle);//让武器的角度等于鼠标的角度
 	}
 }
 
@@ -811,22 +810,22 @@ void Player::update(float dt)
 
 }
 
-bool Player::testCol(Sprite* other)
+void Player::attackEnemy()
 {
-	//获取玩家精灵和目标精灵的包围盒
-	Rect playerRect = this->getBoundingBox();
-	Rect targetRect = other->getBoundingBox();
-
-
-	// 检测两个精灵的包围盒是否相交
-	if (playerRect.intersectsRect(targetRect))
+	//去整个HelloWorldScene遍历所有敌人，如果有就进行AttackHit检测看看有没有打到。敌人的tag是Enemy
+	auto scene = this->getParent();
+	//查找场景中tag为Enemy的对象，用name标签检索
+	//如果没找到
+	if (scene->getChildByName("Enemy") == nullptr)
 	{
+		return;
+	}
+	else
+	{
+		auto enemy = scene->getChildByName("Enemy");
+		//AttackHit(enemy);
 
-		CCLOG("Collision detected!");
-		// 执行碰撞后的逻辑
-		log("Collision detected!");
-		return true;
 	}
 
-	return false;
+
 }

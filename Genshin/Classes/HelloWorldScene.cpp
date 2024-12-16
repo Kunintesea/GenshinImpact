@@ -87,20 +87,20 @@ bool HelloWorld::init()
     }
 
 
-	////创建一个敌人到玩家左边
-	//Enemy* enemy = Enemy::create();
-	//if (enemy == nullptr)
-	//{
-	//	problemLoading("'HelloWorld.png'");
-	//}
-	//else
-	//{
-	//	//设置精灵的位置，这里是屏幕的中心
-	//	enemy->setPosition(Vec2(visibleSize.width / 3 + origin.x+22, visibleSize.height / 3 + origin.y));
-	//	enemy->setName("Enemy");//设置标签
-	//	//将精灵添加到场景中
-	//	this->addChild(enemy, 0);
-	//}
+	//创建一个敌人到玩家左边
+	Enemy* enemy = Enemy::create();
+	if (enemy == nullptr)
+	{
+		problemLoading("'HelloWorld.png'");
+	}
+	else
+	{
+		//设置精灵的位置，这里是屏幕的中心
+		enemy->setPosition(Vec2(visibleSize.width / 3 + origin.x+22, visibleSize.height / 3 + origin.y));
+		enemy->setName("Enemy");//设置标签
+		//将精灵添加到场景中
+		this->addChild(enemy, 0);
+	}
 
 
 
@@ -143,6 +143,9 @@ void HelloWorld::update(float dt)
 {
 	//让player每秒掉血
 	Player* player = (Player*)this->getChildByName("Me");
+
+
+
 
 
 	

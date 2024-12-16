@@ -52,6 +52,12 @@ public:
 
 	//效果触发函数，触发效果时调用
 	void effectTrigger(std::string effect_type);
+	void moveAnimation(Vector<SpriteFrame*> frame, int actionTag);
+
+	//判定攻击是否命中的函数
+	bool PlayerAttack(Sprite* me, Sprite* other);
+
+
 
 
 protected:

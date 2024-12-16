@@ -126,6 +126,8 @@ void mapManager::MapReset(Vec2 middlePos) {
 }
 
 bool mapManager::isCollision(Vec2 position) {
+    return false;
+
       // 获取人物所在大格子
       int tiledMiddleX = (int)std::floor(position.x / mapSize.width);
       int tiledMiddleY = (int)std::floor(position.y / mapSize.height);

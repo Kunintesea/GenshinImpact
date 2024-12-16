@@ -1,5 +1,36 @@
 #include "BasePlayer.h"
 
+void BasePlayer::moveAnimation(Vector<SpriteFrame*> frame, int actionTag) {
+	//动画
+	if (m_body->getActionByTag(actionTag) == 0)
+	{
+		m_body->stopAllActions();//停止所有动作
+		auto action = RepeatForever::create(Animate::create(Animation::createWithSpriteFrames(frame, 0.2f))); // 导入动画帧
+		action->setTag(actionTag);//设置标签
+		m_body->runAction((action));//执行这个动画
+	}
+}
+
+//攻击判定函数，在有某个人进行了攻击时候调用，参数有两个，一个是攻击者，一个是被攻击者
+bool BasePlayer::PlayerAttack(Sprite* me, Sprite* other)
+{
+	//获取玩家精灵和目标精灵的包围盒
+	Rect playerRect = me->getBoundingBox();
+	Rect targetRect = other->getBoundingBox();
+
+
+	// 检测两个精灵的包围盒是否相交
+	if (playerRect.intersectsRect(targetRect))
+	{
+
+		CCLOG("Collision detected!");
+		// 执行碰撞后的逻辑
+		log("Collision detected!");
+		return true;
+	}
+
+	return false;
+}
 
 
 //伤害计算式：实际伤害=伤害值-防御值*伤害值，若人物处于闪避状态直接返回0

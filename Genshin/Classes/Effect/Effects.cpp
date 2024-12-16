@@ -13,6 +13,15 @@ bool Effects::init()
 	// 静止动画帧
 
 
+	SpriteFrame* saber_normal1 = SpriteFrame::create("Me/Saber/Weapon/sword_light.png", Rect(0, 0, 256, 256));//传入图片路径，原图片的位置和大小
+	SpriteFrame* saber_normal2 = SpriteFrame::create("Me/Saber/Weapon/sword_light.png", Rect(0, 0, 256, 256));
+	SpriteFrame* saber_normal3 = SpriteFrame::create("Me/Saber/Weapon/sword_light.png", Rect(0, 0, 256, 256));
+	SpriteFrame* saber_normal4 = SpriteFrame::create("Me/Saber/Weapon/sword_light.png", Rect(0, 0, 256, 256));
+	saber_normal.pushBack(saber_normal1);
+	saber_normal.pushBack(saber_normal2);
+	saber_normal.pushBack(saber_normal3);
+	saber_normal.pushBack(saber_normal4);
+
 
 	SpriteFrame* Explode1 = SpriteFrame::create("Effects/ElementReaction/Explode/Explode1.png", Rect(0, 0, 280, 280));//传入图片路径，原图片的位置和大小
 	SpriteFrame* Explode2 = SpriteFrame::create("Effects/ElementReaction/Explode/Explode2.png", Rect(0, 0, 280, 280));
@@ -67,7 +76,8 @@ bool Effects::init()
 }
 
 
-void Effects::EffectsAnimation(Vector<SpriteFrame*> frame, int actionTag) {
+void Effects::EffectsAnimation(Vector<SpriteFrame*> frame, int actionTag) 
+{
 	//根据传入动画帧的第一帧重设effect的大小
 	//effect->setScale(100 / effect->getContentSize().width);//100的作用是将effect的大小设为100*100
 

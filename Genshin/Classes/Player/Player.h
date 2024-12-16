@@ -25,14 +25,12 @@ public:
 	virtual bool init();//初始化函数，会在场景创建时调用
 
 	void update(float dt);//更新函数，每帧调用一次
-	bool testCol(Sprite* other);
 
 
 	void getPlayerOrientation(Vec2 position);//监听鼠标事件，更新人物朝向
 	void dodge(Vec2 position);//闪避
 	void ordinaryAttack(); //普通攻击
 
-	void moveAnimation(Vector<SpriteFrame*> frame, int actionTag); // 人物移动动画
 	void updatePlayerOrientation(); //更新人物朝向
 	void updatePlayerPosition(float dt); //更新人物位置
 	void weaponRotate(Vec2 position); //武器转动
@@ -43,7 +41,8 @@ public:
 	float getSpeed() { return speed; }//获取速度
 
 	void getCamera(newCamera* camera) { myCamera = camera; }
-
+	//攻击敌人的函数
+	void attackEnemy();
 
 
 
@@ -58,7 +57,7 @@ private:
 
 	//武器
 	Sprite* m_weapon;
-	Sprite* m_weapon_light;
+	//Sprite* m_weapon_light;
 	Vec2 weaponPosition;
 	float weaponAngle; //武器旋转角度
 

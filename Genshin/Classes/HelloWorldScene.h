@@ -15,6 +15,8 @@ public:
 	virtual bool init();//初始化函数，会在场景创建时调用
 
 
+
+
 	void update(float dt);//更新函数，每帧调用一次
 	void menuCloseCallback(cocos2d::Ref* pSender);//退出按钮的回调函数
 
