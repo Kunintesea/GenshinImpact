@@ -1,5 +1,5 @@
 #include "Player.h"
-
+#include "bag/bag.h"
 /*
 关于动作：由m_body上的tag决定，由getNumberOfRunningActionsByTag获取。
 1：向左
@@ -144,6 +144,8 @@ bool Player::init()
 	m_body = Sprite::create("Me/front.png");
 	//将精灵添加到节点
 	this->addChild(m_body);
+
+
 
 	//通过读取xml文件，获取元素反应文字，支持中文
 	//CCDictionary* chnStrings = CCDictionary::createWithContentsOfFile("Text/元素反应文字.xml");

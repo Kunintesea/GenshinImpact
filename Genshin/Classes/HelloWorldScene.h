@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 #include "newCamera.h"
-
+#include "bag/bag.h"
 class HelloWorld : public cocos2d::Scene
 {
 public:
@@ -21,6 +21,7 @@ public:
     CREATE_FUNC(HelloWorld);
 private:
 	newCamera* newCamera;//相机
+	Bag* bag; //背包
 	MenuItemImage* closeItem;//关闭按钮
 	Vec2 closeItemInitialPosition;//关闭按钮的初始位置
 };

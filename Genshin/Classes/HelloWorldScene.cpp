@@ -139,6 +139,15 @@ bool HelloWorld::init()
       this->addChild(newCamera);
 
 
+	  //创建一个背包
+	  bag = Bag::create();
+	  if (bag == nullptr)
+	  {
+		  problemLoading("Fail to get bag");
+	  }
+	  bag->getPlayer(sprite);
+	  this->addChild(bag);
+
 	  //让player的伤害数字绑定到场景
 	  for (int i = 0; i < 20; i++)
 	  {
