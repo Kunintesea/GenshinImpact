@@ -12,11 +12,30 @@ void BasePlayer::moveAnimation(Vector<SpriteFrame*> frame, int actionTag) {
 }
 
 //攻击判定函数，在有某个人进行了攻击时候调用，参数有两个，一个是攻击者，一个是被攻击者
-bool BasePlayer::PlayerAttack(Sprite* me, Sprite* other)
+bool BasePlayer::PlayerAttack(Effects* me, BasePlayer* other)
 {
+	//设定other的m_bodyRect的包围盒，由other->m_body的位置和大小决定。坐标用整个类的，大小用m_body的
+	other->m_bodyRect = Rect(other->getPositionX() - other->m_body->getContentSize().width / 2, other->getPositionY() - other->m_body->getContentSize().height / 2, other->m_body->getContentSize().width, other->m_body->getContentSize().height);
+	
+	//包围盒的大小等于effect的大小。位置则用整个类的坐标
+	me->effectRect = Rect(me->getPositionX() - me->getContentSize().width / 2, me->getPositionY() - me->getContentSize().height / 2, me->effect->getContentSize().width, me->effect->getContentSize().height);
+
 	//获取玩家精灵和目标精灵的包围盒
-	Rect playerRect = me->getBoundingBox();
-	Rect targetRect = other->getBoundingBox();
+	Rect playerRect = me->effectRect;
+	//等于m_body的包围盒
+	Rect targetRect = other->m_bodyRect;
+
+	//对应位置画两个矩形便于调试
+	DrawNode* drawNode = DrawNode::create();
+	drawNode->drawRect(Vec2(playerRect.getMinX(), playerRect.getMinY()), Vec2(playerRect.getMaxX(), playerRect.getMaxY()), Color4F(1, 0, 0, 1));
+	this->getParent()->addChild(drawNode, 1000);
+
+	DrawNode* drawNode2 = DrawNode::create();
+	drawNode2->drawRect(Vec2(targetRect.getMinX(), targetRect.getMinY()), Vec2(targetRect.getMaxX(), targetRect.getMaxY()), Color4F(1, 0, 0, 1));
+	this->getParent()->addChild(drawNode2, 1000);
+
+
+
 
 
 	// 检测两个精灵的包围盒是否相交
@@ -26,6 +45,9 @@ bool BasePlayer::PlayerAttack(Sprite* me, Sprite* other)
 		CCLOG("Collision detected!");
 		// 执行碰撞后的逻辑
 		log("Collision detected!");
+		//对other调用Hurt函数
+		//other->hurt(10, 0, true);
+
 		return true;
 	}
 
@@ -801,6 +823,8 @@ void BasePlayer::hurt(int damage, int damge_type, bool reaction)
 				//1.5秒后先让m_damage_label[i]不可见，不可见后向下移动20个像素
 				m_damage_label[i]->runAction(Sequence::create(DelayTime::create(1.5), CallFunc::create([=] {m_damage_label[i]->setVisible(false); }), MoveBy::create(0.1, Vec2(0, -20)), nullptr));
 
+				
+
 
 				m_damage_label[i]->setString(std::to_string(real_damage));
 				break;
@@ -822,6 +846,9 @@ void BasePlayer::hurt(int damage, int damge_type, bool reaction)
 		}
 
 		m_hp -= real_damage;
+		//存储m_hp的值
+		UserDefault::getInstance()->setIntegerForKey("m_hp", m_hp);
+
 		if (m_hp <= 0)
 		{
 			isDead = true;
@@ -832,6 +859,10 @@ void BasePlayer::hurt(int damage, int damge_type, bool reaction)
 		m_body->setColor(Color3B::RED);
 		this->runAction(Sequence::create(DelayTime::create(0.1), CallFunc::create([=] {m_body->setColor(Color3B::WHITE); }), nullptr));
 
+		if (m_hp <= 0)
+		{
+			isDead = true;
+		}
 
 	}
 }
@@ -965,3 +996,201 @@ void BasePlayer::effectTrigger(std::string effect_type)
 	}
 }
 
+void BasePlayer::initData()
+{
+	//检测名字
+	if (m_name == "Bat_Fire")
+	{
+
+
+		//先把m_body设置为火蝙蝠的图片
+		m_body->setTexture("Enemy/Bat_Fire/down_1.png");//setTexture是设置图片的函数，参数是图片的路径。修改以后图形的大小会变成图片的大小
+
+		speed = 10;
+		//数值初始化
+		m_hp = 100;
+		m_max_hp = 100;
+		m_mp = 50;
+		m_max_mp = 100;
+		//攻击力为5
+		m_attack = 5;
+
+		// 加载动画
+		Size bodySize = m_body->getContentSize();
+		//运动动画帧
+		bodySize = Sprite::create("Enemy/Bat_Fire/up_1.png")->getContentSize();
+		SpriteFrame* up_1 = SpriteFrame::create("Enemy/Bat_Fire/up_1.png", Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/Bat_Fire/up_2.png")->getContentSize();
+		SpriteFrame* up_2 = SpriteFrame::create("Enemy/Bat_Fire/up_2.png", Rect(0, 0, bodySize.width, bodySize.height));
+		walk_up.pushBack(up_1);
+		walk_up.pushBack(up_2);
+		bodySize = Sprite::create("Enemy/Bat_Fire/down_1.png")->getContentSize();
+		SpriteFrame* down_1 = SpriteFrame::create("Enemy/Bat_Fire/down_1.png", Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/Bat_Fire/down_2.png")->getContentSize();
+		SpriteFrame* down_2 = SpriteFrame::create("Enemy/Bat_Fire/down_2.png", Rect(0, 0, bodySize.width, bodySize.height));
+		walk_down.pushBack(down_1);
+		walk_down.pushBack(down_2);
+		bodySize = Sprite::create("Enemy/Bat_Fire/left_1.png")->getContentSize();
+		SpriteFrame* left_1 = SpriteFrame::create("Enemy/Bat_Fire/left_1.png", Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/Bat_Fire/left_2.png")->getContentSize();
+		SpriteFrame* left_2 = SpriteFrame::create("Enemy/Bat_Fire/left_2.png", Rect(0, 0, bodySize.width, bodySize.height));
+		walk_left.pushBack(left_1);
+		walk_left.pushBack(left_2);
+		bodySize = Sprite::create("Enemy/Bat_Fire/right_1.png")->getContentSize();
+		SpriteFrame* right_1 = SpriteFrame::create("Enemy/Bat_Fire/right_1.png", Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/Bat_Fire/right_2.png")->getContentSize();
+		SpriteFrame* right_2 = SpriteFrame::create("Enemy/Bat_Fire/right_2.png", Rect(0, 0, bodySize.width, bodySize.height));
+		walk_right.pushBack(right_1);
+		walk_right.pushBack(right_2);
+
+	}
+	else if (m_name == "Bat_Ice")
+	{
+		//先把m_body设置为冰蝙蝠的图片
+		m_body->setTexture("Enemy/Bat_Ice/down_1.png");//setTexture是设置图片的函数，参数是图片的路径。修改以后图形的大小会变成图片的大小
+
+		//数值初始化
+		m_hp = 100;
+		m_max_hp = 100;
+		m_mp = 50;
+		m_max_mp = 100;
+		//攻击力为5
+		m_attack = 5;
+		speed = 10;
+
+		// 加载动画
+		Size bodySize = m_body->getContentSize();
+		//运动动画帧
+		//"D:\Github_Document\GenshinImpact\Genshin\Resources\Enemy\Bat_Ice\right_3.png"
+		bodySize = Sprite::create("Enemy/Bat_Ice/up_1.png")->getContentSize();
+		SpriteFrame* up_1 = SpriteFrame::create("Enemy/Bat_Ice/up_1.png", Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/Bat_Ice/up_2.png")->getContentSize();
+		SpriteFrame* up_2 = SpriteFrame::create("Enemy/Bat_Ice/up_2.png", Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/Bat_Ice/up_3.png")->getContentSize();
+		SpriteFrame* up_3 = SpriteFrame::create("Enemy/Bat_Ice/up_3.png", Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/Bat_Ice/up_4.png")->getContentSize();
+		SpriteFrame* up_4 = SpriteFrame::create("Enemy/Bat_Ice/up_4.png", Rect(0, 0, bodySize.width, bodySize.height));
+		walk_up.pushBack(up_1);
+		walk_up.pushBack(up_2);
+		walk_up.pushBack(up_3);
+		walk_up.pushBack(up_4);
+		bodySize = Sprite::create("Enemy/Bat_Ice/down_1.png")->getContentSize();
+		SpriteFrame* down_1 = SpriteFrame::create("Enemy/Bat_Ice/down_1.png", Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/Bat_Ice/down_2.png")->getContentSize();
+		SpriteFrame* down_2 = SpriteFrame::create("Enemy/Bat_Ice/down_2.png", Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/Bat_Ice/down_3.png")->getContentSize();
+		SpriteFrame* down_3 = SpriteFrame::create("Enemy/Bat_Ice/down_3.png", Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/Bat_Ice/down_4.png")->getContentSize();
+		SpriteFrame* down_4 = SpriteFrame::create("Enemy/Bat_Ice/down_4.png", Rect(0, 0, bodySize.width, bodySize.height));
+		walk_down.pushBack(down_1);
+		walk_down.pushBack(down_2);
+		walk_down.pushBack(down_3);
+		walk_down.pushBack(down_4);
+		bodySize = Sprite::create("Enemy/Bat_Ice/left_1.png")->getContentSize();
+		SpriteFrame* left_1 = SpriteFrame::create("Enemy/Bat_Ice/left_1.png", Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/Bat_Ice/left_2.png")->getContentSize();
+		SpriteFrame* left_2 = SpriteFrame::create("Enemy/Bat_Ice/left_2.png", Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/Bat_Ice/left_3.png")->getContentSize();
+		SpriteFrame* left_3 = SpriteFrame::create("Enemy/Bat_Ice/left_3.png", Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/Bat_Ice/left_4.png")->getContentSize();
+		SpriteFrame* left_4 = SpriteFrame::create("Enemy/Bat_Ice/left_4.png", Rect(0, 0, bodySize.width, bodySize.height));
+
+		walk_left.pushBack(left_1);
+		walk_left.pushBack(left_2);
+		walk_left.pushBack(left_3);
+		walk_left.pushBack(left_4);
+		bodySize = Sprite::create("Enemy/Bat_Ice/right_1.png")->getContentSize();
+		SpriteFrame* right_1 = SpriteFrame::create("Enemy/Bat_Ice/right_1.png", Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/Bat_Ice/right_2.png")->getContentSize();
+		SpriteFrame* right_2 = SpriteFrame::create("Enemy/Bat_Ice/right_2.png", Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/Bat_Ice/right_3.png")->getContentSize();
+		SpriteFrame* right_3 = SpriteFrame::create("Enemy/Bat_Ice/right_3.png", Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/Bat_Ice/right_4.png")->getContentSize();
+		SpriteFrame* right_4 = SpriteFrame::create("Enemy/Bat_Ice/right_4.png", Rect(0, 0, bodySize.width, bodySize.height));
+		walk_right.pushBack(right_1);
+		walk_right.pushBack(right_2);
+		walk_right.pushBack(right_3);
+		walk_right.pushBack(right_4);
+
+		
+
+	}
+	//地狱犬
+	else if (m_name == "HellDog")
+	{
+		//先把m_body设置为地狱犬的图片
+		m_body->setTexture("Enemy/HellDog/down_1.png");//setTexture是设置图片的函数，参数是图片的路径。修改以后图形的大小会变成图片的大小
+		//图像放大5倍。碰撞箱也要放大5倍
+		m_body->setScale(5);
+		//m_body->setPhysicsBody(PhysicsBody::createBox(m_body->getContentSize()));//创建一个物理引擎的盒子
+		
+
+		//数值初始化
+		m_hp = 2000;
+		m_max_hp = 2000;
+		m_mp = 50;
+		m_max_mp = 100;
+		//速度
+		speed = 3;
+
+		//攻击力为10
+		m_attack = 10;
+		// 加载动画
+		Size bodySize = m_body->getContentSize();
+		//运动动画帧
+		//"D:\Github_Document\GenshinImpact\Genshin\Resources\Enemy\HellDog\up_1.png"读取图片，读取的大小就是这个图片的大小
+		//先读取目标图片大小,"D:\Github_Document\GenshinImpact\Genshin\Resources\Enemy\HellDog\up_1.png"读取图片
+		bodySize = Sprite::create("Enemy/HellDog/up_1.png")->getContentSize();
+		SpriteFrame* up_1 = SpriteFrame::create("Enemy/HellDog/up_1.png",  Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/HellDog/up_2.png")->getContentSize();
+		SpriteFrame* up_2 = SpriteFrame::create("Enemy/HellDog/up_2.png",  Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/HellDog/up_3.png")->getContentSize();
+		SpriteFrame* up_3 = SpriteFrame::create("Enemy/HellDog/up_3.png",  Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/HellDog/up_4.png")->getContentSize();
+		SpriteFrame* up_4 = SpriteFrame::create("Enemy/HellDog/up_4.png",  Rect(0, 0, bodySize.width, bodySize.height));
+		walk_up.pushBack(up_1);
+		walk_up.pushBack(up_2);
+		walk_up.pushBack(up_3);
+		walk_up.pushBack(up_4);
+
+		bodySize = Sprite::create("Enemy/HellDog/down_1.png")->getContentSize();
+		SpriteFrame* down_1 = SpriteFrame::create("Enemy/HellDog/down_1.png",  Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/HellDog/down_2.png")->getContentSize();
+		SpriteFrame* down_2 = SpriteFrame::create("Enemy/HellDog/down_2.png",  Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/HellDog/down_3.png")->getContentSize();
+		SpriteFrame* down_3 = SpriteFrame::create("Enemy/HellDog/down_3.png",  Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/HellDog/down_4.png")->getContentSize();
+		SpriteFrame* down_4 = SpriteFrame::create("Enemy/HellDog/down_4.png",  Rect(0, 0, bodySize.width, bodySize.height));
+		walk_down.pushBack(down_1);
+		walk_down.pushBack(down_2);
+		walk_down.pushBack(down_3);
+		walk_down.pushBack(down_4);
+
+		bodySize = Sprite::create("Enemy/HellDog/left_1.png")->getContentSize();
+		SpriteFrame* left_1 = SpriteFrame::create("Enemy/HellDog/left_1.png",  Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/HellDog/left_2.png")->getContentSize();
+		SpriteFrame* left_2 = SpriteFrame::create("Enemy/HellDog/left_2.png",  Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/HellDog/left_3.png")->getContentSize();
+		SpriteFrame* left_3 = SpriteFrame::create("Enemy/HellDog/left_3.png",  Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/HellDog/left_4.png")->getContentSize();
+		SpriteFrame* left_4 = SpriteFrame::create("Enemy/HellDog/left_4.png",  Rect(0, 0, bodySize.width, bodySize.height));
+		walk_left.pushBack(left_1);
+		walk_left.pushBack(left_2);
+		walk_left.pushBack(left_3);
+		walk_left.pushBack(left_4);
+
+		bodySize = Sprite::create("Enemy/HellDog/right_1.png")->getContentSize();
+		SpriteFrame* right_1 = SpriteFrame::create("Enemy/HellDog/right_1.png",  Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/HellDog/right_2.png")->getContentSize();
+		SpriteFrame* right_2 = SpriteFrame::create("Enemy/HellDog/right_2.png",  Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/HellDog/right_3.png")->getContentSize();
+		SpriteFrame* right_3 = SpriteFrame::create("Enemy/HellDog/right_3.png",  Rect(0, 0, bodySize.width, bodySize.height));
+		bodySize = Sprite::create("Enemy/HellDog/right_4.png")->getContentSize();
+		SpriteFrame* right_4 = SpriteFrame::create("Enemy/HellDog/right_4.png",  Rect(0, 0, bodySize.width, bodySize.height));
+		walk_right.pushBack(right_1);
+		walk_right.pushBack(right_2);
+		walk_right.pushBack(right_3);
+		walk_right.pushBack(right_4);
+	}
+
+}

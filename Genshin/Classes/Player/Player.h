@@ -22,6 +22,7 @@ class Player : public BasePlayer
 {
 public:
 	friend class PlayerStatusUI;//友元类
+	friend class Enemy;
 	virtual bool init();//初始化函数，会在场景创建时调用
 
 	void update(float dt);//更新函数，每帧调用一次
@@ -38,7 +39,7 @@ public:
 
 	Sprite* getBody() { return m_body; }//获取身体
 	bool getKeyBoardState(EventKeyboard::KeyCode key) { return keyMap[key]; }
-	float getSpeed() { return speed; }//获取速度
+
 
 	void getCamera(newCamera* camera) { myCamera = camera; }
 	//攻击敌人的函数
@@ -67,10 +68,6 @@ private:
 	std::vector<bool>mouseState = { false,false,false,false }; //上下左右
 
 	//人物动画
-	Vector<SpriteFrame*> walk_back;
-	Vector<SpriteFrame*> walk_front;
-	Vector<SpriteFrame*> walk_left;
-	Vector<SpriteFrame*> walk_right;
 	Vector<SpriteFrame*> staticForwards;
 
 

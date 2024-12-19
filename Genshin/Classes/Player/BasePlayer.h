@@ -13,18 +13,6 @@
 USING_NS_CC;
 using namespace ui;
 
-//对各种类型的元素伤害的定义。有物理、风、岩、雷、草、水、火、冰，对应数字0-7
-enum ElementType
-{
-	Physical = 0,
-	Wind = 1,
-	Rock = 2,
-	Thunder = 3,
-	Grass = 4,
-	Water = 5,
-	Fire = 6,
-	Ice = 7
-};
 
 
 
@@ -55,27 +43,50 @@ public:
 	void moveAnimation(Vector<SpriteFrame*> frame, int actionTag);
 
 	//判定攻击是否命中的函数
-	bool PlayerAttack(Sprite* me, Sprite* other);
+	//传入两个类，判定打没打到
+	bool PlayerAttack(Effects* me, BasePlayer* other);
+	//获取攻击力
+	int getAttack() { return m_attack; }
+
+	//数据初始化函数
+	void initData();
+	float getSpeed() { return speed; }//获取速度
+
+	//判定框
+	Rect m_bodyRect;
+
+	int getmp() { return m_mp; }//获取元素能量
+	//获取身体
+	Sprite* getBody() { return m_body; }
+	//获取名字
+	std::string getNaming() { return m_name; }
+	void naming(std::string nn) { m_name = nn; }//设置名字
+
+	//存储玩家特效的数组，存了两个数值：特效以及其的编号
+	Effects* m_effect[20];
+	//写一个索引功能，需要实现效果：每一次攻击对同一个敌人只能造成一次伤害，对不同敌人没有这个限制。因此人物身上需要索引，每一个特效只能对同一个敌人造成一次伤害
+	//这个索引是一个二维数组，第一个维度是特效，第二个维度是敌人，如果对应位置为0，则不能对这个敌人造成伤害
+	int m_effect_index[20][20] = { 0 };
 
 
 
+	//设置名字
+	//void setName(std::string name) { m_name = name; }
+	bool isDead = false;//是否死亡
 
 protected:
 
 	float speed;
 
-
-
-
-
-
-
-
+	//人物动画
+	Vector<SpriteFrame*> walk_up;
+	Vector<SpriteFrame*> walk_down;
+	Vector<SpriteFrame*> walk_left;
+	Vector<SpriteFrame*> walk_right;
 
 	//人物身体组成部分
 	Sprite* m_body;//身体
 	//人物状态
-	bool isDead = false;//是否死亡
 	bool isDodge = false;//是否闪避
 	bool isWeapon = false;//是否是武器攻击
 	bool isflying = false; //剑气或武器正在飞行
@@ -86,8 +97,11 @@ protected:
 
 	std::string m_name = "MM";//人物名字
 
+	//攻击力
+	int m_attack = 10;
+
 	//护盾
-	int m_shield = 50;//护盾值
+	int m_shield = 0;//护盾值
 	int m_hp = 100;//血量
 	int m_max_hp = 100;//最大血量
 

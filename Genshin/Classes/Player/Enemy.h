@@ -13,8 +13,9 @@ using namespace ui;
 class Enemy : public BasePlayer
 {
 public:
-
+	friend class Player;//友元类
 	int direction;
+	bool leisure=true;//是否在休闲状态
 
 
 	virtual bool init();//初始化函数，会在场景创建时调用
@@ -24,23 +25,18 @@ public:
 
 
 	void ordinaryAttack(); //普通攻击
+	//e技能
+	void skillE();
+	void skillQ();
 
 	//void moveAnimation(Vector<SpriteFrame*> frame, int actionTag); // 人物移动动画
 	void updatePlayerOrientation(); //更新人物朝向
-	//void updatePlayerPosition(float dt); //更新人物位置
-
-	//Sprite* getBody() { return m_body; }//获取身体
-	//float getSpeed() { return speed; }//获取速度
 
 	CREATE_FUNC(Enemy);//创建一个Enemy对象
 private:
 	float walktime;
 
-	//人物动画
-	Vector<SpriteFrame*> walk_up;
-	Vector<SpriteFrame*> walk_down;
-	Vector<SpriteFrame*> walk_left;
-	Vector<SpriteFrame*> walk_right;
+
 
 
 	ProgressTimer* Enemy_hpBar;//血条

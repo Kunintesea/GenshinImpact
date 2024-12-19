@@ -51,6 +51,7 @@ bool mapManager::init()
 
 void mapManager::update(float dt)
 {
+    //先看看能不能找到，找不到直接返回
       Vec2 spritePosition = this->getParent()->getChildByName("Me")->getPosition();
       spritePosChange = spritePosChange + spritePosition - spritePos;
       spritePos = spritePosition;

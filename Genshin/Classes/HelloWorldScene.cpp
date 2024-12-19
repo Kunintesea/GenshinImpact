@@ -10,7 +10,6 @@ USING_NS_CC;
 std::map<EventKeyboard::KeyCode, bool> keyMap;//创建一个map，用来存储按键的状态
 
 
-
 //创建一个场景
 Scene* HelloWorld::createScene()
 {
@@ -24,9 +23,44 @@ static void problemLoading(const char* filename)
     printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
 }
 
+void HelloWorld::characterset()
+{
+	//遍历敌人数组
+	for (int i = 0; i < 20; i++)
+	{
+		if (enemygroup[i] != nullptr)
+		{
+			//给它设置一个effects
+            //创建
+			Effects* effect = Effects::create();
+			//位置
+			effect->setPosition(enemygroup[i]->getPosition());
+
+
+			//绑定到场景
+			this->addChild(effect);
+			effect->EffectsSize(enemygroup[i]->getNaming());
+			enemygroup[i]->m_effect[0] = effect;
+		}
+		else
+		{
+			break;
+		}
+	}
+}
+
 //初始化函数，会在场景创建时调用
 bool HelloWorld::init()
 {
+
+	////加入一个namesprite，看不见的，用于存储名字。使用时候通过tag获取，检索名字以赋值
+	//Namesprite = Sprite::create();
+	//this->addChild(Namesprite, 0);
+	//Namesprite->setName("objectName");//默认名字
+	////tag为0
+	//Namesprite->setTag(99);
+
+
 	//首先调用基类的初始化函数
     if ( !Scene::init() )
     {
@@ -83,24 +117,86 @@ bool HelloWorld::init()
 		sprite->setName("Me");//设置标签
 		//将精灵添加到场景中
         this->addChild(sprite, 0);
+		//加入到玩家数组
+		for (int i = 0; i < 20; i++)
+		{
+			if (playergroup[i] == nullptr)
+			{
+				playergroup[i] = sprite;
+				break;
+			}
+		}
 
     }
 
 
-	//创建一个敌人到玩家左边
-	Enemy* enemy = Enemy::create();
-	if (enemy == nullptr)
+	//for (int i = 0; i < 5; i++)
+	//{
+	//	Enemy* enemy3 = Enemy::create();
+	//	if (enemy3 == nullptr)
+	//	{
+	//		problemLoading("'HelloWorld.png'");
+	//	}
+	//	else
+	//	{
+	//		//设置精灵的位置，这里以玩家为中心，的一圈
+	//		enemy3->setPosition(Vec2(visibleSize.width / 3 + origin.x + 22 + 22 * i, visibleSize.height / 3 + origin.y));
+
+
+	//		enemy3->setName("Enemy");//设置标签
+	//		//将精灵添加到场景中
+	//		this->addChild(enemy3, 0);
+	//		//加入到敌人数组
+	//		for (int i = 0; i < 20; i++)
+	//		{
+	//			if (enemygroup[i] == nullptr)
+	//			{
+	//				enemygroup[i] = enemy3;
+	//				if (i % 2 == 0)
+	//				{
+	//					enemy3->naming("Bat_Fire");//给敌人命名
+	//					enemy3->initData();
+	//					break;
+	//				}
+	//				else
+	//				{
+	//					enemy3->naming("Bat_Ice");//给敌人命名
+	//					enemy3->initData();
+	//					break;
+	//				}
+	//				
+	//			}
+	//		}
+	//	}
+	//}
+
+
+	//加一只地狱犬，在人物上方
+	Enemy* enemy2 = Enemy::create();
+	if (enemy2 == nullptr)
 	{
 		problemLoading("'HelloWorld.png'");
 	}
 	else
 	{
-		//设置精灵的位置，这里是屏幕的中心
-		enemy->setPosition(Vec2(visibleSize.width / 3 + origin.x+22, visibleSize.height / 3 + origin.y));
-		enemy->setName("Enemy");//设置标签
+		//设置精灵的位置，这里以玩家为中心，的一圈
+		enemy2->setPosition(Vec2(visibleSize.width / 3 + origin.x, visibleSize.height / 3 + origin.y + 22));
+		enemy2->setName("Enemy");//设置标签
 		//将精灵添加到场景中
-		this->addChild(enemy, 0);
+		this->addChild(enemy2, 0);
+		//加入到敌人数组
+		for (int i = 0; i < 20; i++)
+		{
+			if (enemygroup[i] == nullptr)
+			{
+				enemygroup[i] = enemy2;
+				enemy2->naming("HellDog");//给敌人命名
+				enemy2->initData();
+				break;
+			}
+		}
 	}
+
 
 
 
@@ -130,11 +226,24 @@ bool HelloWorld::init()
 	  {
 		  this->addChild(sprite->m_damage_label[i]);
 		  this->addChild(sprite->m_element_label[i]);
+
+		  //敌人也加进来，有几个敌人就加几个
+		  for (int j = 0; j < 20; j++)
+		  {
+			  if (enemygroup[j] != nullptr)
+			  {
+				  this->addChild(enemygroup[j]->m_damage_label[i]);
+				  this->addChild(enemygroup[j]->m_element_label[i]);
+			  }
+			  else
+			  {
+				  break;
+			  }
+		  }
 	  }
 
 
-
-
+	  characterset();
       return true;//返回true表示初始化成功
 }
 
@@ -143,6 +252,170 @@ void HelloWorld::update(float dt)
 {
 	//让player每秒掉血
 	Player* player = (Player*)this->getChildByName("Me");
+	//每一帧检测玩家有没有打到敌人，以及敌人有没有打到玩家
+	//玩家是否打到敌人，传入玩家特效和敌人
+	for (int i = 0; i < 20; i++)
+	{
+		if (playergroup[i] != nullptr)
+		{
+			//搜索特效
+			for (int j = 0; j < 20; j++)
+			{
+				if (playergroup[i]->m_effect[j] != nullptr)
+				{
+					//搜索敌人
+					for (int k = 0; k < 20; k++)
+					{
+						if (enemygroup[k] != nullptr)
+						{
+							//如果打到了
+							if (!enemygroup[k]->isDead && PlayerAttack(playergroup[i]->m_effect[j], enemygroup[k]) && playergroup[i]->m_effect_index[j][k] >0)
+							{
+								//对应位置计数减1
+								playergroup[i]->m_effect_index[j][k] -= 1;
+
+								//对敌人调用Hurt函数，数值为攻击力，类型为effect里面的damage_type
+								enemygroup[k]->hurt(int(playergroup[i]->getAttack() * playergroup[i]->m_effect[j]->damage_rate), playergroup[i]->m_effect[j]->damage_type, true);
+								//如果打死了
+								if (enemygroup[k]->isDead)
+								{
+									//玩家能量增加
+									//playergroup[i]->getmp() += 10;
+
+
+									//让其不可见，5秒后删除
+									enemygroup[k]->setVisible(false);
+
+									//节点交换，把这个节点放到enemygroup_delete
+									for (int l = 0; l < 20; l++)
+									{
+										if (enemygroup_delete[l] == nullptr)
+										{
+											enemygroup_delete[l] = enemygroup[k];
+											//删除
+											enemygroup[k] = nullptr;
+											break;
+										}
+									}
+									
+
+									//让后面的节点往前移
+									for (int l = k; l < 19; l++)
+									{
+										if (enemygroup[l + 1] != nullptr)
+										{
+											enemygroup[l] = enemygroup[l + 1];
+										}
+										else
+										{
+											break;
+										}
+
+									}
+
+									//5秒后删除enemygroup_delete中的节点
+									for (int l = 0; l < 20; l++)
+									{
+										if (enemygroup_delete[l] != nullptr)
+										{
+											enemygroup_delete[l]->runAction(Sequence::create(DelayTime::create(5), CallFunc::create([=] {this->removeChild(enemygroup_delete[l]); }), nullptr));//延时5秒后删除
+											enemygroup_delete[l] = nullptr;
+										}
+										else
+										{
+											break;
+										}
+									}
+
+								}
+
+							}
+						}
+						else
+						{
+							break;
+						}
+					}
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	
+	for (int i = 0; i < 20; i++)
+	{
+		if (enemygroup[i] != nullptr)
+		{
+			//搜索特效，检测敌人是否打到玩家
+			for (int j = 0; j < 20; j++)
+			{
+				if (enemygroup[i]->m_effect[j] != nullptr)
+				{
+					//搜索玩家
+					for (int k = 0; k < 20; k++)
+					{
+						if (playergroup[k] != nullptr)
+						{
+							//如果打到了
+							if (!enemygroup[k]->isDead &&PlayerAttack(enemygroup[i]->m_effect[j], playergroup[k]) && enemygroup[i]->m_effect_index[j][k] >0)
+							{
+								//对应位置计数减1
+								enemygroup[i]->m_effect_index[j][k] -= 1;
+								//对玩家调用Hurt函数，数值为攻击力，类型为effect里面的damage_type
+								playergroup[k]->hurt(int(enemygroup[i]->getAttack()*enemygroup[i]->m_effect[j]->damage_rate), enemygroup[i]->m_effect[j]->damage_type, true);
+							}
+						}
+						else
+						{
+							break;
+						}
+					}
+				}
+				else
+				{
+					break;
+				}
+			}
+
+
+			//检索玩家，只要玩家靠近敌人，敌人就往玩家身上走（leisure=false）
+			for (int j = 0; j < 20; j++)
+			{
+				if (playergroup[j] != nullptr)
+				{
+					//如果玩家在敌人的攻击范围(500)内
+					if (playergroup[j]->getPosition().distance(enemygroup[i]->getPosition()) < 700)
+					{
+						//敌人往玩家身上走
+						enemygroup[i]->leisure = false;
+					}
+					else if (playergroup[j]->getPosition().distance(enemygroup[i]->getPosition()) > 1500)
+					{
+						enemygroup[i]->leisure = true;
+						break;
+					}
+				}
+				else
+				{
+					break;
+				}
+			}
+
+		}
+		else
+		{
+			break;
+		}
+	}
+
 
 
 
@@ -150,7 +423,51 @@ void HelloWorld::update(float dt)
 
 	
 }
+bool HelloWorld::PlayerAttack(Effects* me, BasePlayer* other)
+{
+	////设定other的m_bodyRect的包围盒，由other->m_body的位置和大小决定。坐标用整个类的，大小用m_body的
+	//other->m_bodyRect = Rect(other->getPositionX() - other->getBody()->getContentSize().width / 2, other->getPositionY() - other->getBody()->getContentSize().height / 2, other->getBody()->getContentSize().width, other->getBody()->getContentSize().height);
+	//float a = other->getBody()->getContentSize().width;
+	////包围盒的大小等于effect的大小。位置则用整个类的坐标
+	//me->effectRect = Rect(me->getPositionX()- me->effect->getContentSize().width/2, me->getPositionY() - me->effect->getContentSize().height/2, me->effect->getContentSize().width, me->effect->getContentSize().height);
+	//float b = me->effect->getContentSize().width;
 
+	//获取放大倍数
+	float c = me->effect->getScaleX();
+
+	//getContentSize()只能获取图片的原始大小，如果图片被缩放了，这个函数获取的大小是缩放前的大小。因此要用getContentSize().width*getScaleX()来获取缩放后的大小
+	other->m_bodyRect = Rect(other->getPositionX() - other->getBody()->getContentSize().width / 2, other->getPositionY() - other->getBody()->getContentSize().height / 2, other->getBody()->getContentSize().width * other->getBody()->getScaleX(), other->getBody()->getContentSize().height * other->getBody()->getScaleY());
+
+	me->effectRect = Rect(me->getPositionX() - me->effect->getContentSize().width / 2, me->getPositionY() - me->effect->getContentSize().height / 2, me->effect->getContentSize().width * me->effect->getScaleX(), me->effect->getContentSize().height * me->effect->getScaleY());
+
+
+	//获取玩家精灵和目标精灵的包围盒
+	Rect playerRect = me->effectRect;
+	//等于m_body的包围盒
+	Rect targetRect = other->m_bodyRect;
+
+	////对应位置画两个矩形便于调试
+	//DrawNode* drawNode = DrawNode::create();
+	//drawNode->drawRect(Vec2(playerRect.getMinX(), playerRect.getMinY()), Vec2(playerRect.getMaxX(), playerRect.getMaxY()), Color4F(1, 0, 0, 1));
+	//this->addChild(drawNode, 1000);
+
+	//DrawNode* drawNode2 = DrawNode::create();
+	//drawNode2->drawRect(Vec2(targetRect.getMinX(), targetRect.getMinY()), Vec2(targetRect.getMaxX(), targetRect.getMaxY()), Color4F(1, 0, 0, 1));
+	//this->addChild(drawNode2, 1000);
+
+
+
+
+
+	// 检测两个精灵的包围盒是否相交
+	if (playerRect.intersectsRect(targetRect))
+	{
+
+		return true;
+	}
+
+	return false;
+}
 
 
 

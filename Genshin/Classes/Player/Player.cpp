@@ -1,5 +1,5 @@
 #include "Player.h"
-
+#include "Enemy.h"
 /*
 关于动作：由m_body上的tag决定，由getNumberOfRunningActionsByTag获取。
 1：向左
@@ -37,6 +37,9 @@ bool Player::init()
 	}
 
 
+	//读取人物的血量，用UserDefault
+	//m_hp = UserDefault::getInstance()->getIntegerForKey("hp", m_hp);
+
 
 
 
@@ -53,6 +56,9 @@ bool Player::init()
 		m_damage_label[i]->enableOutline(Color4B::BLACK, 2);
 		m_element_label[i]->setVisible(false);//设置不可见
 		m_damage_label[i]->setVisible(false);//设置不可见
+
+
+
 	}
 	
 
@@ -107,12 +113,12 @@ bool Player::init()
 	//运动动画帧
 	SpriteFrame* walk_back1 = SpriteFrame::create("Me/Saber/Walk/walk_back1.png", Rect(0, 0, bodySize.width, bodySize.height));
 	SpriteFrame* walk_back2 = SpriteFrame::create("Me/Saber/Walk/walk_back2.png", Rect(0, 0, bodySize.width, bodySize.height));
-	walk_back.pushBack(walk_back1);
-	walk_back.pushBack(walk_back2);
+	walk_up.pushBack(walk_back1);
+	walk_up.pushBack(walk_back2);
 	SpriteFrame* walk_front1 = SpriteFrame::create("Me/Saber/Walk/walk_front1.png", Rect(0, 0, bodySize.width, bodySize.height));
 	SpriteFrame* walk_front2 = SpriteFrame::create("Me/Saber/Walk/walk_front2.png", Rect(0, 0, bodySize.width, bodySize.height));
-	walk_front.pushBack(walk_front1);
-	walk_front.pushBack(walk_front2);
+	walk_down.pushBack(walk_front1);
+	walk_down.pushBack(walk_front2);
 	SpriteFrame* walk_left1 = SpriteFrame::create("Me/Saber/Walk/walk_left1.png", Rect(0, 0, bodySize.width, bodySize.height));
 	SpriteFrame* walk_left2 = SpriteFrame::create("Me/Saber/Walk/walk_left2.png", Rect(0, 0, bodySize.width, bodySize.height));
 	walk_left.pushBack(walk_left1);
@@ -559,14 +565,18 @@ void Player::getPlayerOrientation(Vec2 position)
 void Player::ordinaryAttack()
 {
 
+
+
 	//播放特效
 	Effects* m_weapon_light = Effects::create();
-	m_weapon_light->setAnchorPoint(Vec2(0.5, 0));
+	//m_weapon_light->setAnchorPoint(Vec2(0.5, 0));
 	//位置在人物身上
 	m_weapon_light->setPosition(this->getPosition());
 	//绑定到场景
 	this->getParent()->addChild(m_weapon_light);
 	m_weapon_light->EffectsAnimation(m_weapon_light->saber_normal, 0);
+
+
 
 
 	m_weapon_light->setRotation(this->weaponAngle);//让武器的角度等于鼠标的角度
@@ -602,11 +612,36 @@ void Player::ordinaryAttack()
 	//剑气：移动
 	float length = -150;
 	m_weapon_light->setVisible(true);
+	//加入到特效数组
+	for (int i = 0;i < 20;i++)
+	{
+		if (m_effect[i] == nullptr)
+		{
+			m_effect[i] = m_weapon_light;
+			//设置其数字标签为i
+			m_weapon_light->setTag(i);
+			//m_effect_count[i] = i;
+			//m_effect_index
+			for (int j = 0; j < 20; j++)
+			{
+				m_effect_index[i][j] = 1;
+			}
+			break;
+		}
+	}
+
 	//m_weapon_light->setPosition(Vec2(this->getPosition().x + length * sin((weaponAngle / 180) * PI), this->getPosition().y + length * cos((weaponAngle / 180) * PI)));
 	auto fadeInAction = FadeIn::create(0.05);//淡入
 	auto fadeOutAction = FadeOut::create(0.05);//淡出
 	auto moveAction = MoveBy::create(attackDistance / attackSpeed, Vec2(attackDistance * sin((weaponAngle / 180) * PI), attackDistance * cos((weaponAngle / 180) * PI)));//移动函数。起点是当前位置，终点是当前位置加上一个向量
-	m_weapon_light->runAction(Sequence::create(delayTime, fadeInAction, moveAction, fadeOutAction, CallFunc::create([=] {isflying = false; }), nullptr));
+	//执行上述动作后把节点移除，并且把数组对应位置（通过tag获取）置空
+	auto removeSelf = CallFunc::create([=] {m_weapon_light->setVisible(false); m_effect[m_weapon_light->getTag()] = nullptr; });
+
+	//执行动作
+	m_weapon_light->runAction(Sequence::create(fadeInAction, moveAction, fadeOutAction, removeSelf, nullptr));
+
+
+
 }
 
 void Player::weaponRotate(Vec2 position)
@@ -643,12 +678,12 @@ void Player::updatePlayerOrientation()
 	if (this->mouseState[0])
 	{
 		weaponPosition = Vec2(m_body->getPosition().x - 2.25, m_body->getPosition().y + m_weapon->getContentSize().height / (1.25));
-		moveAnimation(walk_back, 4);
+		moveAnimation(walk_up, 4);
 	}
 	else if (this->mouseState[1])
 	{
 		weaponPosition = Vec2(m_body->getPosition().x - 2.25, m_body->getPosition().y - m_weapon->getContentSize().height / (1.75));
-		moveAnimation(walk_front, 3);
+		moveAnimation(walk_down, 3);
 	}
 	else if (this->mouseState[2])
 	{
