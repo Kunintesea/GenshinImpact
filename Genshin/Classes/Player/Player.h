@@ -13,6 +13,7 @@ USING_NS_CC;
 using namespace ui;
 class newCamera;
 class PlayerStatusUI;
+class HelloWorld;
 
 
 
@@ -23,6 +24,7 @@ class Player : public BasePlayer
 public:
 	friend class PlayerStatusUI;//友元类
 	friend class Enemy;
+	friend class HelloWorld;
 	virtual bool init();//初始化函数，会在场景创建时调用
 
 	void update(float dt);//更新函数，每帧调用一次
@@ -30,7 +32,8 @@ public:
 
 	void getPlayerOrientation(Vec2 position);//监听鼠标事件，更新人物朝向
 	void dodge(Vec2 position);//闪避
-	void ordinaryAttack(); //普通攻击
+	void swordOrdinaryAttack(); //剑普通攻击
+	void bowOrdinaryAttack(); //弓箭普通攻击
 
 	void updatePlayerOrientation(); //更新人物朝向
 	void updatePlayerPosition(float dt); //更新人物位置
@@ -45,6 +48,8 @@ public:
 	//攻击敌人的函数
 	void attackEnemy();
 
+	void e(); //e技能
+	void q(); //q技能
 
 
 
@@ -55,10 +60,15 @@ private:
 	//人物身体其他组成部分
 	Sprite* m_head;//头部
 	Sprite* m_equipment;//装备
+	Sprite* m_e;//e技能
+
+
+	//e技能
+	bool isE = false;
 
 	//武器
 	Sprite* m_weapon;
-	//Sprite* m_weapon_light;
+	Sprite* m_weapon2;
 	Vec2 weaponPosition;
 	float weaponAngle; //武器旋转角度
 
@@ -68,8 +78,16 @@ private:
 	std::vector<bool>mouseState = { false,false,false,false }; //上下左右
 
 	//人物动画
-	Vector<SpriteFrame*> staticForwards;
-
+	Vector<SpriteFrame*> sword_walk_back;
+	Vector<SpriteFrame*> sword_walk_front;
+	Vector<SpriteFrame*> sword_walk_left;
+	Vector<SpriteFrame*> sword_walk_right;
+	Vector<SpriteFrame*> sword_staticForwards;
+	Vector<SpriteFrame*> bow_walk_back;
+	Vector<SpriteFrame*> bow_walk_front;
+	Vector<SpriteFrame*> bow_walk_left;
+	Vector<SpriteFrame*> bow_walk_right;
+	Vector<SpriteFrame*> bow_staticForwards;
 
 	float m_stamina = 100;//体力
 	float m_max_stamina = 100;//最大体力

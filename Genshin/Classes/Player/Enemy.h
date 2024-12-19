@@ -28,20 +28,23 @@ public:
 	//e技能
 	void skillE();
 	void skillQ();
-
-	//void moveAnimation(Vector<SpriteFrame*> frame, int actionTag); // 人物移动动画
 	void updatePlayerOrientation(); //更新人物朝向
+
+	//获取冷却时间
+	float get1CD() { return m_1_CD; }
+	//进入冷却
+	void set1CD() { m_1_CD = m_1_max_CD; }
 
 	CREATE_FUNC(Enemy);//创建一个Enemy对象
 private:
 	float walktime;
 
+	//技能1冷却时间
+	float m_1_CD = 0;
+	float m_1_max_CD = 10;
 
 
 
-	ProgressTimer* Enemy_hpBar;//血条
-	Sprite* Enemy_hpBar_bg;//血条背景
-	Label* Enemy_hpLabel;//血量标签
 
 
 

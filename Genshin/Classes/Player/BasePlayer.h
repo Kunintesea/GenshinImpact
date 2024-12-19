@@ -76,6 +76,12 @@ public:
 
 protected:
 
+	Vec2 worldPosition;
+	ProgressTimer* Enemy_hpBar;//血条
+	Sprite* Enemy_hpBar_bg;//血条背景
+	Label* Enemy_hpLabel;//血量标签
+
+
 	float speed;
 
 	//人物动画

@@ -82,7 +82,34 @@ bool Effects::init()
 		//加入到动画帧
 		HellDog_q_explosion.pushBack(HellDog_q_explosion1);
 	}
+	SpriteFrame* q1 = SpriteFrame::create("Effects/WeaponEffect/q1.png", Rect(0, 0, 512, 512));
+	SpriteFrame* q2 = SpriteFrame::create("Effects/WeaponEffect/q2.png", Rect(0, 0, 512, 512));
+	SpriteFrame* q3 = SpriteFrame::create("Effects/WeaponEffect/q3.png", Rect(0, 0, 512, 512));
+	SpriteFrame* q4 = SpriteFrame::create("Effects/WeaponEffect/q4.png", Rect(0, 0, 512, 512));
+	q.pushBack(q1);
+	q.pushBack(q2);
+	q.pushBack(q3);
+	q.pushBack(q4);
 
+	SpriteFrame* bow_normal1 = SpriteFrame::create("Me/Saber/Weapon/bow_light.png", Rect(0, 0, 256, 256));//传入图片路径，原图片的位置和大小
+	SpriteFrame* bow_normal2 = SpriteFrame::create("Me/Saber/Weapon/bow_light.png", Rect(0, 0, 256, 256));
+	SpriteFrame* bow_normal3 = SpriteFrame::create("Me/Saber/Weapon/bow_light.png", Rect(0, 0, 256, 256));
+	SpriteFrame* bow_normal4 = SpriteFrame::create("Me/Saber/Weapon/bow_light.png", Rect(0, 0, 256, 256));
+	bow_normal.pushBack(bow_normal1);
+	bow_normal.pushBack(bow_normal2);
+	bow_normal.pushBack(bow_normal3);
+	bow_normal.pushBack(bow_normal4);
+
+	SpriteFrame* q_bow1 = SpriteFrame::create("Effects/WeaponEffect/q_bow1.png", Rect(0, 0, 400, 400));
+	SpriteFrame* q_bow2 = SpriteFrame::create("Effects/WeaponEffect/q_bow2.png", Rect(0, 0, 400, 400));
+	SpriteFrame* q_bow3 = SpriteFrame::create("Effects/WeaponEffect/q_bow3.png", Rect(0, 0, 400, 400));
+	SpriteFrame* q_bow4 = SpriteFrame::create("Effects/WeaponEffect/q_bow4.png", Rect(0, 0, 400, 400));
+	SpriteFrame* q_bow5 = SpriteFrame::create("Effects/WeaponEffect/q_bow5.png", Rect(0, 0, 400, 400));
+	q_bow.pushBack(q_bow1);
+	q_bow.pushBack(q_bow2);
+	q_bow.pushBack(q_bow3);
+	q_bow.pushBack(q_bow4);
+	q_bow.pushBack(q_bow5);
 
 
 

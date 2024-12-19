@@ -17,8 +17,11 @@ bool Player::init()
 	{
 		return false;
 	}
+
+	this->m_name = "swordPlayer";
+
 	//创建精灵
-	m_body = Sprite::create("Me/Saber/Walk/front.png");
+	m_body = Sprite::create("Me/Saber/Walk/front1.png");
 	//将精灵添加到节点
 	this->addChild(m_body);
 
@@ -32,7 +35,7 @@ bool Player::init()
 
 		m_element_sprite[i]->setVisible(false);
 		//默认设置在正上方
-		m_element_sprite[i]->setPosition(Vec2(this->getPositionX(), this->getPositionY() + m_body->getContentSize().height / 3));
+		m_element_sprite[i]->setPosition(Vec2(this->getPositionX(), this->getPositionY() + m_body->getContentSize().height ));
 		this->addChild(m_element_sprite[i]);
 	}
 
@@ -72,7 +75,7 @@ bool Player::init()
 	//缩小5倍
 	m_head->setScale(0.2);
 	//设置位置到身体右边
-	m_head->setPosition(Vec2(m_body->getContentSize().width / 2, 0));
+	m_head->setPosition(Vec2(m_body->getContentSize().width, 0));
 	this->addChild(m_head);
 
 	//设置武器
@@ -95,38 +98,72 @@ bool Player::init()
 	//设置一个攻击类型的tag，有Physical, Wind, Rock, Thunder, Grass, Water, Fire, Ice
 	//m_weapon_light->setTag(Physical);
 
+		//e技能
+	m_e = Sprite::create("Me/Saber/Weapon/e2.png");
+	m_e->setAnchorPoint(Vec2(0.5, 0));
+	m_e->setVisible(false);  // 隐藏精灵
+	this->addChild(m_e);
+
 	// 加载动画
 	// 静止动画帧
 	Size bodySize = m_body->getContentSize();
 	//"D:\Github_Document\GenshinImpact\Genshin\Resources\Me\Saber\Walk\walk_back2.png"
-	SpriteFrame* front = SpriteFrame::create("Me/Saber/Walk/front.png", Rect(0, 0, bodySize.width, bodySize.height));
-	SpriteFrame* back = SpriteFrame::create("Me/Saber/Walk/back.png", Rect(0, 0, bodySize.width, bodySize.height));
-	SpriteFrame* left = SpriteFrame::create("Me/Saber/Walk/left.png", Rect(0, 0, bodySize.width, bodySize.height));
-	SpriteFrame* right = SpriteFrame::create("Me/Saber/Walk/right.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* sword_front = SpriteFrame::create("Me/Saber/Walk/front1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* sword_back = SpriteFrame::create("Me/Saber/Walk/back1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* sword_left = SpriteFrame::create("Me/Saber/Walk/left1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* sword_right = SpriteFrame::create("Me/Saber/Walk/right1.png", Rect(0, 0, bodySize.width, bodySize.height));
 	//SpriteFrame* dead = SpriteFrame::create("Me/Saber/Walk/dead.png", Rect(0, 0, bodySize.width, bodySize.height));
-	staticForwards.pushBack(front);
-	staticForwards.pushBack(back);
-	staticForwards.pushBack(left);
-	staticForwards.pushBack(right);
+	sword_staticForwards.pushBack(sword_front);
+	sword_staticForwards.pushBack(sword_back);
+	sword_staticForwards.pushBack(sword_left);
+	sword_staticForwards.pushBack(sword_right);
+	//staticForwards.pushBack(dead);
+	SpriteFrame* bow_front = SpriteFrame::create("Me/Saber/Walk/front2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* bow_back = SpriteFrame::create("Me/Saber/Walk/back2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* bow_left = SpriteFrame::create("Me/Saber/Walk/left2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* bow_right = SpriteFrame::create("Me/Saber/Walk/right2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	//SpriteFrame* dead = SpriteFrame::create("Me/Saber/Walk/dead.png", Rect(0, 0, bodySize.width, bodySize.height));
+	bow_staticForwards.pushBack(bow_front);
+	bow_staticForwards.pushBack(bow_back);
+	bow_staticForwards.pushBack(bow_left);
+	bow_staticForwards.pushBack(bow_right);
 	//staticForwards.pushBack(dead);
 
 	//运动动画帧
-	SpriteFrame* walk_back1 = SpriteFrame::create("Me/Saber/Walk/walk_back1.png", Rect(0, 0, bodySize.width, bodySize.height));
-	SpriteFrame* walk_back2 = SpriteFrame::create("Me/Saber/Walk/walk_back2.png", Rect(0, 0, bodySize.width, bodySize.height));
-	walk_up.pushBack(walk_back1);
-	walk_up.pushBack(walk_back2);
-	SpriteFrame* walk_front1 = SpriteFrame::create("Me/Saber/Walk/walk_front1.png", Rect(0, 0, bodySize.width, bodySize.height));
-	SpriteFrame* walk_front2 = SpriteFrame::create("Me/Saber/Walk/walk_front2.png", Rect(0, 0, bodySize.width, bodySize.height));
-	walk_down.pushBack(walk_front1);
-	walk_down.pushBack(walk_front2);
-	SpriteFrame* walk_left1 = SpriteFrame::create("Me/Saber/Walk/walk_left1.png", Rect(0, 0, bodySize.width, bodySize.height));
-	SpriteFrame* walk_left2 = SpriteFrame::create("Me/Saber/Walk/walk_left2.png", Rect(0, 0, bodySize.width, bodySize.height));
-	walk_left.pushBack(walk_left1);
-	walk_left.pushBack(walk_left2);
-	SpriteFrame* walk_right1 = SpriteFrame::create("Me/Saber/Walk/walk_right1.png", Rect(0, 0, bodySize.width, bodySize.height));
-	SpriteFrame* walk_right2 = SpriteFrame::create("Me/Saber/Walk/walk_right2.png", Rect(0, 0, bodySize.width, bodySize.height));
-	walk_right.pushBack(walk_right1);
-	walk_right.pushBack(walk_right2);
+	SpriteFrame* sword_walk_back1 = SpriteFrame::create("Me/Saber/Walk/back1_walk1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* sword_walk_back2 = SpriteFrame::create("Me/Saber/Walk/back1_walk2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	sword_walk_back.pushBack(sword_walk_back1);
+	sword_walk_back.pushBack(sword_walk_back2);
+	SpriteFrame* sword_walk_front1 = SpriteFrame::create("Me/Saber/Walk/front1_walk1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* sword_walk_front2 = SpriteFrame::create("Me/Saber/Walk/front1_walk2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	sword_walk_front.pushBack(sword_walk_front1);
+	sword_walk_front.pushBack(sword_walk_front2);
+	SpriteFrame* sword_walk_left1 = SpriteFrame::create("Me/Saber/Walk/left1_walk1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* sword_walk_left2 = SpriteFrame::create("Me/Saber/Walk/left1_walk2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	sword_walk_left.pushBack(sword_walk_left1);
+	sword_walk_left.pushBack(sword_walk_left2);
+	SpriteFrame* sword_walk_right1 = SpriteFrame::create("Me/Saber/Walk/right1_walk1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* sword_walk_right2 = SpriteFrame::create("Me/Saber/Walk/right1_walk2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	sword_walk_right.pushBack(sword_walk_right1);
+	sword_walk_right.pushBack(sword_walk_right2);
+
+	SpriteFrame* bow_walk_back1 = SpriteFrame::create("Me/Saber/Walk/back2_walk1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* bow_walk_back2 = SpriteFrame::create("Me/Saber/Walk/back2_walk2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	bow_walk_back.pushBack(bow_walk_back1);
+	bow_walk_back.pushBack(bow_walk_back2);
+	SpriteFrame* bow_walk_front1 = SpriteFrame::create("Me/Saber/Walk/front2_walk1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* bow_walk_front2 = SpriteFrame::create("Me/Saber/Walk/front2_walk2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	bow_walk_front.pushBack(bow_walk_front1);
+	bow_walk_front.pushBack(bow_walk_front2);
+	SpriteFrame* bow_walk_left1 = SpriteFrame::create("Me/Saber/Walk/left2_walk1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* bow_walk_left2 = SpriteFrame::create("Me/Saber/Walk/left2_walk2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	bow_walk_left.pushBack(bow_walk_left1);
+	bow_walk_left.pushBack(bow_walk_left2);
+	SpriteFrame* bow_walk_right1 = SpriteFrame::create("Me/Saber/Walk/right2_walk1.png", Rect(0, 0, bodySize.width, bodySize.height));
+	SpriteFrame* bow_walk_right2 = SpriteFrame::create("Me/Saber/Walk/right2_walk2.png", Rect(0, 0, bodySize.width, bodySize.height));
+	bow_walk_right.pushBack(bow_walk_right1);
+	bow_walk_right.pushBack(bow_walk_right2);
+
 
 	//加入调度器
 	this->scheduleUpdate();
@@ -166,7 +203,7 @@ bool Player::init()
 	DodgeListener->onMouseDown = [=](Event* event)
 		{
 			auto mouseEvent = static_cast<EventMouse*>(event);
-			if (mouseEvent->getMouseButton() == EventMouse::MouseButton::BUTTON_RIGHT)
+			if (mouseEvent->getMouseButton() == EventMouse::MouseButton::BUTTON_RIGHT && !isE) 
 			{
 				if (m_stamina > 10)
 				{
@@ -190,11 +227,12 @@ bool Player::init()
 	oridinaryAttack->onMouseDown = [this](Event* event)
 		{
 			auto mouseAttack = static_cast<EventMouse*>(event);
-			if (mouseAttack->getMouseButton() == EventMouse::MouseButton::BUTTON_LEFT && !isWeapon)
+			if (mouseAttack->getMouseButton() == EventMouse::MouseButton::BUTTON_LEFT && !isWeapon && !isE)
 			{
 				isWeapon = true;
 				isflying = true;
-				this->ordinaryAttack();
+				if (this->getNaming() == "swordPlayer")this->swordOrdinaryAttack();
+				else if (this->getNaming() == "bowPlayer")this->bowOrdinaryAttack();
 			}
 		};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(oridinaryAttack, this);//把监听器加入到事件分发器中，传入监听器与其绑定的对象。这里的优先级设定为精灵的优先级
@@ -209,19 +247,19 @@ bool Player::init()
 			case EventKeyboard::KeyCode::KEY_A:
 			case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
 
-				keyMap[EventKeyboard::KeyCode::KEY_LEFT_ARROW] = true;
+				if (!isE)keyMap[EventKeyboard::KeyCode::KEY_LEFT_ARROW] = true;
 				break;
 			case EventKeyboard::KeyCode::KEY_D:
 			case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-				keyMap[EventKeyboard::KeyCode::KEY_RIGHT_ARROW] = true;
+				if (!isE)keyMap[EventKeyboard::KeyCode::KEY_RIGHT_ARROW] = true;
 				break;
 			case EventKeyboard::KeyCode::KEY_W:
 			case EventKeyboard::KeyCode::KEY_UP_ARROW:
-				keyMap[EventKeyboard::KeyCode::KEY_UP_ARROW] = true;
+				if (!isE)keyMap[EventKeyboard::KeyCode::KEY_UP_ARROW] = true;
 				break;
 			case EventKeyboard::KeyCode::KEY_S:
 			case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-				keyMap[EventKeyboard::KeyCode::KEY_DOWN_ARROW] = true;
+				if (!isE)keyMap[EventKeyboard::KeyCode::KEY_DOWN_ARROW] = true;
 				break;
 			default:
 				break;
@@ -254,6 +292,33 @@ bool Player::init()
 		};
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyboardListener, this);//把监听器加入到事件分发器中，传入监听器与其绑定的对象。这里的优先级设定为精灵的优先级
 
+	//键盘事件监听：q元素爆发
+	auto qListener = EventListenerKeyboard::create();
+	//按键按下时调用
+	qListener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event* event)
+		{
+			if (keyCode == EventKeyboard::KeyCode::KEY_Q)
+			{
+				q();
+			}
+		};
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(qListener, this);//把监听器加入到事件分发器中，传入监听器与其绑定的对象。这里的优先级设定为精灵的优先级
+
+	//键盘事件监听：e元素战技冲刺
+	auto eListener = EventListenerKeyboard::create();
+	//按键按下时调用
+	eListener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event* event)
+		{
+			if (keyCode == EventKeyboard::KeyCode::KEY_E)
+			{
+				isE = true;
+				e();
+			}
+		};
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eListener, this);//把监听器加入到事件分发器中，传入监听器与其绑定的对象。这里的优先级设定为精灵的优先级
+
+
+
 	//鼠标事件监听
 	auto mouseListener = EventListenerMouse::create();
 	mouseListener->onMouseMove = [this](Event* event)
@@ -262,7 +327,7 @@ bool Player::init()
 			float x = mousePosition->getCursorX();
 			float y = mousePosition->getCursorY();
 			// 转换为世界坐标
-			Vec2 worldPosition = Vec2(x, y);
+			worldPosition = Vec2(x, y);
 			this->getPlayerOrientation(worldPosition);
 			if (!isWeapon)this->weaponRotate(worldPosition);
 		};
@@ -370,17 +435,31 @@ void Player::updatePlayerPosition(float dt)
 	if (!keyMap[EventKeyboard::KeyCode::KEY_LEFT_ARROW] && !keyMap[EventKeyboard::KeyCode::KEY_RIGHT_ARROW] && !keyMap[EventKeyboard::KeyCode::KEY_UP_ARROW] && !keyMap[EventKeyboard::KeyCode::KEY_DOWN_ARROW])//如果没有按键按下
 	{
 		if (this->mouseState[2]) // 如果正在向左走
-			m_body->setSpriteFrame(staticForwards.at(2));
+		{
+			if (this->getNaming() == "swordPlayer")m_body->setSpriteFrame(sword_staticForwards.at(2));
+			if (this->getNaming() == "bowPlayer")m_body->setSpriteFrame(bow_staticForwards.at(2));
+		}
 		else if (this->mouseState[3]) // 如果正在向右走
-			m_body->setSpriteFrame(staticForwards.at(3));
+		{
+			if (this->getNaming() == "swordPlayer")m_body->setSpriteFrame(sword_staticForwards.at(3));
+			if (this->getNaming() == "bowPlayer")m_body->setSpriteFrame(bow_staticForwards.at(3));
+		}
 		else if (this->mouseState[0]) // 如果正在向上走
-			m_body->setSpriteFrame(staticForwards.at(1));
+		{
+			if (this->getNaming() == "swordPlayer")m_body->setSpriteFrame(sword_staticForwards.at(1));
+			if (this->getNaming() == "bowPlayer")m_body->setSpriteFrame(bow_staticForwards.at(1));
+		}
 		else if (this->mouseState[1])
-			m_body->setSpriteFrame(staticForwards.at(0));
+		{
+			if (this->getNaming() == "swordPlayer")m_body->setSpriteFrame(sword_staticForwards.at(0));
+			if (this->getNaming() == "bowPlayer")m_body->setSpriteFrame(bow_staticForwards.at(0));
+		}
+		else if (this->mouseState[0] == false && this->mouseState[1] == false && this->mouseState[2] == false && this->mouseState[3] == false)
+		{
+			if (this->getNaming() == "swordPlayer")m_body->setSpriteFrame(sword_staticForwards.at(0));
+			if (this->getNaming() == "bowPlayer")m_body->setSpriteFrame(bow_staticForwards.at(0));
+		}
 	}
-
-
-	
 }
 
 
@@ -406,7 +485,7 @@ void Player::dodge(Vec2 position)
 	//计算角度
 	float angle = atan2(mouseLocalPosition.y, mouseLocalPosition.x);
 	//冲刺距离
-	float distance = 100;
+	float distance = 200;
 
 	// 判断碰撞
 	if (cos(angle) >= 0 && sin(angle) >= 0) {
@@ -562,24 +641,8 @@ void Player::getPlayerOrientation(Vec2 position)
 	}
 }
 
-void Player::ordinaryAttack()
+void Player::swordOrdinaryAttack()
 {
-
-
-
-	//播放特效
-	Effects* m_weapon_light = Effects::create();
-	//m_weapon_light->setAnchorPoint(Vec2(0.5, 0));
-	//位置在人物身上
-	m_weapon_light->setPosition(this->getPosition());
-	//绑定到场景
-	this->getParent()->addChild(m_weapon_light);
-	m_weapon_light->EffectsAnimation(m_weapon_light->saber_normal, 0);
-
-
-
-
-	m_weapon_light->setRotation(this->weaponAngle);//让武器的角度等于鼠标的角度
 	//攻击范围
 	float attackDistance = 150.0f;
 	//攻击速度
@@ -609,7 +672,17 @@ void Player::ordinaryAttack()
 	}
 	//延时
 	auto delayTime = DelayTime::create(rotateAngle1 / rotateSpeed);
-	//剑气：移动
+
+	//播放特效
+	Effects* m_weapon_light = Effects::create();
+	m_weapon_light->setAnchorPoint(Vec2(0.5, 0));
+	//位置在人物身上
+	m_weapon_light->setPosition(this->getPosition());
+	m_weapon_light->setRotation(this->weaponAngle);//让武器的角度等于鼠标的角度
+	//绑定到场景
+	this->getParent()->addChild(m_weapon_light, 1);
+	m_weapon_light->EffectsAnimation(m_weapon_light->saber_normal, 0);
+
 	float length = -150;
 	m_weapon_light->setVisible(true);
 	//加入到特效数组
@@ -643,6 +716,213 @@ void Player::ordinaryAttack()
 
 
 }
+void Player::bowOrdinaryAttack()
+{
+	//攻击范围
+	float attackDistance = 500.0f;
+	//攻击速度
+	float attackSpeed = 1500.0f;
+	//旋转速度
+	float rotateSpeed = 700.0f;
+	//旋转角度
+	float rotateAngle1 = 45;
+	float rotateAngle2 = 90;
+	//获得角度
+	auto currentAngle = (m_weapon->getRotation() / 180) * PI;
+	//攻击方向
+	Vec2 attackDirection = Vec2(sin(currentAngle), cos(currentAngle));
+	//开始攻击
+	//武器：挥砍
+	if (mouseState[1] || mouseState[3] || mouseState[0])
+	{
+		auto rotateUp = RotateBy::create(rotateAngle1 / rotateSpeed, -rotateAngle1);
+		auto rotateDown = RotateBy::create(rotateAngle2 / rotateSpeed, rotateAngle2);
+		m_weapon->runAction(Sequence::create(rotateUp, rotateDown, CallFunc::create([=] {isWeapon = false; }), nullptr));
+	}
+	else if (mouseState[2])
+	{
+		auto rotateUp = RotateBy::create(rotateAngle1 / rotateSpeed, rotateAngle1);
+		auto rotateDown = RotateBy::create(rotateAngle2 / rotateSpeed, -rotateAngle2);
+		m_weapon->runAction(Sequence::create(rotateUp, rotateDown, CallFunc::create([=] {isWeapon = false; }), nullptr));
+	}
+	//延时
+	auto delayTime = DelayTime::create(rotateAngle1 / rotateSpeed);
+
+	//播放特效
+	Effects* m_weapon_light = Effects::create();
+	m_weapon_light->setAnchorPoint(Vec2(0.5, 0));
+	//位置在人物身上
+	m_weapon_light->setPosition(this->getPosition());
+	m_weapon_light->setRotation(this->weaponAngle);//让武器的角度等于鼠标的角度
+	//绑定到场景
+	this->getParent()->addChild(m_weapon_light, 1);
+	m_weapon_light->EffectsAnimation(m_weapon_light->bow_normal, 0);
+
+	//剑气：移动
+	auto fadeInAction = FadeIn::create(0.05);//淡入
+	auto fadeOutAction = FadeOut::create(0.05);//淡出
+	auto moveAction = MoveBy::create(attackDistance / attackSpeed, Vec2(attackDistance * sin((weaponAngle / 180) * PI), attackDistance * cos((weaponAngle / 180) * PI)));//移动函数。起点是当前位置，终点是当前位置加上一个向量
+	//执行上述动作后把节点移除，并且把数组对应位置（通过tag获取）置空
+	auto removeSelf = CallFunc::create([=] {m_weapon_light->setVisible(false); m_effect[m_weapon_light->getTag()] = nullptr; });
+	m_weapon_light->runAction(Sequence::create(delayTime, fadeInAction, moveAction, fadeOutAction, removeSelf, nullptr));
+}
+
+void Player::e()
+{
+	if (this->getNaming() == "swordPlayer")
+	{
+		//冲刺距离
+		float distance = 500;
+		//冲刺速度
+		float dodgeSpeed = 1000;
+		//获得角度
+		auto currentAngle = (m_weapon->getRotation() / 180) * PI;
+		//冲刺方向
+		Vec2 dodgeDirection = Vec2(sin(currentAngle), cos(currentAngle));
+		float length = 0;
+		m_e->setVisible(true);
+		m_e->setPosition(Vec2(weaponPosition.x + length * sin((weaponAngle / 180) * PI), weaponPosition.y + length * cos((weaponAngle / 180) * PI)));
+		auto fadeInAction = FadeIn::create(0.05);
+		auto delayTime = DelayTime::create(distance / dodgeSpeed - 0.05);
+		auto fadeOutAction = FadeOut::create(0.05);
+		m_e->runAction(Sequence::create(fadeInAction, delayTime, fadeOutAction, CallFunc::create([=] {isE = false; }), nullptr));
+		//开始冲刺
+		this->runAction(Sequence::create(MoveBy::create(distance / dodgeSpeed, dodgeDirection * distance), nullptr));
+	}
+	else if (this->getNaming() == "bowPlayer")
+	{
+		isWeapon = true;
+		//攻击范围
+		float attackDistance = 500.0f;
+		//攻击速度
+		float attackSpeed = 1500.0f;
+		//旋转速度
+		float rotateSpeed = 700.0f;
+		//旋转角度
+		float rotateAngle1 = 45;
+		float rotateAngle2 = 90;
+		//获得角度
+		auto currentAngle = (m_weapon->getRotation() / 180) * PI;
+		//攻击方向
+		Vec2 attackDirection = Vec2(sin(currentAngle), cos(currentAngle));
+		//开始攻击
+		//武器：挥砍
+		if (mouseState[1] || mouseState[3] || mouseState[0])
+		{
+			auto rotateUp = RotateBy::create(rotateAngle1 / rotateSpeed, -rotateAngle1);
+			auto rotateDown = RotateBy::create(rotateAngle2 / rotateSpeed, rotateAngle2);
+			m_weapon->runAction(Sequence::create(rotateUp, rotateDown, CallFunc::create([=] {isWeapon = false; }), nullptr));
+		}
+		else if (mouseState[2])
+		{
+			auto rotateUp = RotateBy::create(rotateAngle1 / rotateSpeed, rotateAngle1);
+			auto rotateDown = RotateBy::create(rotateAngle2 / rotateSpeed, -rotateAngle2);
+			m_weapon->runAction(Sequence::create(rotateUp, rotateDown, CallFunc::create([=] {isWeapon = false; }), nullptr));
+		}
+		//延时
+		auto delayTime1 = DelayTime::create(rotateAngle1 / rotateSpeed);
+
+		//播放特效1
+		Effects* m_weapon_light1 = Effects::create();
+		m_weapon_light1->setAnchorPoint(Vec2(0.5, 0));
+		//位置在人物身上
+		m_weapon_light1->setPosition(this->getPosition());
+		m_weapon_light1->setRotation(this->weaponAngle);//让武器的角度等于鼠标的角度
+		//绑定到场景
+		this->getParent()->addChild(m_weapon_light1, 1);
+		m_weapon_light1->EffectsAnimation(m_weapon_light1->bow_normal, 0);
+
+		//剑气：移动
+		auto fadeInAction = FadeIn::create(0.05);//淡入
+		auto fadeOutAction = FadeOut::create(0.05);//淡出
+		auto moveAction = MoveBy::create(attackDistance / attackSpeed, Vec2(attackDistance * sin((weaponAngle / 180) * PI), attackDistance * cos((weaponAngle / 180) * PI)));//移动函数。起点是当前位置，终点是当前位置加上一个向量
+		//执行上述动作后把节点移除，并且把数组对应位置（通过tag获取）置空
+		auto removeSelf1 = CallFunc::create([=] {m_weapon_light1->setVisible(false); m_effect[m_weapon_light1->getTag()] = nullptr; });
+		m_weapon_light1->runAction(Sequence::create(delayTime1, fadeInAction, moveAction, fadeOutAction, nullptr));
+		auto delayTime2 = DelayTime::create((rotateAngle1 / rotateSpeed) * 4);
+		//播放特效2
+		Effects* m_weapon_light2 = Effects::create();
+		m_weapon_light2->setAnchorPoint(Vec2(0.5, 0));
+		//位置在人物身上
+		m_weapon_light2->setPosition(this->getPosition());
+		m_weapon_light2->setRotation(this->weaponAngle);//让武器的角度等于鼠标的角度
+		//绑定到场景
+		this->getParent()->addChild(m_weapon_light2, 1);
+		m_weapon_light2->EffectsAnimation(m_weapon_light2->bow_normal, 0);
+		//执行上述动作后把节点移除，并且把数组对应位置（通过tag获取）置空
+		auto removeSelf2 = CallFunc::create([=] {m_weapon_light2->setVisible(false); m_effect[m_weapon_light2->getTag()] = nullptr; });
+		m_weapon_light2->runAction(Sequence::create(delayTime2, fadeInAction, moveAction, fadeOutAction, nullptr));
+
+		auto delayTime3 = DelayTime::create((rotateAngle1 / rotateSpeed) * 8);
+		//播放特效3
+		Effects* m_weapon_light3 = Effects::create();
+		m_weapon_light3->setAnchorPoint(Vec2(0.5, 0));
+		//位置在人物身上
+		m_weapon_light3->setPosition(this->getPosition());
+		m_weapon_light3->setRotation(this->weaponAngle);//让武器的角度等于鼠标的角度
+		//绑定到场景
+		this->getParent()->addChild(m_weapon_light3, 1);
+		m_weapon_light3->EffectsAnimation(m_weapon_light3->bow_normal, 0);
+		//执行上述动作后把节点移除，并且把数组对应位置（通过tag获取）置空
+		auto removeSelf3 = CallFunc::create([=] {m_weapon_light3->setVisible(false); m_effect[m_weapon_light2->getTag()] = nullptr; });
+		m_weapon_light3->runAction(Sequence::create(delayTime3, fadeInAction, moveAction, fadeOutAction, removeSelf3, CallFunc::create([=] {isE = false; }), nullptr));
+		isE = false;
+	}
+}
+
+void Player::q()
+{
+	if (this->getNaming() == "swordPlayer")
+	{
+		//播放特效
+		Effects* qEffect = Effects::create();
+		//位置在人物身上
+		qEffect->setPosition(this->getPosition());
+		//绑定到场景
+		this->getParent()->addChild(qEffect, -1);
+		qEffect->EffectsAnimation(qEffect->q, 0);
+	}
+	else if (this->getNaming() == "bowPlayer")
+	{
+		isWeapon = true;
+		//旋转速度
+		float rotateSpeed = 700.0f;
+		//旋转角度
+		float rotateAngle1 = 45;
+		float rotateAngle2 = 90;
+		//获得角度
+		auto currentAngle = (m_weapon->getRotation() / 180) * PI;
+		//攻击方向
+		Vec2 attackDirection = Vec2(sin(currentAngle), cos(currentAngle));
+		//开始攻击
+		//武器：挥砍
+		if (mouseState[1] || mouseState[3] || mouseState[0])
+		{
+			auto rotateUp = RotateBy::create(rotateAngle1 / rotateSpeed, -rotateAngle1);
+			auto rotateDown = RotateBy::create(rotateAngle2 / rotateSpeed, rotateAngle2);
+			m_weapon->runAction(Sequence::create(rotateUp, rotateDown, CallFunc::create([=] {isWeapon = false; }), nullptr));
+		}
+		else if (mouseState[2])
+		{
+			auto rotateUp = RotateBy::create(rotateAngle1 / rotateSpeed, rotateAngle1);
+			auto rotateDown = RotateBy::create(rotateAngle2 / rotateSpeed, -rotateAngle2);
+			m_weapon->runAction(Sequence::create(rotateUp, rotateDown, CallFunc::create([=] {isWeapon = false; }), nullptr));
+		}
+		//获得屏幕尺寸
+		auto visibleSize = Director::getInstance()->getVisibleSize();
+		//播放特效1
+		Effects* m_weapon_light1 = Effects::create();
+		m_weapon_light1->setAnchorPoint(Vec2(0.5, 0));
+		//位置在鼠标位置正上方
+		Vec2 effectPosition = worldPosition + this->myCamera->getCameraPostionChange()
+			- Vec2(visibleSize.width / 2, visibleSize.height / 2) + Vec2(0, 75);
+		m_weapon_light1->setPosition(effectPosition);
+		//绑定到场景
+		this->getParent()->addChild(m_weapon_light1, 1);
+		m_weapon_light1->EffectsAnimation(m_weapon_light1->q_bow, 0);
+
+	}
+}
 
 void Player::weaponRotate(Vec2 position)
 {
@@ -665,10 +945,21 @@ void Player::weaponRotate(Vec2 position)
 
 void Player::updateWeaponRotation(float dt)
 {
-	if (!isWeapon)
+	if (isWeapon)
 	{
-		m_weapon->setRotation(this->weaponAngle);//让武器的角度等于鼠标的角度
-		//	m_weapon_light->setRotation(this->weaponAngle);//让武器的角度等于鼠标的角度
+		log("isWeapon");
+	}
+	if (isE)
+	{
+		log("isE");
+	}
+	if (!isWeapon && !isE)
+	{
+		m_weapon->setRotation(this->weaponAngle);
+	}
+	if (!isE)
+	{
+		m_e->setRotation(this->weaponAngle);
 	}
 }
 
@@ -678,29 +969,55 @@ void Player::updatePlayerOrientation()
 	if (this->mouseState[0])
 	{
 		weaponPosition = Vec2(m_body->getPosition().x - 2.25, m_body->getPosition().y + m_weapon->getContentSize().height / (1.25));
-		moveAnimation(walk_up, 4);
+		if (this->getNaming() == "swordPlayer")
+		{
+			moveAnimation(sword_walk_back, 4);
+		}
+		else if (this->getNaming() == "bowPlayer")
+		{
+			moveAnimation(bow_walk_back, 4);
+		};
 	}
 	else if (this->mouseState[1])
 	{
 		weaponPosition = Vec2(m_body->getPosition().x - 2.25, m_body->getPosition().y - m_weapon->getContentSize().height / (1.75));
-		moveAnimation(walk_down, 3);
+		if (this->getNaming() == "swordPlayer")
+		{
+			moveAnimation(sword_walk_front, 3);
+		}
+		else if (this->getNaming() == "bowPlayer")
+		{
+			moveAnimation(bow_walk_front, 3);
+		};
 	}
 	else if (this->mouseState[2])
 	{
 		weaponPosition = Vec2(m_body->getPosition().x - m_weapon->getContentSize().width / (1.85), m_body->getPosition().y);
-		moveAnimation(walk_left, 1);
+		if (this->getNaming() == "swordPlayer")
+		{
+			moveAnimation(sword_walk_left, 1);
+		}
+		else if (this->getNaming() == "bowPlayer")
+		{
+			moveAnimation(bow_walk_left, 1);
+		};
 	}
 	else if (this->mouseState[3])
 	{
 		weaponPosition = Vec2(m_body->getPosition().x + m_weapon->getContentSize().width / (1.85), m_body->getPosition().y);
-		moveAnimation(walk_right, 2);
+		if (this->getNaming() == "swordPlayer")
+		{
+			moveAnimation(sword_walk_right, 2);
+		}
+		else if (this->getNaming() == "bowPlayer")
+		{
+			moveAnimation(bow_walk_right, 2);
+		};
 	}
-	if (!isWeapon)
+	if (!isWeapon && !isE)
 	{
 		m_weapon->setPosition(weaponPosition);
-
 	}
-
 }
 
 
@@ -752,7 +1069,7 @@ void Player::update(float dt)
 					//消失后检测，如果还有没消失的元素附着，就让其显示在正上方
 					if (m_element_sprite[1-j]->isVisible())
 					{
-						m_element_sprite[1 - j]->setPosition(Vec2(0, m_body->getContentSize().height / 3));
+						m_element_sprite[1 - j]->setPosition(Vec2(0, m_body->getContentSize().height ));
 					}
 				}
 			}

@@ -52,7 +52,10 @@ public:
 	Vector<SpriteFrame*> Superconducting;
 	Vector<SpriteFrame*> Shocked;
 	Vector<SpriteFrame*> Evaporate;
-	Vector<SpriteFrame*>saber_normal;//½£ÆÕÍ¨¹¥»÷
+	Vector<SpriteFrame*> saber_normal;//½£ÆÕÍ¨¹¥»÷
+	Vector<SpriteFrame*> q; //q¼¼ÄÜ
+	Vector<SpriteFrame*> bow_normal; //¹­ÆÕÍ¨¹¥»÷
+	Vector<SpriteFrame*> q_bow; //¹­¼ýÊÖµÄq¼¼ÄÜ
 
 	//µØÓüÈ®¹¥»÷
 	Vector<SpriteFrame*> HellDog_explosion;

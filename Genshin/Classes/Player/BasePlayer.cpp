@@ -104,7 +104,7 @@ void BasePlayer::hurt(int damage, int damge_type, bool reaction)
 							//消失后检测，如果还有没消失的元素附着，就让其显示在正上方
 							if (m_element_sprite[1 - i]->isVisible())
 							{
-								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height / 3));
+								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height ));
 							}
 						}
 					}
@@ -162,7 +162,7 @@ void BasePlayer::hurt(int damage, int damge_type, bool reaction)
 							//消失后检测，如果还有没消失的元素附着，就让其显示在正上方
 							if (m_element_sprite[1 - i]->isVisible())
 							{
-								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height / 3));
+								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height ));
 							}
 						}
 					}
@@ -229,7 +229,7 @@ void BasePlayer::hurt(int damage, int damge_type, bool reaction)
 							//消失后检测，如果还有没消失的元素附着，就让其显示在正上方
 							if (m_element_sprite[1 - i]->isVisible())
 							{
-								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height / 3));
+								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height ));
 							}
 						}
 					}
@@ -322,7 +322,7 @@ void BasePlayer::hurt(int damage, int damge_type, bool reaction)
 							//消失后检测，如果还有没消失的元素附着，就让其显示在正上方
 							if (m_element_sprite[1 - i]->isVisible())
 							{
-								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height / 3));
+								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height ));
 							}
 						}
 					}
@@ -389,7 +389,7 @@ void BasePlayer::hurt(int damage, int damge_type, bool reaction)
 							//消失后检测，如果还有没消失的元素附着，就让其显示在正上方
 							if (m_element_sprite[1 - i]->isVisible())
 							{
-								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height / 3));
+								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height ));
 							}
 						}
 					}
@@ -447,7 +447,7 @@ void BasePlayer::hurt(int damage, int damge_type, bool reaction)
 							//消失后检测，如果还有没消失的元素附着，就让其显示在正上方
 							if (m_element_sprite[1 - i]->isVisible())
 							{
-								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height / 3));
+								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height ));
 							}
 						}
 					}
@@ -493,7 +493,7 @@ void BasePlayer::hurt(int damage, int damge_type, bool reaction)
 							//消失后检测，如果还有没消失的元素附着，就让其显示在正上方
 							if (m_element_sprite[1 - i]->isVisible())
 							{
-								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height / 3));
+								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height ));
 							}
 						}
 					}
@@ -539,7 +539,7 @@ void BasePlayer::hurt(int damage, int damge_type, bool reaction)
 							//消失后检测，如果还有没消失的元素附着，就让其显示在正上方
 							if (m_element_sprite[1 - i]->isVisible())
 							{
-								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height / 3));
+								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height ));
 							}
 						}
 					}
@@ -599,7 +599,7 @@ void BasePlayer::hurt(int damage, int damge_type, bool reaction)
 							//消失后检测，如果还有没消失的元素附着，就让其显示在正上方
 							if (m_element_sprite[1 - i]->isVisible())
 							{
-								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height / 3));
+								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height ));
 							}
 						}
 					}
@@ -647,7 +647,7 @@ void BasePlayer::hurt(int damage, int damge_type, bool reaction)
 							//消失后检测，如果还有没消失的元素附着，就让其显示在正上方
 							if (m_element_sprite[1 - i]->isVisible())
 							{
-								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height / 3));
+								m_element_sprite[1 - i]->setPosition(Vec2(0, m_body->getContentSize().height ));
 							}
 						}
 					}
@@ -888,7 +888,7 @@ void BasePlayer::setElementSprite(int elemtype)
 		m_element_sprite[0]->setOpacity(255);
 		m_element_sprite[0]->setVisible(true);
 		//设置元素附着的位置
-		m_element_sprite[0]->setPosition(Vec2(0, m_body->getContentSize().height / 3));
+		m_element_sprite[0]->setPosition(Vec2(0, m_body->getContentSize().height ));
 		//设置元素附着的图片
 		m_element_sprite_type[0] = elemtype;
 		switch (elemtype)
@@ -1123,6 +1123,11 @@ void BasePlayer::initData()
 		//图像放大5倍。碰撞箱也要放大5倍
 		m_body->setScale(5);
 		//m_body->setPhysicsBody(PhysicsBody::createBox(m_body->getContentSize()));//创建一个物理引擎的盒子
+		
+		//血条位置移动到屏幕下方并且放大5倍
+		//X放大5倍，Y放大2倍
+		Enemy_hpBar->setScale(5, 0.3);
+
 		
 
 		//数值初始化

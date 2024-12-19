@@ -124,6 +124,16 @@ void Enemy::update(float t)
 	{
 		m_Q_CD = 0;
 	}
+	//1技能冷却
+	if (m_1_CD > 0)
+	{
+		m_1_CD -= 0.016;
+	}
+	else if (m_1_CD < 0)
+	{
+		m_1_CD = 0;
+	}
+
 
 	//更新血条
 	Enemy_hpBar->setPercentage(float(m_hp) / float(m_max_hp) * 100);
@@ -225,7 +235,7 @@ void Enemy::update(float t)
 				//冲刺速度
 				float dodgeSpeed = 1000;
 				//冲刺距离
-				float distance = 300;
+				float distance = 500;
 				//冲刺方向
 				Vec2 dodgeDirection = playerPosition - this->getPosition();
 				//冲刺方向单位化
@@ -377,7 +387,52 @@ void Enemy::update(float t)
 				this->runAction(MoveBy::create(1, direction * getSpeed()));//1是时间，指的是1秒，direction是方向，*10是速度
 			}
 		}
+		else
+		{
 
+			//检测要往哪个方向移动
+			//如果玩家在上方
+			if (playerPosition.y > this->getPositionY() + 200)
+			{
+				//动画
+				moveAnimation(walk_up, 4);
+				//重设碰撞箱大小，等于动画第一帧walk_up.at(0);getBoundingBox()
+				//this->setBoundingBox(walk_up.at(0)->getBoundingBox());
+
+
+
+			}
+			//如果玩家在下方
+			else if (playerPosition.y < this->getPositionY() - 200)
+			{
+				//动画
+				moveAnimation(walk_down, 3);
+				log("down");
+			}
+			//如果玩家在左方
+			else if (playerPosition.x < this->getPositionX())
+			{
+				//动画
+				moveAnimation(walk_left, 2);
+				log("left");
+			}
+			//如果玩家在右方
+			else if (playerPosition.x > this->getPositionX())
+			{
+				//动画
+				moveAnimation(walk_right, 1);
+
+				//log
+				log("right");
+			}
+			//往玩家的方向移动，每次移动50
+			//方向
+			Vec2 direction = playerPosition - this->getPosition();
+			//单位化
+			direction.normalize();
+			//移动
+			this->runAction(MoveBy::create(1, direction * getSpeed()));//1是时间，指的是1秒，direction是方向，*10是速度
+			}
 
 
 
