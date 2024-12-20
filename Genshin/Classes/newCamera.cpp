@@ -65,6 +65,7 @@ void newCamera::update(float dt)
       PlayerStatusUI* playerUI = (PlayerStatusUI*)this->getChildByName("playerUI");
       //传入player类，根据其数据更新UI
       playerUI->updateUI(*player);
+      playerUI->updateInteractUI(*player);
 
 	//实现按键控制精灵移动
 	auto left = EventKeyboard::KeyCode::KEY_LEFT_ARROW;//左键

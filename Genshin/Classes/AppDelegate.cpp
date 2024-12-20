@@ -128,3 +128,8 @@ void AppDelegate::applicationWillEnterForeground() {//当程序进入前台时调用
     SimpleAudioEngine::getInstance()->resumeAllEffects();
 #endif
 }
+
+Vec2 operator*(const Vec2& lhs, const Size& rhs) {
+      // 将两个 Vec2 的 x 和 y 分别相乘
+      return Vec2(lhs.x * rhs.width, lhs.y * rhs.height);
+}
