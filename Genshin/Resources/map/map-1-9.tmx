@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-down" width="120" height="120" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="1">
+ <tileset firstgid="1" source="map-new-side.tsx"/>
+ <layer id="3" name="colide" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJzt3EEKwyAQBdBcsosscv9rdJNspIRo1I76HswyIH4nQ6h02wAg33EWAKzGDAQAAGAlvoMBAAAAAADguU9SjC3NsFW+zkoM+ndu8oW4ovVntPWM7m4/94Lnf1Wt9ZDv7X7KNzb5cqd2vsQi32dGvWMv3zntZ8k3T+8+Ls3iyjfHk2ecjbp67qd8+4u2n9HWM7po+xltPQD/UPL7AWNLM2yVr7MSg/6dW418nQ8AAAAAAOCSe38SAAAAAAAAAAAAZuVOHQA9Hdu4/8ENzi8AKzuSAuA971ToT98B0EPNeWN2AXBpPRPMHIB1eOcDAMCc3PGDMnoGmNkXeZdIXw==
+  </data>
+ </layer>
+ <layer id="1" name="bg" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJzt2DkOwjAQQNEgbsGZuP95qJAQiliMwyx+xavSOPM1LL5s23YGAAAAgCSuT6LPw1i3T0Wfm/F2+uZzZEt9ezbUd42W+vZuqW//nvqu0XWlvqdFWq7W97TTNnre+h6zs9Fz1nde1+iZZhLdY0bPu+hZZhTdZ7SlrvX77rV8fBY9uwqiG75r+vw8el7VZO9pT2v2fdVU15p9Ne3X911TXWv2/aTrOcH7d2dXe/vnrmpbr699ze2orr5bc5jd1p1wLj6Le5u1s9HvwXhfd8N1jbaNPje/991ra2dr+aZt9FmZ29fO1vdqd3Wtzx1Fb9r25rdxb9r25n8PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAmm6Faqay
+  </data>
+ </layer>
+ <layer id="7" name="object" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20IX6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgNcA4QAAAQ==
+  </data>
+ </layer>
+ <layer id="2" name="toFade" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztnEeUFEUchwv1Ags7MwsS1AtJXUCCeCGpC0hQLyR1MR+NiHkNB7MeET2YxQOG1YNZPJhWDwQJ6jOtHggS1GdaPRAEv3m+1WanZztQ013d8/ve+y77Zl/X9q+6qv7VtWOMEELUhlUlY54rpd0KUSvWkO27ylcIIXzRHJhvNAcKIYQQQgghxOGoDrbDiqa0W+CP6mAhhKikzdExW7iFq3N7VtD9E0II4Yfmh+ygNXO+Ub5CpMfKxmif71swph82YH8cgI1YwCKWCnauk3VcGdfaG/9tS9mNRWM24Wbcgp/h5/hF8f/PDye/ETgSR+FoPBFPwpOxuUq+7XWWryt0eO77TnLchbtxD/6IP+HPnnynkN9UnIbTcQaejmfgmdhSJd8O5ZsKnZ77fpAcD5WzLBnTB4/Co/EYz/u2BeS3EBfhYlyC5+H5eAG2Vsm3U/mmQpfnvg8mxyE4FIfhcXg8nuDJ9wryuxKvwqvxGrwWl+F1uNyTr7fO7VK+oefk7vnSxhze4MljPDlOwIk4CU/FyXiaJ9+7+PzdeA/ei/fh/fgAPogPVXl+G6r8XFQSN9eg9dMccpyL83A+no3n4LmefB8jp8fxCXwSn8Kn8Rl8FldFzNGvPSIeYdZPZXrbP3yV/F7D1/ENfBPfwrfxHVwTMV+/9oh4hFk/BbGW/NbhetyAn+JG3ISbcUvEfP3aI+IRZv0UxFby24bbcQf+gDtxF+7GPRHz9WtPFnFhPyPM+imIveS3D/fjAfwbD+Khcq48i30ijq9+7ckyq6kTnscXUqgXwqyfgiiRXxMOxEF4LA7GITgUh0XM1689WeY9cn0fP/DkW17PdOs6zeQ3BsfiODwFx+MEnIiTQuabhb81Dl+S61f4dQbqfb85pYX8ZuIsnI1n4Ryci/Nwfp2vf38h11/xtxTyDfP+IIhWPrsUL8SL8GK8BC/Fy/DyiPm6UP+6sDayQdj6tzeW89nr8Qa8EW/Cm/EWvBXbIuaj+tcO5T5qo/61jepfe9iof23jUv1ra0/fNmHbZKP+tY1L9a/ffYy6zo/bR2z0K7/6t3xuJkr9G5dq53P86t+4tZPN92p5wXtuxsb6+puCMd9iJ36H3xcqr1OPpNXnop7PCeJ38vwDu/BP/KtQeR2RHFHP5wTRl9/vhw3YHwcUK6+j8TM5op7PCWI4eY7AkTgKRxcrryOSI8r5nDDrninkORWn4XScUay8Tr2S9Lq65+8GvV8Kk+8C8lyIi3AxLtF+1H9oXopOUvfMxbrLxTaJ+iav74XLZPFZy8q5BNdxJXtX2iGEyD8ab4QQQhwpmkvyjfajhEiPLDx72ouKRxayTZoj7Uu6p0KIWpDneU7jpl26+4rqp2Dy/FyFRX1ECCFEWDRnCJEONv6vVrhLHsfWnn+T+quoFepbQgghhIhLHtfh4nCUsRAiz7QVjLkNb8c78E5990liJLEXsYI8H8aV+Ag+Wof5tpaMWZrA9zKuLRqzDtfjhoS+a+ZF8nwJ2/FlfKVG+WotZMxWMt2G23FHQvl+SJ4fYQd+jJ/kLF+X9mP3kuk+3I8HcvZdUXp+jSkxBzThQByk7y7PHc1kOgbH4jjH83Vl3HOlHWFoIdOZOAtnO55vVtC8kF9U2+cbm7V9UjWyCE9StX0t0fxSnaRqeyGE6EmWaj9hB5vrvKTXjKpn8o3eVeabPNQzojpJ1DPapxCuoL0Nf3RfhE005gtXsHnGT+Oke6Rxxq+eSfoZyPMZPxdJOt+snPHL2tjvyt6r62f8svpOxZW9V53xs0PPfujq3mvWxsGwJD0O6CyJW+S1X4ts0Vs/zGIf/QdRO3vh
+  </data>
+ </layer>
+ <layer id="9" name="wall" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20IX6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgNcA4QAAAQ==
+  </data>
+ </layer>
+ <layer id="8" name="interact" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJzt3MsKwjAQBdD4AAVx0/7/9/gZLn2C7lzquBZEsSFNPAdmf9PposOEpgQAAAAAAAAAAAAAAAAAAAAwDpcupWtXOgW5LPqUln3pFAAAv9n4Xm3atpL+niLnuZKsY3Kr5JnNYm6afzE77eJc+6hD1LGSM/K5+7On8T5MoqZmagD+mP1B2+wPAAAAAAAAIL/VunSCYdgfv1d7n+2PX9XeUwAAAAAAAAAAIB936trmTh0AAAAAAAAAAAAAAABD8r9jAACAch4jDhNz
+  </data>
+ </layer>
+</map>

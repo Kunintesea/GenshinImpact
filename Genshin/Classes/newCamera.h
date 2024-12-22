@@ -25,7 +25,23 @@ public:
     Vec2 getCameraPostionChange() { return cameraSprite->getPosition() + initialOffset; }
     // 返回相机精灵
     Vec2 getCameraSpritePosition() { return cameraSprite->getPosition(); }
+    //设置对话框内容的函数
+    void setDialog(std::string dialog, std::string dialogername);
+    //显示对话框
+    void showdialog() { dialogmenu->setVisible(true); }
+	//隐藏对话框
+	void hidedialog() { dialogmenu->setVisible(false); }
+
+
 private:
+      //对话框,"D:\Github_Document\GenshinImpact\Genshin\Resources\UI\dialog.png"
+      Sprite* dialogmenu;
+      //对话框内容
+      Label* dialogcontent;
+      //对话者
+      Label* dialoger;
+
+
       // 初始化相机偏移量
       Vec2 initialOffset;
     // 相机精灵

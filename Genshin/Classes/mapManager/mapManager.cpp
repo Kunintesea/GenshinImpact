@@ -272,14 +272,22 @@ int mapManager::getBackgroundTag(Vec2 position) {
 
       if (map == nullptr)
 	    log("map is null");
-      // 获取地图块所在大格子的地图块的交互层
-      TMXLayer* interactLayer = map->getLayer("bg");
 
       if (tiledPositionX < 0 || tiledPositionX >= 120 || tiledPositionY < 0 || tiledPositionY >= 120)
 	    return 0;
 
-      // 获取交互层的碰撞信息
-      uint32_t gid = interactLayer->getTileGIDAt(Vec2(tiledPositionX, tiledPositionY));
+      // 获取地图块所在大格子的地图块的bg层
+      TMXLayer* bg = map->getLayer("bg");
+      if (bg == NULL) return 0;
+      uint32_t gid = bg->getTileGIDAt(Vec2(tiledPositionX, tiledPositionY));
+
+      // 获取地图块所在大格子的地图块的object层
+      TMXLayer* object = map->getLayer("object");
+      if (object == NULL) return 0;
+      uint32_t objectGid = object->getTileGIDAt(Vec2(tiledPositionX, tiledPositionY));
+
+      if (objectGid == 3890 || objectGid == 3889)
+	    return 0;
 
       if (gid == 26 || gid == 28)
 	    return 1;
@@ -294,6 +302,7 @@ void mapManager::isInteract(int tiledPositionX, int tiledPositionY, set<int>& in
 	    log("map is null");
       // 获取地图块所在大格子的地图块的交互层
       TMXLayer* interactLayer = map->getLayer("interact");
+      if (interactLayer == NULL) return;
 
       if (tiledPositionX < 0 || tiledPositionX >= 120 || tiledPositionY < 0 || tiledPositionY >= 120)
 	    return;
@@ -310,7 +319,7 @@ void mapManager::isInteract(int tiledPositionX, int tiledPositionY, set<int>& in
       // 只要返回值不为 0，就说明有交互
       // 同时保证不重复添加
       if (gid == 4825 || gid == 4849)
-	    // 交互属性11 :  凯瑟琳 - kaiselin
+	    // 交互属性11 :  凯瑟琳 - Kaiselin
 	    if (interaction.find(11) == interaction.end())
 	    {
 		  interaction.insert(11);
@@ -327,6 +336,53 @@ void mapManager::isInteract(int tiledPositionX, int tiledPositionY, set<int>& in
 	    {
 		  interaction.insert(13);
 	    }
+    //  if (gid == 4845 || gid == 4869)
+	   // // 交互属性14 :  Varka
+	   // if (interaction.find(14) == interaction.end())
+	   // {
+		  //interaction.insert(14);
+	   // }
+      if (gid == 4838 || gid == 4862)
+	    // 交互属性15 :  fisherman
+	    if (interaction.find(15) == interaction.end())
+	    {
+		  interaction.insert(15);
+	    }
+    //  if (gid == 4840 || gid == 4864 || gid == 4841 || gid == 4865)
+	   // // 交互属性16 :  butcher
+	   // if (interaction.find(16) == interaction.end())
+	   // {
+		  //interaction.insert(16);
+	   // }
+    //  if (gid == 4785 || gid == 4786 || gid == 4809 || gid == 4833)
+	   // // 交互属性17 :  DragonGirl
+	   // if (interaction.find(17) == interaction.end())
+	   // {
+		  //interaction.insert(17);
+	   // }
+    //  if (gid == 4843 || gid == 4867)
+	   // // 交互属性18 :  Wagner
+	   // if (interaction.find(18) == interaction.end())
+	   // {
+		  //interaction.insert(18);
+	   // }
+
+      if (gid == 4682 || gid == 4683 || gid == 4706 || gid == 4707
+	    || gid == 4154 || gid == 4178 || gid == 4155 || gid == 4179 || gid == 4156 || gid == 4180)
+	    // 交互属性25 :  tree
+	    if (interaction.find(25) == interaction.end())
+	    {
+		  interaction.insert(25);
+	    }
+
+      if (gid == 26)
+	    // 交互属性26 :  fish
+	    if (interaction.find(26) == interaction.end())
+	    {
+		  interaction.insert(26);
+	    }
+
+
       if (gid == 4831 || gid == 4855)
 	    // 交互属性9 :  传送锚点 - Teleport Waypoint
 	    if (interaction.find(9) == interaction.end())
@@ -358,14 +414,17 @@ bool mapManager::isRefreshMonster(Vec2 position) {
 	    log("map is null");
       // 获取地图块所在大格子的地图块的交互层
       TMXLayer* interactLayer = map->getLayer("interact");
+      if (interactLayer == NULL) return false;
 
       if (tiledPositionX < 0 || tiledPositionX >= 120 || tiledPositionY < 0 || tiledPositionY >= 120)
 	    return false;
 
       // 获取交互层的碰撞信息
       uint32_t gid = interactLayer->getTileGIDAt(Vec2(tiledPositionX, tiledPositionY));
-      if (gid == 3339)
-	    return true;
+      if (position.x < 20000 && position.y > -20000 && gid == 3339)
+          return true;
+      if (position.x > 20000 && position.y < -20000 && gid == 5904)
+          return true;
 
       // 只要返回值不为 0，就说明有交互
       return false;

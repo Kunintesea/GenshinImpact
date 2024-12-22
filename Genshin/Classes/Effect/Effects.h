@@ -53,10 +53,10 @@ public:
       Vector<SpriteFrame*> Shocked;
       Vector<SpriteFrame*> Evaporate;
       Vector<SpriteFrame*> saber_normal;//剑普通攻击
-      Vector<SpriteFrame*> q; //q技能
+      Vector<SpriteFrame*> q; //剑士q技能
       Vector<SpriteFrame*> bow_normal; //弓普通攻击
       Vector<SpriteFrame*> q_bow; //弓箭手的q技能
-
+      Vector<SpriteFrame*> e; //剑士e技能
       //地狱犬攻击
       Vector<SpriteFrame*> HellDog_explosion;
       Vector<SpriteFrame*> HellDog_q_explosion;

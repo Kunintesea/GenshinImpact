@@ -1001,7 +1001,9 @@ void BasePlayer::initData()
       //检测名字
       if (m_name == "Bat_Fire")
       {
-
+	    //杀死后获取的经验
+	    gainexp = 100;
+		drop = "icewine";
 
 	    //先把m_body设置为火蝙蝠的图片
 	    m_body->setTexture("Enemy/Bat_Fire/down_1.png");//setTexture是设置图片的函数，参数是图片的路径。修改以后图形的大小会变成图片的大小
@@ -1048,7 +1050,7 @@ void BasePlayer::initData()
       {
 	    //先把m_body设置为冰蝙蝠的图片
 	    m_body->setTexture("Enemy/Bat_Ice/down_1.png");//setTexture是设置图片的函数，参数是图片的路径。修改以后图形的大小会变成图片的大小
-
+		drop = "firewine";
 	    //数值初始化
 	    m_hp = 100;
 	    m_max_hp = 100;
@@ -1127,8 +1129,10 @@ void BasePlayer::initData()
 	    //血条位置移动到屏幕下方并且放大5倍
 	    //X放大5倍，Y放大2倍
 	    Enemy_hpBar->setScale(5, 0.3);
+	    Enemy_hpBar_bg->setScale(5, 0.3);
 
-
+		//战利品
+		drop = "soul";
 
 	    //数值初始化
 	    m_hp = 2000;
@@ -1197,5 +1201,8 @@ void BasePlayer::initData()
 	    walk_right.pushBack(right_3);
 	    walk_right.pushBack(right_4);
       }
+
+      //如果是swordPlayer
+      //else if 
 
 }

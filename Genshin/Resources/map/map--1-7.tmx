@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-down" width="120" height="120" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="1">
+ <tileset firstgid="1" source="map-new-side.tsx"/>
+ <tileset firstgid="4873" source=":/automap-tiles.tsx"/>
+ <layer id="3" name="colide" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJzt2TENAAAIAzCM4t8GBnj4CLTJPGxZBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALBdyukAAADAVrYrAAD0dGUAAAAAAKDjQwAAAOATOxgAAAAAAH7xDQAAAAAAzBSH4y87
+  </data>
+ </layer>
+ <layer id="1" name="bg" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJzt3UtuwkAQhGEiTpFwpdz/PFmhEILxGGa6uqv/kmqFZMt86vFjYZ9OhBBCCCGEEEIIIYQQQgghhBBCCCGEEEJeySeV9Cuo6uPsWny9i6938fUuvt7F17v4ehdf7+Lr2yhbfPGl+FJ8Kb5diq938fUuvt6Nsv1IcKwdG+F6rfpYOzbKFt/4Xhbbnu+qPt5uXeV774qvvy2+9X2f2eJb23fPFt+6viO2+Hrb4osvrWuLby3fo7b41vF9xRZfb1t88/u+Y4tvbt93bfH1tsUXX1rXFt98vjNt8c3lO9sWX29bfL1t8dX7rrTF97/NBV/LOtri+9dmxjYy2eLrbdvdd8aafNQ30hbfedvKaNvZd6btyOwqbLv6zrQd8VXZdvOdeb4dtcU3znbFNrOedzv5rrAd9VXadvBdZTviq7bF19vW3Vc1u2rTDr7Y+vpi6+u70hZffVW+ascOvtj6+mLr67vaFl9ss1btU9VX7dbBF1tf3whbfLHNXrVVVl8H24q+zK6vL7b4YlvTl+cYvr6sy76+UbaPfNU2+M6r27pcwRdbX9/IdRlfX1vHayp8e9hm9GV2fX2x9fVV2+Lr7at2cPaNvJ7qNLsZvu+snls322zf71beCznY3nve/97V9lzc95np9ffvxr4VbUdNb9vVtorvnumWawffyrYjrucnrkrfKNst373/LLPps1nt5rs1u9l8R2f1qK3CF9vHtjNNnX333kuVxXfGuTWbbwbbDL579zjvziy++VxnrMVKX+V7IG9tVb5Hn0vg+9sjtgrfrf2udI30XfmOz6OzG+27tc/Vrtf+AGiCz74=
+  </data>
+ </layer>
+ <layer id="7" name="object" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20IX6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgNcA4QAAAQ==
+  </data>
+ </layer>
+ <layer id="2" name="toFade" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJzt2bENgDAMBECvkP0r2AKmgy5KOiIB0utuAksu7NdXAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0W6va299T8Jbj3u1pvwCfcFOzuakAAACdDJxNBgYAWOdXzuZXBgAAAABglQ4hmw4BAABgJAdnk4MBAAAAAJjpBrLpBgAAAAAAnrkAQtoU1w==
+  </data>
+ </layer>
+ <layer id="9" name="wall" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20IX6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgNcA4QAAAQ==
+  </data>
+ </layer>
+ <layer id="8" name="interact" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztzjENAAAIA7D9BP92MUGyp1XQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgx2x7AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPQfaugAZ
+  </data>
+ </layer>
+</map>

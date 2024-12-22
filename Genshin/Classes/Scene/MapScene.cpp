@@ -23,11 +23,19 @@ bool MapScene::init()
 
       // 获取 Player 坐标
       Vec2 playerPosition = Director::getInstance()->getRunningScene()->getChildByName("Me")->getPosition();
+      tiledSize = ((mapManager*)Director::getInstance()->getRunningScene()->getChildByName("mapManager"))->getTileSize();
       // 获取更新 Player 坐标的函数
       auto helloWorld = static_cast<HelloWorld*>(Director::getInstance()->getRunningScene());
       NewPositionCallback = [helloWorld](const Vec2& position) {
             helloWorld->set_New_Teleport_position(position);
             };
+      setFogCallBack = [helloWorld](int i) {
+            helloWorld->setFogEnabled(i);
+            };
+      getFogCallBack = [helloWorld](int i) {
+            return helloWorld->getFogEnabled(i);
+            };
+
       NewPositionCallback(Vec2::ZERO);
       // 获取地图块大小
       float tiledSize = ((mapManager*)Director::getInstance()->getRunningScene()->getChildByName("mapManager"))->getTileSize();
@@ -100,7 +108,36 @@ bool MapScene::init()
       Teleport_Waypoint_selected_4->setVisible(false);
       this->addChild(Teleport_Waypoint_4, 1);
       this->addChild(Teleport_Waypoint_selected_4, 1);
+      
+      
+      // 初始化迷雾覆盖层
+      fogOverlay1 = Sprite::create("map//fog.png"); // 替换为迷雾图片路径
+      fogOverlay1->setContentSize(mainMap->getContentSize() / 2);
+      fogOverlay1->setPosition(Teleport_Waypoint_1->getPosition());
+      fogOverlay1->setOpacity(250); // 设置透明度（0~255）
+      Teleport_Waypoint_1->addChild(fogOverlay1, 2); // 设置迷雾覆盖层的层级高于地图
+      //isFog1Enabled = false;
 
+      fogOverlay2 = Sprite::create("map//fog.png"); // 替换为迷雾图片路径
+      fogOverlay2->setContentSize(mainMap->getContentSize() / 1.5);
+      fogOverlay2->setPosition(Teleport_Waypoint_2->getPosition() / 3.5);
+      fogOverlay2->setOpacity(250); // 设置透明度（0~255）
+      Teleport_Waypoint_2->addChild(fogOverlay2, 2); // 设置迷雾覆盖层的层级高于地图
+      //isFog2Enabled = false;
+
+      fogOverlay3 = Sprite::create("map//fog.png"); // 替换为迷雾图片路径
+      fogOverlay3->setContentSize(mainMap->getContentSize() / 2);
+      fogOverlay3->setPosition(Teleport_Waypoint_3->getPosition() / 4.5);
+      fogOverlay3->setOpacity(250); // 设置透明度（0~255）
+      Teleport_Waypoint_3->addChild(fogOverlay3, 2); // 设置迷雾覆盖层的层级高于地图
+      //isFog3Enabled = false;
+
+      fogOverlay4 = Sprite::create("map//fog.png"); // 替换为迷雾图片路径
+      fogOverlay4->setContentSize(mainMap->getContentSize() / 1.5);
+      fogOverlay4->setPosition(Teleport_Waypoint_4->getPosition() / 4);
+      fogOverlay4->setOpacity(250); // 设置透明度（0~255）
+      Teleport_Waypoint_4->addChild(fogOverlay4, 2); // 设置迷雾覆盖层的层级高于地图
+      //isFog4Enabled = false;
       // 导入传送界面
       Teleport_1 = Sprite::create("map//Teleport_1.png");
       Teleport_1->setAnchorPoint(Vec2(1.0f, 0.0f));
@@ -142,6 +179,8 @@ bool MapScene::init()
       this->addChild(Teleport_selected, 2);
       this->addChild(Teleport_non_selected, 2);
 
+
+      this->scheduleUpdate();
 
       // 导入地图关闭按键
       close = Sprite::create("map//close.png");
@@ -185,6 +224,16 @@ bool MapScene::init()
                   }
             };
       _eventDispatcher->addEventListenerWithSceneGraphPriority(keyboardListener, this);
+
+      keyboardListener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event* event) {
+            if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE ||
+                  keyCode == EventKeyboard::KeyCode::KEY_M) {
+                  Director::getInstance()->popScene();
+            }
+            //else if (keyCode == EventKeyboard::KeyCode::KEY_F) { // 按F键切换迷雾
+            //      toggleFog1();
+            //}
+            };
 
       return true;
 }
@@ -333,22 +382,22 @@ void MapScene::onTouchEnded(Touch* touch, Event* event){
                   // 点击到了传送选项
                   if (Teleport_1->isVisible()){
                         log("Get the Teleport Option!");
-                        NewPositionCallback(Vec2(233, 916));
+                        NewPositionCallback(Vec2(7.5313f, 29.6080f)*tiledSize);
                         Director::getInstance()->popScene();
                   }
                   else if (Teleport_2->isVisible()) {
 			log("Get the Teleport Option!");
-			//NewPositionCallback(Vec2(1560.0f, 2820.0f));
+			NewPositionCallback(Vec2(34.1026f, -153.1133f) * tiledSize);
 			Director::getInstance()->popScene();
 		  }
 		  else if (Teleport_3->isVisible()) {
 			log("Get the Teleport Option!");
-			//NewPositionCallback(Vec2(3620.0f, 2680.0f));
+			NewPositionCallback(Vec2(294.7156f, -136.0031f) * tiledSize);
 			Director::getInstance()->popScene();
 		  }
                   else if (Teleport_4->isVisible()) {
                         log("Get the Teleport Option!");
-                        //NewPositionCallback(Vec2(3580.0f, 980.0f));
+                        NewPositionCallback(Vec2(289.301f, 77.8734) * tiledSize);
                         Director::getInstance()->popScene();
                   }
             }
@@ -426,6 +475,44 @@ void MapScene::onMouseScroll(Event* event){
       Teleport_Waypoint_selected_4->setPosition(mapLeftDownPos * (newScale)+ mapLeftDownPosMove +
 	    Vec2(3578.0f / 4800, 1 - 976.0f / 3840) * mainMap->getContentSize() * newScale);
 }
+void MapScene::update(float delta) {
+      //log("Get the close!");
+      if (fogOverlay1 && !getFogCallBack(1)) {
+            fogOverlay1->setVisible(false); // 根据状态隐藏迷雾
+      }
+      if (fogOverlay2 && !getFogCallBack(2)) {
+            fogOverlay2->setVisible(false); // 根据状态隐藏迷雾
+      }
+      if (fogOverlay3 && !getFogCallBack(3)) {
+            fogOverlay3->setVisible(false); // 根据状态隐藏迷雾
+      }
+      if (fogOverlay4 && !getFogCallBack(4)) {
+            fogOverlay4->setVisible(false); // 根据状态隐藏迷雾
+      }
+}
+
+
+void MapScene::toggleFog1() {
+      log("drddddddddddddd1111111111111111");
+      setFogCallBack(1);
+}
+
+void MapScene::toggleFog2() {
+      log("drddddddddddddd222222222222211");
+      setFogCallBack(2);
+}
+
+void MapScene::toggleFog3() {
+      log("ddddddddddddddd33333333333333");
+      setFogCallBack(3);
+}
+
+void MapScene::toggleFog4() {
+      log("dddddddddddddddd44444444444444");
+      setFogCallBack(4);
+}
+
+
 
 void MapScene::recover(Vec2 touchLocation) {
       // 恢复传送锚点的大小

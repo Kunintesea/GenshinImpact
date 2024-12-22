@@ -24,6 +24,7 @@ public:
 	//bool testCol(Sprite* other);
 
 
+
 	void ordinaryAttack(); //普通攻击
 	//e技能
 	void skillE();
@@ -42,8 +43,7 @@ private:
 	//技能1冷却时间
 	float m_1_CD = 0;
 	float m_1_max_CD = 10;
-
-
+	
 
 
 

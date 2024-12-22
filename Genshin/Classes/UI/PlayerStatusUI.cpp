@@ -217,7 +217,16 @@ bool PlayerStatusUI::init()
 	Interact_1->setEnabled(false);//设置按钮不可用
 	this->addChild(Interact_1);//将按钮添加到节点
 
-
+	// 设置任务进度UI
+	TaskUI = Sprite::create("UI//Interact//TASK-UI.png");
+	//设置与背景板同宽
+	TaskUI->setScaleX(800 / TaskUI->getContentSize().width);
+	TaskUI->setScaleY(3.0f);
+	TaskUI->setAnchorPoint(Vec2(0.5f, 1.0f));
+	//设置位置在背景板下面
+	TaskUI->setPosition(Vec2(Background->getContentSize().width / 2, Director::getInstance()->getVisibleSize().height - Background->getContentSize().height - 120));
+	TaskUI->setOpacity(100);
+	this->addChild(TaskUI);//将任务UI添加到节点
 
 	return true;
 }
@@ -230,6 +239,10 @@ void PlayerStatusUI::updateUI(Player& player)
 	Player_staminaBar->setPercentage(float(player.m_stamina) / float(player.m_max_stamina) * 100);
 	//更新经验条
 	Player_expBar->setPercentage(float(player.m_exp) / float(player.m_max_exp) * 100);
+	//更新等级
+	Player_Level->setString("Lv." + to_string(player.level));
+
+
 
 	//更新血量
 	Player_hpLabel->setString(to_string(player.m_hp) + "/" + to_string(player.m_max_hp));
@@ -244,6 +257,33 @@ void PlayerStatusUI::updateUI(Player& player)
 	{
 		//取一位小数
 		Player_Q_CD->setString(to_string(player.m_Q_CD).substr(0, 3));
+	}
+
+	//如果没有E技能，直接隐藏整个E技能
+	if (player.haveE == false)
+	{
+	      Player_E->setVisible(false);
+	      Player_E_bg->setVisible(false);
+	      Player_E_CD->setVisible(false);
+	}
+	else
+	{
+	      Player_E->setVisible(true);
+	      Player_E_bg->setVisible(true);
+	      Player_E_CD->setVisible(true);
+	}
+	//如果没有Q技能，直接隐藏整个Q技能
+	if (player.haveQ == false)
+	{
+	      Player_mpBar->setVisible(false);
+	      Player_Q_CD->setVisible(false);
+	      Player_mpBar_bg->setVisible(false);
+	}
+	else
+	{
+	      Player_mpBar->setVisible(true);
+	      Player_Q_CD->setVisible(true);
+	      Player_mpBar_bg->setVisible(true);
 	}
 
 	//更新E技能
@@ -262,9 +302,23 @@ void PlayerStatusUI::updateUI(Player& player)
 
 
 	//更新人物名字
-	Player_Name->setString(player.m_name);
+	if (player.m_name == "swordPlayer")
+	{
+	      Player_Name->setString("Saber");
+
+	}
+	else if (player.m_name == "bowPlayer")
+	{
+	      Player_Name->setString("Archer");
+	}
+	else
+	{
+	      Player_Name->setString("Player");
+	}
+
 	//更新护盾条
 	Player_shieldBar->setPercentage(float(player.m_shield) / float(player.m_max_hp) * 100);
+	
 	//更新状态图标。检测Player.h中的m_statement数组，如果有状态就显示，没有就不显示
 	//按照状态图标顺序，每次向右移动50
 
@@ -342,12 +396,19 @@ void PlayerStatusUI::updateInteractUI(Player& player) {
       std::set<int> interaction = map->isInteraction(spritePosition);
       if (interaction.size() > 0)
       {
+	    // 遍历交互对象
 	    for (int i : interaction)
 	    {
 		  Interact_1->setEnabled(true);
 		  Interact_1->setTag(i);
-		 if (((Player*)this->getParent()->getParent()->getChildByName("Me"))->getKeyBoardState(EventKeyboard::KeyCode::KEY_F))
-		       interact(i);
+		  if (((Player*)this->getParent()->getParent()->getChildByName("Me"))->getKeyBoardState(EventKeyboard::KeyCode::KEY_F))
+		  {
+			  interact(i);
+			  ((Player*)this->getParent()->getParent()->getChildByName("Me"))->resetKeyF();
+			  
+		  }
+		  
+		     
 	    }
       }
       else
@@ -358,27 +419,171 @@ void PlayerStatusUI::updateInteractUI(Player& player) {
 
 void PlayerStatusUI::interact(int tag) {
       MapScene* map;
+      Vec2 position = ((Player*)this->getParent()->getParent()->getChildByName("Me"))->getPosition();
       auto sizeWidth = - 40 * ((mapManager*)this->getParent()->getParent()->getChildByName("mapManager"))->getTileSize();
+	  auto label = Label::createWithTTF("", "fonts/Marker Felt.ttf", 24);
+	  HelloWorld* mainScene = (HelloWorld*)this->getParent()->getParent();
+	  std::string schedulerKey;
+	  static int labelCounter = 0;
+      float tiledsize;
       switch (tag) {
       case 7:
 	    // 传送回室外地图
-	    ((HelloWorld*)this->getParent()->getParent())->set_New_Teleport_position(Vec2(1 * sizeWidth + 220, 1 * sizeWidth + 850));
+	    mainScene ->set_New_Teleport_position(Vec2(1 * sizeWidth + 220, 1 * sizeWidth + 850));
 	    break;
       case 8:
 	    // 传送到室内地图
-	    ((HelloWorld*)this->getParent()->getParent())->set_New_Teleport_position(Vec2(22 * sizeWidth + 800, 18 * sizeWidth + 200));
+	    mainScene ->set_New_Teleport_position(Vec2(22 * sizeWidth + 800, 18 * sizeWidth + 200));
 	    break;
       case 9:
 	    // 传送锚点
 	    // 取消所有按键按下状态
 	    ((Player*)this->getParent()->getParent()->getChildByName("Me"))->clearKeyBoardState();
 	    map = MapScene::create();
-	    Director::getInstance()->pushScene(map);
+	    tiledsize = map->gettiledSize();
+	    //map = ((HelloWorld*)(this->getParent()->getParent()))->mapsc;
+	    if (
+		  position.x > 0 && position.x < 10 * tiledsize
+		  && position.y>20 * tiledsize && position.y < 40 * tiledsize
+		  )
+	    {
+		  log("11111111111111111");
+		  map->toggleFog1();
+		  Director::getInstance()->pushScene(map);
+		  break;
+	    }
+	    if (
+		  position.x > 30 * tiledsize && position.x < 40 * tiledsize
+		  && position.y>-160 * tiledsize && position.y < -150 * tiledsize
+		  )
+	    {
+		  log("222222222222222222222");
+		  map->toggleFog2();
+		  Director::getInstance()->pushScene(map);
+		  break;
+	    }
+	    if (
+		  position.x > 290 * tiledsize && position.x < 300 * tiledsize
+		  && position.y>-140 * tiledsize && position.y < -130 * tiledsize
+		  )
+	    {
+		  log("33333333333333333");
+		  map->toggleFog3();
+		  Director::getInstance()->pushScene(map);
+		  break;
+	    }
+	    if (
+		  position.x > 280 * tiledsize && position.x < 300 * tiledsize
+		  && position.y>70 * tiledsize && position.y < 80 * tiledsize
+		  )
+	    {
+		  log("44444444444444444444");
+		  map->toggleFog4();
+		  Director::getInstance()->pushScene(map);
+		  break;
+	    }
+
 	    // 根据地图传送得到的位置，设置人物位置
 	    break;
-      case 13:
-	    // 传送到雪山
+      case 11:
+	    //mainScene->getcurrentplayer()->setElementSprite(Ice);
+	    //// 创建一个CCLabelTTF
+	    //// 设置标签的位置
+	    //label->setPosition(mainScene ->getcurrentplayer()->getPosition());
+	    //this->addChild(label);	   
+	    mainScene->startDialog("Katheryne");
 	    break;
+      case 12:
+	    //mainScene->getcurrentplayer()->setElementSprite(Ice);
+	    //// 创建一个CCLabelTTF
+	    //// 设置标签的位置
+	    //label->setPosition(mainScene ->getcurrentplayer()->getPosition());
+	    //this->addChild(label);	   
+	    mainScene->startDialog("Qin");
+	    break;
+      case 13:
+	    //传送到雪山,20,20
+	    mainScene->set_New_Teleport_position(Vec2(-18 * sizeWidth + 800, 18 * sizeWidth + 600));
+	    //寒冷状态
+	    mainScene->getcurrentplayer()->setElementSprite(Ice);
+		break;
+      case 14:
+	    mainScene->startDialog("Varka");
+	    break;
+      case 15:
+	    mainScene->startDialog("Fisherman");
+	    break;
+      case 16:
+	    mainScene->startDialog("Butcher");
+	    break;
+      case 17:
+	    mainScene->startDialog("DragonGirl");
+	    break;
+      case 18:
+	    mainScene->startDialog("Wagner");
+	    break;
+	    
+
+	  case 25:
+		  // 再人物头顶出现一个标签, 显示 "Wood + 1 !", 3s后消失
+		  label->setString("Wood + 1 !");
+		  label->setAnchorPoint(Vec2(0, 1));
+		  label->setPosition(Vec2(20, Director::getInstance()->getVisibleSize().height / 2));
+		  label->enableOutline(Color4B::BLACK, 2);
+		  this->addChild(label);
+
+		  //修改map storage，修改木头数量
+		  //如果能找到Wood这个key，就加1，否则新建一个key
+		  if (mainScene->storage.find("Wood") == mainScene->storage.end())
+			  mainScene->storage["Wood"] = 1;
+		  else
+		  {
+			  mainScene->storage["Wood"]++;
+		  }
+
+
+		  // 使用唯一的调度器标识
+		  schedulerKey = "removeLabel" + std::to_string(labelCounter++);
+		  // 添加淡出动画效果
+		  label->runAction(Sequence::create(
+			  DelayTime::create(2.5f),  // 2.5秒保持显示
+			  FadeOut::create(0.5f),    // 0.5秒淡出
+			  RemoveSelf::create(),     // 移除自身
+			  nullptr
+		  ));
+		  break;
+	  case 26:
+		  // 再人物头顶出现一个标签，显示 "Fish + 1 !"， 3s后消失
+		  // 创建新的标签对象
+		  label->setString("Fish + 1 !");
+		  
+		  
+		  //修改map storage，增加鱼的数量
+		  //如果能找到Fish这个key，就加1，否则新建一个key
+		  if (mainScene->storage.find("Fish") == mainScene->storage.end())
+			  mainScene->storage["Fish"] = 1;
+		  else
+		  {
+			  mainScene->storage["Fish"]++;
+		  }
+		  label->setAnchorPoint(Vec2(0, 1));
+		  label->setPosition(Vec2(20, Director::getInstance()->getVisibleSize().height / 2));
+		  label->enableOutline(Color4B::BLACK, 2);
+		  this->addChild(label);
+
+		  // 使用唯一的调度器标识
+		  schedulerKey = "removeLabel" + std::to_string(labelCounter++);
+
+		  // 添加淡出动画效果
+		  label->runAction(Sequence::create(
+			  DelayTime::create(2.5f),
+			  FadeOut::create(0.5f),
+			  RemoveSelf::create(),
+			  nullptr
+		  ));
+		  break;
+	  case 27:
+		  break;
       default:
 	    break;
       }

@@ -4,9 +4,11 @@
 #include "cocos2d.h"
 #include "Player\Player.h"
 #include "ui/CocosGUI.h"
+#include "Scene/MapScene.h"
 #include <string>
 #include <vector>
 
+using namespace std;
 USING_NS_CC;
 using namespace std;
 using namespace ui;
@@ -29,6 +31,8 @@ private:
 	ProgressTimer* Player_hpBar;//血条
 	Sprite* Player_hpBar_bg;//血条背景
 	Label* Player_hpLabel;//血量标签
+
+	Sprite* TaskUI;//任务UI
 
 	ProgressTimer* Player_staminaBar;//体力条
 	Sprite* Player_staminaBar_bg;//体力条背景

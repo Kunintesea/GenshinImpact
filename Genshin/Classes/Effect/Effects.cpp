@@ -82,7 +82,7 @@ bool Effects::init()
 	    //加入到动画帧
 	    HellDog_q_explosion.pushBack(HellDog_q_explosion1);
       }
-      SpriteFrame* q1 = SpriteFrame::create("Effects/WeaponEffect/q1.png", Rect(0, 0, 512, 512));
+      SpriteFrame* q1 = SpriteFrame::create("Effects/WeaponEffect/q1.png", Rect(0, 0, 512, 512));//传入图片路径，原图片的位置和大小
       SpriteFrame* q2 = SpriteFrame::create("Effects/WeaponEffect/q2.png", Rect(0, 0, 512, 512));
       SpriteFrame* q3 = SpriteFrame::create("Effects/WeaponEffect/q3.png", Rect(0, 0, 512, 512));
       SpriteFrame* q4 = SpriteFrame::create("Effects/WeaponEffect/q4.png", Rect(0, 0, 512, 512));
@@ -111,6 +111,12 @@ bool Effects::init()
       q_bow.pushBack(q_bow4);
       q_bow.pushBack(q_bow5);
 
+      SpriteFrame* e1 = SpriteFrame::create("Effects/WeaponEffect/e.png", Rect(0, 0, 256, 256));//传入图片路径，原图片的位置和大小
+      e.pushBack(e1);
+      e.pushBack(e1);
+      e.pushBack(e1);
+      e.pushBack(e1);
+      e.pushBack(e1);
 
 
       effect = Sprite::create("Effects/ElementReaction/Superconducting/Superconducting1.png");

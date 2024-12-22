@@ -35,6 +35,45 @@ bool newCamera::init()
 	// 初始化相机移动参数
 	cameraMove = Vec2::ZERO;
 	cameraBackMove = Vec2::ZERO;
+
+
+
+	//对话框初始化
+	dialogmenu = Sprite::create("UI/dialog.png");
+	//位置放在屏幕下方中间
+	dialogmenu->setPosition(Vec2(visibleSize.width / 3 + origin.x, 100));
+	//绑定到场景
+	this->addChild(dialogmenu, 55);
+	//默认不可见
+	dialogmenu->setVisible(false);
+
+	//获取对话框大小
+	//宽
+	float dialogwidth = dialogmenu->getContentSize().width;
+	//高
+	float dialogheight = dialogmenu->getContentSize().height;
+
+
+	//对话者的名字，显示在对话框左上角
+	dialoger = Label::createWithTTF("npc1asdsad", "fonts/Marker Felt.ttf", 24);
+	//绑定到对话框
+	dialoger->setPosition(Vec2(120, dialogheight * 0.8));
+	//加入到对话框
+	dialogmenu->addChild(dialoger);
+	//描边
+	dialoger->enableOutline(Color4B::BLACK, 2);
+
+	//对话内容，显示在对话框中间
+	dialogcontent = Label::createWithTTF("you,get money to me!!!!!!", "fonts/Marker Felt.ttf", 24);
+	//绑定到对话框
+	dialogcontent->setPosition(Vec2(dialogwidth / 2, dialogheight / 2));
+	//加入到对话框
+	dialogmenu->addChild(dialogcontent);
+	//描边
+	dialogcontent->enableOutline(Color4B::BLACK, 2);
+
+
+
 	return true;
 }
 
@@ -55,6 +94,11 @@ void newCamera::bindPlayer(Player* player)
 	PlayerStatusUI* playerUI = (PlayerStatusUI*)this->getChildByName("playerUI");
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 ;	playerUI->setPosition(cameraSprite->getPosition() - visibleSize * 0.5);
+playerUI->setPosition(cameraSprite->getPosition() - visibleSize * 0.5);
+
+//更新对话框位置
+//dialogmenu->setPosition(cameraSprite->getPosition() - visibleSize * 0.5 + Vec2(visibleSize.width / 3, 100));
+
 }
 
 
@@ -66,6 +110,10 @@ void newCamera::update(float dt)
       //传入player类，根据其数据更新UI
       playerUI->updateUI(*player);
       playerUI->updateInteractUI(*player);
+
+      //更新对话框位置
+      //dialogmenu->setPosition(cameraSprite->getPosition() - visibleSize * 0.5 + Vec2(visibleSize.width / 3, 100));
+
 
 	//实现按键控制精灵移动
 	auto left = EventKeyboard::KeyCode::KEY_LEFT_ARROW;//左键
@@ -140,6 +188,10 @@ void newCamera::update(float dt)
 	playerUI->setPosition(cameraSprite->getPosition() - visibleSize * 0.5);
 	//z轴单独设计，在相机下
 	playerUI->setLocalZOrder(-1);
+	//更新对话框位置
+	dialogmenu->setPosition(cameraSprite->getPosition() - visibleSize * 0.5 + Vec2(visibleSize.width /2, 240));
+	//z轴单独设计，在相机下
+	//dialogmenu->setLocalZOrder(-1);
 }
 // 设置个方向的移动
 void newCamera::moveSet(int x, int y, float delta) {
@@ -175,4 +227,10 @@ void newCamera::moveSet(int x, int y, float delta) {
 		// cameraMove.y += y * deltaMove * speed;
 		cameraMove.y += player->getPosition().y - lastPosition.y;
 	}
+}
+
+void newCamera::setDialog(std::string dialog, std::string dialogername)
+{
+      dialogcontent->setString(dialog);
+      dialoger->setString(dialogername);
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-down" width="120" height="120" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="1">
+ <tileset firstgid="1" source="map-new-side.tsx"/>
+ <layer id="3" name="colide" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztwwEJAAAMA6AVff8arzGGggkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQ7pwOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAhgfCvyuZ
+  </data>
+ </layer>
+ <layer id="1" name="bg" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJzt3GGK2zAQBtCEPcW2V+r9z7OUUsgaJxvbGo00eh98JL/10NgOsW43EREREREREREREREREREREREROZM/nfrRob92+rl4q9jy7e/by5Vvf98RbPnWsOXbzzfDlm+8b5brK1u+89v+5Lu6Md/and2Wb5xvtivfON9sU75xvtmeR31XNp7dlm9t33dsVzae2ZZvO99sR75xvtmGLWz58q3YWW35tvG9D+DIN8b3g+/0/Wm/8p27W9tZfI/aru47ky3fc77bNeQ7f189B1XyzV7nrL5aQ77zl2/tzujr2nvdd1Rbvse691zEt06fOfKt0dl8z9jy5Vu1fGt3hXsrvrV9s9eYL1++ZjNfvnzX6vb3yWq2q/tuTfnW6n/T+8P3bEu+bX0fXUf0vWLL9/se5lurj+vIt163s3k036u2q/tu76341urefB7FuIUt3+++j5/ZZRvnO4Ix3xjfEfaw2dzWd+/dwUxjvrG+mXu4lS3ffEu+sR3xnA2+7X1HaUtbvuOdc8W3rm9rW75jnVXHly/f876Zxmz58p3TN8KW775vhjHfur5Rtnyf+/Y05suXL1++x3x7GLPlyzfON9I40pYv31XKt3YzfKNt+f7r7zd8I4zZ9rH9PODb8v93fPvYZviazeP5tnyXgW8/2yO+s8zmlX23tr192fa15Vun2b49bFf1fWZbzTd7nUez5Tt/R/A1m3Nsj/heMWbLl2972x6+ZjNftjG27/heOdPO3uXLN862gm/2eq/qyzbflu9cbe17v53zdd0dw3Zm3+z1XtXX3h3H9m+/AOkgCnM=
+  </data>
+ </layer>
+ <layer id="7" name="object" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20IX6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgNcA4QAAAQ==
+  </data>
+ </layer>
+ <layer id="2" name="toFade" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJzt0TENAAAIBLHXgFvcs7MTllbBJZcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFvXdwGX/AUAAAAA4MIAVgIBFw==
+  </data>
+ </layer>
+ <layer id="9" name="wall" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20IX6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgNcA4QAAAQ==
+  </data>
+ </layer>
+ <layer id="8" name="interact" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20IX6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgNcA4QAAAQ==
+  </data>
+ </layer>
+</map>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-down" width="120" height="120" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="1">
+ <tileset firstgid="1" source="map-new-side.tsx"/>
+ <layer id="3" name="colide" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJzt2dENgCAMBcAuym6Oqh+a+G+Q0t4lDAANzaNEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJDBuBcAAFQm9wLUNUKfBwAAAGox6wAAupKDePMPCAAAQDbeqgAAdch2AEA3sg8AwH/MngAAcpPX9jFCvTJSF2AGPQUAeHhvALPpM2tc5318Xav3wL663/sT35Mh4Q==
+  </data>
+ </layer>
+ <layer id="1" name="bg" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJzt2FFu2zAQRVGnu0h21K5SS8nSkgIFajiiRVmceY/D+3ERwBBAeg7I2H6/3W7vwj52+r1g3+/7c28WPb09SWmL73q+6jnjiy+++LoY4+sTvrXDt3ZXfFvG+PqEb/1G39H4eoVv7fCtHb61w7d2+NYO39rhWzt8a4dv/V41dvPd26N6tg7hW7uqvuq5ujTyfzC+fuFbv1F3NL6eze7LZyt8Vw7f2uFbu5l9W3tTz9Spar7qebqFb/1GGDvY4ovviuFbu9l8sV3PVz1D914xxneeZvHlbl7PVz27Pzup9zSjr+PZ3bN1dMZ3rKub8ay+7rYuxu6+Lmf3FVsH4xl9Z7JVGzv7OtiO8p3JWOU7s63S2NHX4eyOtsW39tlVGbv5VrZd3dfhXo72zTZ28V3FNtvYwXc129V9FbbZvq7GI31ba6xgi2993yxjhe/ROivYZhln+vaug6/O9/vv9rco22xjtW+08cnP0Nu/5z8jbbN81a5GvtvH/2dP+bbs1L5q0yzjDt/t7plu3yM3fC18tzvTbt9eM5Wx2jLT+InvvW237xknfGW+j7aHvq8YKXzVhmLjrWHb9L1ic+Q72lhtJ/ZtuTZ9r5pk+qrdZvMdZYFvvPGBa5fvhbXDfdVeSt+Oc3tv+eO1AeuHGqutlL6dtrsN3EOYr9pJaXzFdgZftQ++cb5qG7XvVdts3zPGahe18QhbV1+1B75xvmoLB99RtgrfI2O1Bb6xZ1htofYdaevmq3ZwMMZ3zhS2+OKLb45vhC2++Eb4YoxvxbJt8cUXX3zxxRdffFf0jbTFF198Y42r+raM1fNfyffXQ/iOtVX4Ppr2Gp+1xTfH98gT37V8W8b44osvvmoDfPHFl9848MUX31o9+W4ZZqz0bRmrHTJt8a0Rvvg6+D7Z4xDbqsb4rusbaYwvvvjii+813yhjfPHFN8c3wljpu5LxDL4H+8LX0BhffKPuZnzjjfHFF99831HGX20aou8=
+  </data>
+ </layer>
+ <layer id="7" name="object" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJzt0bEJgFAMBNCAA6TWyhV0IkdxlIxqFrD5jR98D668QLgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/mLJuNeM/cio0XS/+g6T2jKuszcaTffr6x94Z9+5PQhgK9c=
+  </data>
+ </layer>
+ <layer id="2" name="toFade" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztnbduFkEUhYfQkGz/hobQkApCQ2hIBaEhNKQCOsJLmPAQJjwAIJF5AEAiUxAaQCJTEBrbiExBKDgWsmxZ/+7O7Mzu3Ll7Pul0zO71nAl35rK2MYSEZ2zsAIh6ert1vIMQQkgYerhmZ8K+0Q391Y0EfyXE0HSKziX0SDf0l4SA44gQQqphME/jHXKacG+Uz6BHZX2iv7qhv4TEhbkPGQnHA3Gh3XjhGEof5mY6aDcXXbzlONAN/SXEDuY1pAiup7rxuc8m7rCvSSpwrLYntTUzpVgJIUQqtmfmsmsuz+TpwH1VN/SXEELs4HqpG8n3HlLjSg32IyGE6IDruW4k+Cshhqbi2vf0yg/JZ6BBJMeWAuw/Eoq8tYJ1vnTgmqAb+lsdEvpWQgxkmKF9kb40mxD+72oZs7vl/xwSHs5vMhKu+XFh35NQvOg05iX0CnoNvenM/rch7zo03ZtIno9f4ec36Dv0A/qZ4y+pH9+8d0KXMROhSdBkaEqXf0ySx3PTmA0/50BzoXnQfPpbOXX2zwr4uRJaBa2G1gTwl8hhK/zcBm2HdkA76W80tJ5bNeXShISao0PPiTE/NK4zWinjFf1NB+3+xo419vsJIXGQOvd5JoqH7Z221LHTRFzqgNpJYVz2wJ8D0EHoEHS4wC/WAdOiF/4cgY5Cx6DjBX6FrgOmMAdS5hz8PA9dgC5Clwr8raIOSKrjJvy8Bd2G7kB3C/xlHVA3rAOmgcRzI/fidCjzd7sl+iv59xHwrFo/I/2t2mueVXVTxf9ZJXLgWVU3PmfVMvkRqZeYZ1Wf3E5iHj0a2xhT+FnKwNzuP1r9ZW6XHi77MXO7NLHNu1iHiEtfy5h+aAD66PhdqI2/rEPE3XvH4N1joXHQ+IhxaLijlsh09NMMaCY0y6PPmnZGLrpfljL+liCOpdAyaLmnv03zOA8p/m5EHJugzdAWITFpQIq/exDHXmgftH9UTKwrDiPFr5Dw7kk3vHuyI9W5HfLuKUTulWo/SkXa3RP9DUvouyfffC22v7HfXzf34Pd96AH00MJ733wttf6NFa+rL1m8Rdt30Hvog8VzmpavxfK3nS9l8p9faPsb+gP9tfCKtcJ6sPHFxu9Wy5huaCo0zaL2JC1f04qrL1ksQNuF0CJoscVzXPK11PZaSbj6ksVatF0HrYc2BPhbGq7fmEsm5vgM7UsoXL8xl4rW3+vpi+s35nXCOos/rt+Y14n2OkvTa/cpnNtTqufm7V8x9rey5/bTHcacgc52+L3/BNqfhE7lPKfqem6dc7xuf4vO7VnxXIMf16Ebnv5eRvsr0NWc55S9Hww179v5n0qeWbbO8hR+PIOee/r7CO0fQ09ynlP2frCqed+Ec8Qn+PEZ+uLpbx/a90MDOc+xuR9sN8eaVhdIlaL7waz9k3UB3bAuUJ468+ey2NYFbPLnULXnuvkHvDs2cA==
+  </data>
+ </layer>
+ <layer id="9" name="wall" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20IX6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgNcA4QAAAQ==
+  </data>
+ </layer>
+ <layer id="8" name="interact" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJzt3EENAEAIA0H+BP92z8PxAJIZBSugaQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOyWNV0AAAAAAAAAAAAAdNkDAgAAAAAAAAAAAAAAAAAAAADX+E0BAH488RYASQ==
+  </data>
+ </layer>
+</map>

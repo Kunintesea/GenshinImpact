@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 #include "Effect/Effects.h"
-
+#include "SimpleaudioEngine.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -67,12 +67,15 @@ public:
       //写一个索引功能，需要实现效果：每一次攻击对同一个敌人只能造成一次伤害，对不同敌人没有这个限制。因此人物身上需要索引，每一个特效只能对同一个敌人造成一次伤害
       //这个索引是一个二维数组，第一个维度是特效，第二个维度是敌人，如果对应位置为0，则不能对这个敌人造成伤害
       int m_effect_index[20][20] = { 0 };
-
+      //获取杀死后得到的经验值
+      int getGainExp() { return gainexp; }
 
 
       //设置名字
       //void setName(std::string name) { m_name = name; }
       bool isDead = false;//是否死亡
+      //战利品掉落
+      std::string drop = "";
 
 protected:
 
@@ -81,6 +84,7 @@ protected:
       Sprite* Enemy_hpBar_bg;//血条背景
       Label* Enemy_hpLabel;//血量标签
 
+      int gainexp = 10;
 
       float speed;
 
@@ -135,7 +139,7 @@ protected:
       int m_element_sprite_type[2] = {};//元素附着图标种类
 
       //免疫某种攻击
-      bool m_immune[8] = { false,false,false,true,false,false,false,false };
+      bool m_immune[8] = { false,false,false,false,false,false,false,false };
 
       //表示状态的数组
       statement m_statement[99];

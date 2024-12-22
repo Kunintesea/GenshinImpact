@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-down" width="120" height="120" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="1">
+ <tileset firstgid="1" source="map-new-side.tsx"/>
+ <layer id="3" name="colide" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJzt20FOg0AAQFEuyt08qu5Uoi3UIMyf95JZQmb4pLQUlmUe69UT4FT6tunbpm+bvm36tunbpm+bvm36tunbpu9+6zLe8Rptvhyjb5u+bfq26dumb5u+bfq26dumb5u+bfq26dumb5u+bfq26dumb5u+bfo+NuIzV1+NPHee07dN3zZ92/Rt03dsz77f69umb5u+bfpe78x7ZPruM+p9yhHnzH76tuk7niPXCn3b9G3Tt03fNn0/jfob95HaevhO32ud/Zmh7/395RzQt03f49bNOLrdf9K3Td82fdv0bdO3Td82fdv0bdO3Td82fdv0bdP3nl79D+On/dClb9uMfT/W/HbWuHptWzP2nYm+bfq2zdjX9ZcKfdv0bdP3/ry/wG/0bdO3Td82fdv0bdO3Td82fdv0bdO3Td82fdv0bdO3Td82fdv0bZux7/bdvPoAAAAAAAAAAACAPd4By+pyIA==
+  </data>
+ </layer>
+ <layer id="1" name="bg" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJzt3FluFFEUBNHCy2BHZtUszeLPTD24o17kq5spxTeqe9wCJHe9HcfxtrBv7Wb06poVvZqu6/sD0aur47ibr31Tu1dMk33tu+7itpOvffMnbH7+o+VmO/jaVk/43Us3TPK1DV9wrO+RaQp7jve9qGN9HzDY2LG+D9jcMwu3rO+LBXjV98YGeNb3TgEm9f3ihpjWd4btQ75P/F21jW/A3U9twf8BI33tu+/it8qbnu2yuyNtTc/2upIjYU2vhlnRq2VW9GqYFb16ZkWvllnRq2VW9Gr6ez/gbF/7nsk2K6rvvnZfsaZnu010vBW9+mVFr5ZZ0atlVvRqmRW9WmZFr5ZZ0bOfp9V3UvTs52n1nRQ9+3lafSdFz36eVt9J0bOfp9V3UvTs52n1nRQ9+3lafSdFz36eVt9J0bOfp9V3UvTs52n1nRQ9+3lafSdFz36edq5vf+85K3r9/fas6PU7KVnR63ePsqLX7wxmRa/fDc2KXr/PnRU94t1X9k2uFD36vXX2fXaP3pnvJ7RvtWP0Vr1T1L7bLtGz3h1r3zE1egnve7ZvmhS9xHd72zeu79r3Rds3n+67+h3StsFUX/sd8LbNJF/betefF3orfK9gvepngN5q3ytbE9703o8aJ7nTe/+U6TzJ+pY9vfejxknR+9O3zjN8E6ztW0/xtT/P9s0n+CZY27ef4ms62/ef5NvP8vV9+1me4Ws52x7TfPtv7ev72s620RTfOs/wrfMM3xpf39e2tv0m+UrOv/483XGS72Ln43O25yTfRc5HsjE921Iw/ss3yZme7Sg4/9c3wZme7Sc43/U1jenZboLzQ76WMz3bS3B+yne1MT3bSXB+2nelMT3bR3D+ku8qZ3q2i+D8ku/ZxvRsD8H5Zd8znenZDoIx5nuGMz3bQLDGfUlnevbdBePTfAljevbNRev6XrxEY3r2je3SjOnZ900pxZmefdekEozp2TdNzDSmZ98yNcuY3gc9E2ZC
+  </data>
+ </layer>
+ <layer id="7" name="object" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJzt3LENg0AQRcGVKOBi6AJX4FJcikuhFEqhFF+C5IjoJOyvGWmDzQ69YDOqAACqplbH1c5/m1vV8jV9f9/9JsZZe9NHq/2cvu93v4lx9M2mbzZ9s+mbTd9s+mbTN5u+2fTNpm82fbPpm03fbPpm0zebvtn0zaZvtrnVc+lNz5n1jTK12q52AAAAAAAAAAAAAAAAAAAAAAAAAGCstdU2cuY+U7v7qzg9eo+Rs/hX5E/RN5u+2frNfI2cfn8P9xcAAAAAAAAAAAAAAAAAAAAAAAAAAACufQAnALCj
+  </data>
+ </layer>
+ <layer id="2" name="toFade" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJzt3TluVEEQxvF3AuwxXALwJVguATcATmAwAXACswRABBFrAEQQ2SwBywFIWQ5AyhLwDdII9Ojx23qrmv9PKiEZDTNWvfe6u2q6aRoAXm1tlP4EAJa5d6D0J0BKu+TXtY/k17Vv5BcAADPuzJrm7qz0p0Aqz5XbF+QXAAAAAAAAAAAAAAAAA+ywl2pffOfKN75zBQBYZj5HyjFPOrPeNGcV59bTv5cVnvb6X1JeLyuujMzvW73uneK94gPXSHVuKie3FLdH5uaTXvdZ8UXxlfxGeeae0tz+dKT5/RPl5Kni2cjcfNfrfih+Kn6R3z+21prmvOKCYltxca30JxpvputsQ3FQccjYmnIxzs7/DI25i5//+3d9xuYd5fOq4priuuKG4fweVk6PKI4qNo3mN7b7yucDxUPFI8XjzPmNOS8/ppweV5xQnCyc31C+StRq95TPl4pXiteKN5Xcv9bHjaH3Y8x5zNyUaynHOtX6uLFsHB37b+U0dZ3aR+lxI4bU+U2V96nr1D5ijxtWamM19FPHrlNLjqk5njlD5L4nc0g5pnbVJnM8c/Zjfb7YR8oxtas2ObU2NpX1+WJIu++Uci1We22yxHwx9TMj51yhptpk6Pcecm3H6oOVfGbEzr3l2mRbrD5Y6TWm19rkVLHGmtK1yRrWejVZrI1yjzWxa6MIW+S3a6yxvEbG+LGm733IcxNjrEINZ5V1rces9AAQ1rUeS9ED8HbNlBw7u967az2WogdQW99oqprnzl35H9oD6DOel+4bebNsL0uKPS596qul+0ZD1Xx/5la6vmqZhb08peurlrGXx4axz/Pa++WYpqZ+OeLz1C/H/zz1y5HO0J4CPQhbhn7HK8Z3wrzVnGs2tAYRo2bhreZcs6E1iBg1C2rOvlmrOQMAgNXDGdS+cQY1AAAAAAAAAAA2sE/QB/IIAAAAAACA2rD32LfQ3uPQuQTtgA2hvcehcwnaARtCe49D5xK0A3aFziVoB3yihwisDs4I883j/zWLvzjX3DfONQcAIC7OvvWNs2/r9xvM/DvO
+  </data>
+ </layer>
+ <layer id="9" name="wall" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20IX6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgNcA4QAAAQ==
+  </data>
+ </layer>
+ <layer id="8" name="interact" width="120" height="120">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20IX6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgNcA4QAAAQ==
+  </data>
+ </layer>
+</map>
