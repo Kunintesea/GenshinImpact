@@ -29,6 +29,7 @@ public:
     bool isCollision(Vec2 position);
     int isInteract(Vec2 position);
     std::set<int> isInteraction(Vec2 Position);
+    bool isRefreshMonster(Vec2 position);
 
     int getBackgroundTag(Vec2 position);
 private:

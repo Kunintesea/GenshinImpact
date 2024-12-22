@@ -214,8 +214,11 @@ void HelloWorld::update(float dt)
       {
 	    sprite->setPosition(New_Teleport_position);
 	    newCamera->bindPlayer(sprite);
+	    sprite->clearKeyBoardState();
 	    New_Teleport_position = Vec2::ZERO;
       }
+      // 刷新怪物
+      refreshMonster();
 	    //每一帧检测玩家有没有打到敌人，以及敌人有没有打到玩家
 	//玩家是否打到敌人，传入玩家特效和敌人
 	    for (int j = 0; j < 20; j++)
@@ -457,7 +460,34 @@ void HelloWorld::storeInfo(Player* sprite, int tag)
 }
 
 
-
+void HelloWorld::refreshMonster()
+{
+      // 获取格子尺寸
+      auto tileSize = mapManager->getTileSize();
+      //刷新怪物
+      for (int i = 0; i < 40 && isrefresh;++i) {
+	    if (mapManager->isRefreshMonster(sprite->getPosition() + Vec2((-20+i) * tileSize, -20 * tileSize)))
+	    {
+		  summonEnemy("HellDog", Vec2(sprite->getPosition() + Vec2((-20 + i) * tileSize, -20 * tileSize)));
+		  isrefresh = false;
+	    }
+	    if (mapManager->isRefreshMonster(sprite->getPosition() + Vec2((-20 + i) * tileSize, 20 * tileSize)))
+	    {
+		  summonEnemy("HellDog", Vec2(sprite->getPosition() + Vec2((-20 + i) * tileSize, 20 * tileSize)));
+		  isrefresh = false;
+	    }
+	    if (mapManager->isRefreshMonster(sprite->getPosition() + Vec2(-20 * tileSize, (-20 + i) * tileSize)))
+	    {
+		  summonEnemy("HellDog", Vec2(sprite->getPosition() + Vec2(-20 * tileSize, (-20 + i) * tileSize)));
+		  isrefresh = false;	  
+	    }
+	    if (mapManager->isRefreshMonster(sprite->getPosition() + Vec2(20 * tileSize, (-20 + i) * tileSize)))
+	    {
+		  summonEnemy("HellDog", Vec2(sprite->getPosition() + Vec2(20 * tileSize, (-20 + i) * tileSize)));
+		  isrefresh = false;
+	    }
+      }
+}
 
 void HelloWorld::summonEnemy(std::string name, Vec2 position)
 {

@@ -57,6 +57,7 @@ public:
 
     virtual bool init(); //初始化函数，会在场景创建时调用
 
+    void refreshMonster();//刷新怪物
     
     void characterset();//设置角色
     bool PlayerAttack(Effects* me, BasePlayer* other);
@@ -74,7 +75,7 @@ private:
       //召唤计时器
       float summonTime = 0;
 
-
+      bool isrefresh = true;
 
       //存储删除的对象的数组
       Enemy* enemygroup_delete[20];

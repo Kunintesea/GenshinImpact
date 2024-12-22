@@ -339,5 +339,34 @@ void mapManager::isInteract(int tiledPositionX, int tiledPositionY, set<int>& in
 	    {
 		  interaction.insert(8);
 	    }
+      if (gid == 1187)
+	    // 交互属性8 :  传送室内地图
+	    if (interaction.find(8) == interaction.end())
+	    {
+		  interaction.insert(7);
+	    }
       return;
+}
+bool mapManager::isRefreshMonster(Vec2 position) {
+      int tiledPositionX = -(mapMiddleX) * 40 + (int)std::floor(position.x / tileSize.width);
+      int tiledPositionY = (mapMiddleY) * 40 + (int)std::ceil(position.y == 0 ? 0.1 : position.y / tileSize.height);
+      // 获取地图块所在大格子的地图块
+      tiledPositionY = 80 - tiledPositionY;
+      tiledPositionX = 40 + tiledPositionX;
+
+      if (map == nullptr)
+	    log("map is null");
+      // 获取地图块所在大格子的地图块的交互层
+      TMXLayer* interactLayer = map->getLayer("interact");
+
+      if (tiledPositionX < 0 || tiledPositionX >= 120 || tiledPositionY < 0 || tiledPositionY >= 120)
+	    return false;
+
+      // 获取交互层的碰撞信息
+      uint32_t gid = interactLayer->getTileGIDAt(Vec2(tiledPositionX, tiledPositionY));
+      if (gid == 3339)
+	    return true;
+
+      // 只要返回值不为 0，就说明有交互
+      return false;
 }

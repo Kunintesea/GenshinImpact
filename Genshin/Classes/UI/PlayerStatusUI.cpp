@@ -360,17 +360,25 @@ void PlayerStatusUI::interact(int tag) {
       MapScene* map;
       auto sizeWidth = - 40 * ((mapManager*)this->getParent()->getParent()->getChildByName("mapManager"))->getTileSize();
       switch (tag) {
+      case 7:
+	    // 传送回室外地图
+	    ((HelloWorld*)this->getParent()->getParent())->set_New_Teleport_position(Vec2(1 * sizeWidth + 220, 1 * sizeWidth + 850));
+	    break;
+      case 8:
+	    // 传送到室内地图
+	    ((HelloWorld*)this->getParent()->getParent())->set_New_Teleport_position(Vec2(22 * sizeWidth + 800, 18 * sizeWidth + 200));
+	    break;
       case 9:
 	    // 传送锚点
-	    // 取消所以按键按下状态
+	    // 取消所有按键按下状态
 	    ((Player*)this->getParent()->getParent()->getChildByName("Me"))->clearKeyBoardState();
 	    map = MapScene::create();
 	    Director::getInstance()->pushScene(map);
 	    // 根据地图传送得到的位置，设置人物位置
 	    break;
-      case 8:
-	    // 传送到室内地图
-	    ((HelloWorld*)this->getParent()->getParent())->set_New_Teleport_position(Vec2(12 * sizeWidth + 800, 98 * sizeWidth + 200));
+      case 13:
+	    // 传送到雪山
+	    break;
       default:
 	    break;
       }
