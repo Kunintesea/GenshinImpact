@@ -1,5 +1,5 @@
 # 原神启动！
-
+# 最终版本不在main分支，在CameraSprite！!!!!!!!!!!
 > [!TIP]
 > 基于cocos2dx的原神启动
 
